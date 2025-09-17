@@ -1,0 +1,17 @@
+{
+  "name": "dental-voice-ai-website",
+  "version": "1.0.0",
+  "description": "Voice AI for Dental Practices - Modular Website",
+  "scripts": {
+    "build": "gulp build",
+    "dev": "gulp dev",
+    "clean": "gulp clean"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-file-include": "^2.3.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-htmlmin": "^5.0.1",
+    "browser-sync": "^2.29.3"
+  }
+}
