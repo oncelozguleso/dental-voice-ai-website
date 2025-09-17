@@ -23,7 +23,8 @@ dental-website/
 │           ├── ai-vs-human.html (coming soon)
 │           ├── pricing.html (coming soon)
 │           └── faq.html (coming soon)
-├── dist/                   # Built files (auto-generated)
+├── dist/                   # Built files (auto-generated, not in repo)
+├── archive/                # Original backup files
 ├── package.json           # Dependencies & scripts
 ├── gulpfile.js           # Build configuration
 └── vercel.json           # Deployment settings

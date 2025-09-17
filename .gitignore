@@ -1,8 +1,8 @@
 # Dependencies
 node_modules/
 
-# Build output (optional - you can include dist/ if you want)
-# dist/
+# Build output (generated files - not needed in repo)
+dist/
 
 # OS generated files
 .DS_Store
