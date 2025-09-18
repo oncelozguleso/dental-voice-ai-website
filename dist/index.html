@@ -22,6 +22,7 @@
               <nav class="hidden md:flex items-center gap-8">
                 <a href="/" class="hover:text-white/50 text-sm font-medium text-white">Home</a>
                 <a href="/comparison.html" class="hover:text-white/50 text-sm font-medium text-white">Comparison</a>
+                <a href="/scenarios.html" class="hover:text-white/50 text-sm font-medium text-white">Use Cases</a>
                 <a href="/calendar.html" class="hover:text-white/50 text-sm font-medium text-white">Book Call</a>
                 <a href="#pricing-section" class="hover:text-white/50 text-sm font-medium text-white" onclick="document.getElementById('pricing-section').scrollIntoView({behavior: 'smooth'});">Pricing</a>
               </nav>
@@ -34,11 +35,71 @@
     </a>
                 
               </div>
-              <button class="md:hidden inline-flex items-center justify-center rounded-lg border border-neutral-200 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu h-5 w-5"><path d="M4 12h16"></path><path d="M4 18h16"></path><path d="M4 6h16"></path></svg>
+              <button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center rounded-lg border border-neutral-200 p-2">
+                <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu h-5 w-5"><path d="M4 12h16"></path><path d="M4 18h16"></path><path d="M4 6h16"></path></svg>
+                <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-5 w-5 hidden"><path d="m18 6-12 12"></path><path d="m6 6 12 12"></path></svg>
               </button>
             </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden">
+              <div class="px-2 pt-2 pb-3 space-y-1 bg-black/20 backdrop-blur-xl rounded-lg border border-white/10 mt-4">
+                <a href="/" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Home</a>
+                <a href="/comparison.html" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Comparison</a>
+                <a href="/scenarios.html" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Use Cases</a>
+                <a href="/calendar.html" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Book Call</a>
+                <a href="#pricing-section" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition" onclick="document.getElementById('pricing-section').scrollIntoView({behavior: 'smooth'}); toggleMobileMenu();">Pricing</a>
+                <a href="/contact.html" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Contact</a>
+                <div class="pt-4 pb-2">
+                  <a href="/calendar.html#calendar-section" class="group relative inline-flex w-full cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] text-white font-semibold tracking-tight rounded-full py-3 px-6 items-center justify-center overflow-hidden" style="background: linear-gradient(135deg, rgba(99,102,241,0.9) 0%, rgba(79,70,229,0.8) 50%, rgba(139,92,246,0.9) 100%); box-shadow: 0 8px 32px rgba(99,102,241,0.4), inset 0 1px 0 rgba(255,255,255,0.2); backdrop-filter: blur(12px); border: 1px solid rgba(99,102,241,0.3);">
+                    <span class="relative z-10 text-base font-medium">Book a Call</span>
+                    
+                    <!-- Animated gradient overlay -->
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(139,92,246,0.3) 0%, rgba(99,102,241,0.2) 50%, rgba(79,70,229,0.3) 100%);"></div>
+                    
+                    <!-- Shimmer effect -->
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" style="background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%); transform: skewX(-45deg);"></div>
+                    
+                    <!-- Bottom glow -->
+                    <div class="absolute bottom-0 left-1/2 h-[2px] w-[80%] -translate-x-1/2 opacity-60 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(90deg, rgba(99,102,241,0) 0%, rgba(99,102,241,1) 50%, rgba(99,102,241,0) 100%); filter: blur(1px);"></div>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
+          
+          <!-- Mobile Menu JavaScript -->
+          <script>
+            function toggleMobileMenu() {
+              const mobileMenu = document.getElementById('mobile-menu');
+              const hamburgerIcon = document.getElementById('hamburger-icon');
+              const closeIcon = document.getElementById('close-icon');
+              
+              if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                hamburgerIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+              } else {
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+              }
+            }
+            
+            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+              const mobileMenu = document.getElementById('mobile-menu');
+              const mobileMenuButton = document.getElementById('mobile-menu-button');
+              
+              if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+                document.getElementById('hamburger-icon').classList.remove('hidden');
+                document.getElementById('close-icon').classList.add('hidden');
+              }
+            });
+          </script>
         </header>
 
   <!-- UnicornStudio Background -->
@@ -56,12 +117,12 @@
                 
                 Powering the biggest Australian dental chains
               </span>
-              <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white/70 tracking-tight leading-tight" style="">
+              <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white/70 tracking-tight leading-tight" style="">
                 Your Front Desk Is Losing You
                 <span class="bg-clip-text text-slate-50 bg-gradient-to-r from-indigo-600 to-pink-500" style="">$50,000/Month</span> In Missed Implants
               </h1>
-              <p class="sm:text-lg text-base font-normal text-white/70 mt-5">
-                Turn Leads Into Booked Appointments with the Only AI That Calls, Closes, and Schedules Inside Your PMS.
+              <p class="text-lg sm:text-lg font-normal text-white/70 mt-5">
+                Complete Lead Generation + Voice AI System: From Meta Ads to PMS Bookings - We Generate, Qualify & Schedule Your Leads Automatically.
               </p>
     
               <div class="flex flex-col gap-3 sm:flex-row mt-8 items-center justify-center px-4 sm:px-0">
@@ -351,14 +412,81 @@
                 <div class="text-center">
                   <p class="uppercase text-xs font-medium text-black/50 tracking-wide">Powering 20+ clinics in Australia</p>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 mt-8 items-center justify-items-center px-4 sm:px-0">
-                  <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae382a664cb39f5.png" alt="Partner logo" class="h-12 sm:h-16 lg:h-20 w-auto filter brightness-0">
-                  <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f1494bce0b750959b170.png" alt="Partner logo" class="h-12 sm:h-16 lg:h-20 w-auto filter brightness-0">
-                  <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149e5b5d8c7899b108c.png" alt="Partner logo" class="h-12 sm:h-16 lg:h-20 w-auto filter brightness-0">
-                  <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149ccedb2a38414d139.png" alt="Partner logo" class="h-12 sm:h-16 lg:h-20 w-auto filter brightness-0">
-                  <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149657c0d60cc85aecd.png" alt="Partner logo" class="h-12 sm:h-16 lg:h-20 w-auto filter brightness-0">
-                  <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae3821acfcb39ee.png" alt="Partner logo" class="h-12 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                
+                <!-- Infinite scrolling logo carousel -->
+                <div class="mt-8 overflow-hidden">
+                  <div class="logo-carousel flex items-center gap-8 sm:gap-12">
+                    <!-- First set of logos -->
+                    <div class="flex items-center gap-8 sm:gap-12 flex-shrink-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae382a664cb39f5.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f1494bce0b750959b170.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149e5b5d8c7899b108c.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149ccedb2a38414d139.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149657c0d60cc85aecd.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae3821acfcb39ee.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe058619e1aa6013b5e9c.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe05855d95e6a8183ee5e.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe0582a25a17a335d1ad6.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe058619e1a4ec43b5e9d.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe0584a377482278fa6f4.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                    </div>
+                    
+                    <!-- Duplicate set for seamless loop -->
+                    <div class="flex items-center gap-8 sm:gap-12 flex-shrink-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae382a664cb39f5.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f1494bce0b750959b170.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149e5b5d8c7899b108c.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149ccedb2a38414d139.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149657c0d60cc85aecd.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae3821acfcb39ee.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe058619e1aa6013b5e9c.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe05855d95e6a8183ee5e.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe0582a25a17a335d1ad6.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe058619e1a4ec43b5e9d.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                      <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe0584a377482278fa6f4.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+                    </div>
+                  </div>
                 </div>
+                
+                <!-- CSS Animation -->
+                <style>
+                  @keyframes scroll-left {
+                    0% {
+                      transform: translateX(0);
+                    }
+                    100% {
+                      transform: translateX(-50%);
+                    }
+                  }
+                  
+                  .logo-carousel {
+                    animation: scroll-left 40s linear infinite;
+                    width: max-content;
+                  }
+                  
+                  .logo-carousel:hover {
+                    animation-play-state: paused;
+                  }
+                  
+                  /* Mobile-specific animation - using more specific selector */
+                  @media screen and (max-width: 640px) {
+                    .logo-carousel {
+                      animation: scroll-left 35s linear infinite !important;
+                    }
+                    
+                    /* Ensure proper mobile spacing */
+                    .logo-carousel > div {
+                      min-width: max-content;
+                    }
+                  }
+                  
+                  /* Even more specific for very small screens */
+                  @media screen and (max-width: 480px) {
+                    .logo-carousel {
+                      animation: scroll-left 35s linear infinite !important;
+                    }
+                  }
+                </style>
               </div>
             </div>
           </div>
@@ -890,98 +1018,256 @@
             </div>
     
             <div class="border-t border-neutral-200 pt-6 mt-8">
-              <button class="cursor-pointer inline-flex flex-col leading-none outline-none overflow-hidden no-underline align-baseline whitespace-nowrap select-none transition-all duration-150 hover:opacity-85 focus:outline-none focus:ring-4 focus:ring-black/50 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] text-base text-white text-center bg-gradient-to-b from-neutral-700 to-neutral-900 border-0 rounded-xl pt-2.5 pr-5 pb-2.5 pl-5 items-center justify-center" role="button">Tech Specifications</button>
+              <a href="/calendar.html#calendar-section" class="cursor-pointer inline-flex flex-col leading-none outline-none overflow-hidden no-underline align-baseline whitespace-nowrap select-none transition-all duration-150 hover:opacity-85 focus:outline-none focus:ring-4 focus:ring-black/50 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] text-base text-white text-center bg-gradient-to-b from-neutral-700 to-neutral-900 border-0 rounded-xl pt-2.5 pr-5 pb-2.5 pl-5 items-center justify-center" role="button">Book a Demo</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+  <section class="relative z-10 animate-[fadeInUp_1s_ease-out_1.4s_forwards]" style="transform: translateY(0px);">
+  <div class="max-w-7xl mr-auto ml-auto pt-16 pr-6 pb-16 pl-6">
+    <!-- Background container with borders -->
+    <div class="relative bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a487da8255318e589367.png)] bg-cover bg-center rounded-[36px] border border-white/10 overflow-hidden">
+      <!-- Dark overlay -->
+      <div class="absolute inset-0 bg-black/70 rounded-[36px]"></div>
+      
+      <div class="relative z-10 p-4 pb-8 sm:p-8 lg:p-12">
+        <div class="grid gap-8 lg:gap-12 lg:grid-cols-2">
+          <!-- Copy & stats (LEFT SIDE) -->
+          <div class="order-2 lg:order-1">
+            <div class="tech-content" id="lead-generation">
+              <h3 class="text-3xl sm:text-4xl lg:text-5xl transition-colors duration-500 font-semibold text-white tracking-tight">Complete <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-[#7882FF]">Lead Generation</span> + Voice AI System</h3>
+              
+              <!-- Package Benefits -->
+              <div class="mt-8">
+                <div class="border-t border-white/20 pt-6">
+                  <h4 class="text-lg font-semibold text-white mb-4">What's Included</h4>
+                  <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400">
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                          <polyline points="15,3 21,3 21,9"></polyline>
+                          <line x1="10" x2="21" y1="14" y2="3"></line>
+                        </svg>
+                      </div>
+                      <div class="">
+                        <h5 class="font-medium text-white">High-Performing Meta Ads</h5>
+                        <p class="text-sm text-neutral-300 mt-1">Professional campaigns bringing qualified high ticket dental leads at AUD $150 per lead.</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400">
+                          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                          <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                          <line x1="12" x2="12" y1="19" y2="22"></line>
+                        </svg>
+                      </div>
+                      <div class="">
+                        <h5 class="font-medium text-white">Complete Voice AI & Chatbot System</h5>
+                        <p class="text-sm text-neutral-300 mt-1">Instant lead response, qualification, and direct PMS booking with 60% conversion rate.</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400">
+                          <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                          <path d="M9 9h6v6H9z"></path>
+                        </svg>
+                      </div>
+                      <div class="">
+                        <h5 class="font-medium text-white">Professional Creative Assets</h5>
+                        <p class="text-sm text-neutral-300 mt-1">High-converting landing pages, ad videos, and automated workflows for dental practices.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-t border-white/20 pt-6 mt-8">
+                <div class="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2">
+                  <div class="flex gap-3 hover:scale-105 transition-transform duration-200 cursor-pointer items-center">
+                    <div class="">
+                      <div class="flex items-baseline gap-2">
+                        <span class="text-xl sm:text-2xl tracking-tight font-sans font-semibold rating-number text-white" data-target="17">17x</span>
+                      </div>
+                      <p class="text-xs text-neutral-300 font-sans">Average return on ad spend (ROAS)</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center gap-3 hover:scale-105 transition-transform duration-200 cursor-pointer">
+                    <div class="">
+                      <div class="flex items-baseline gap-2">
+                        <span class="text-xl sm:text-2xl tracking-tight font-sans font-semibold rating-number text-white" data-target="10000">$10K</span>
+                      </div>
+                      <p class="text-xs text-neutral-300 font-sans">Average revenue per show-up</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-t border-white/20 pt-6 mt-8">
+                <a href="/calendar.html#calendar-section" class="cursor-pointer inline-flex flex-col leading-none outline-none overflow-hidden no-underline align-baseline whitespace-nowrap select-none transition-all duration-150 hover:opacity-90 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-500/50 shadow-[0_8px_30px_rgba(139,92,246,0.3)] text-base text-neutral-900 font-medium text-center bg-gradient-to-r from-stone-100 to-purple-50 hover:from-stone-200 hover:to-purple-100 border border-purple-200/30 rounded-xl pt-2.5 pr-5 pb-2.5 pl-5 items-center justify-center backdrop-blur-sm" role="button">Book Complete System Demo</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diagram (RIGHT SIDE) -->
+          <div class="order-1 lg:order-2 relative bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a486c357f84931317532.png)] bg-cover rounded-[24px] lg:rounded-[36px] p-3 sm:pt-5 sm:pr-5 sm:pb-5 sm:pl-5">
+            <article class="group relative overflow-hidden transition-shadow hover:shadow-md rounded-2xl lg:rounded-3xl shadow-xl backdrop-blur-xl">
+              <div class="p-4 sm:p-6 lg:p-10 bg-black/20 backdrop-blur-sm rounded-2xl lg:rounded-3xl">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <h3 class="text-lg sm:text-xl lg:text-2xl font-semibold tracking-tight text-white">Complete Lead Generation System</h3>
+                  <span class="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] lg:text-xs text-neutral-300 bg-white/5 border border-white/10 rounded-full px-2.5 sm:px-3 py-1 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 flex-shrink-0">
+                      <path d="M3 6h18l-2 13H5L3 6Z"></path>
+                      <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    Most Popular
+                  </span>
+                </div>
+
+                <!-- Illustration -->
+                <div class="relative h-48 sm:h-64 lg:h-72 rounded-2xl bg-gradient-to-b from-neutral-900 to-neutral-800 ring-1 ring-inset ring-white/5 mb-6 sm:mb-8">
+                  <!-- Card 1: Participants list (dark) -->
+                  <div class="absolute inset-4 rounded-2xl border border-white/10 bg-neutral-900/60 ring-1 ring-inset ring-white/5 overflow-hidden">
+                    <div class="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-b border-white/10">
+                      <div class="flex items-center gap-2">
+                        <span class="text-xs sm:text-sm font-medium text-neutral-200">Lead Generation Pipeline</span>
+                      </div>
+                      <span class="inline-flex items-center gap-1.5 text-[9px] sm:text-[10px] font-medium text-green-300 bg-green-500/10 border border-green-500/20 rounded-full px-1.5 sm:px-2 py-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400">
+                          <path d="M9 12l2 2 4-4"></path>
+                          <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                        17x ROAS
+                      </span>
+                    </div>
+
+                    <ul class="px-2 sm:px-3 py-2 sm:py-3 space-y-1.5 sm:space-y-2">
+                      <!-- Meta Ads -->
+                      <li class="flex items-center justify-between rounded-lg px-1.5 sm:px-2 py-1.5 sm:py-2 hover:bg-white/5 transition-colors">
+                        <div class="flex items-center gap-2 sm:gap-3">
+                          <div class="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400">
+                              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                              <polyline points="15,3 21,3 21,9"></polyline>
+                              <line x1="10" x2="21" y1="14" y2="3"></line>
+                            </svg>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="text-xs sm:text-sm font-medium text-white truncate">Meta Ads Campaign</p>
+                            <p class="text-[10px] sm:text-xs text-neutral-400 truncate">AUD $150 per qualified high ticket lead</p>
+                          </div>
+                        </div>
+                        <span class="text-[10px] sm:text-xs text-green-300 flex-shrink-0">Active</span>
+                      </li>
+
+                      <!-- Landing Page -->
+                      <li class="flex items-center justify-between rounded-lg px-1.5 sm:px-2 py-1.5 sm:py-2 hover:bg-white/5 transition-colors">
+                        <div class="flex items-center gap-2 sm:gap-3">
+                          <div class="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-400">
+                              <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                              <path d="M9 9h6v6H9z"></path>
+                            </svg>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="text-xs sm:text-sm font-medium text-white truncate">Landing Page</p>
+                            <p class="text-[10px] sm:text-xs text-neutral-400 truncate">High-converting design</p>
+                          </div>
+                        </div>
+                        <span class="text-[10px] sm:text-xs text-green-300 flex-shrink-0">Live</span>
+                      </li>
+
+                      <!-- Voice AI -->
+                      <li class="flex items-center justify-between rounded-lg px-1.5 sm:px-2 py-1.5 sm:py-2 hover:bg-white/5 transition-colors">
+                        <div class="flex items-center gap-2 sm:gap-3">
+                          <div class="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400">
+                              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                              <line x1="12" x2="12" y1="19" y2="22"></line>
+                            </svg>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="text-xs sm:text-sm font-medium text-white truncate">Voice AI Follow-up</p>
+                            <p class="text-[10px] sm:text-xs text-neutral-400 truncate">60% booking rate</p>
+                          </div>
+                        </div>
+                        <span class="text-[10px] sm:text-xs text-green-300 flex-shrink-0">24/7</span>
+                      </li>
+
+                      <!-- Automated Chatbots -->
+                      <li class="flex items-center justify-between rounded-lg px-1.5 sm:px-2 py-1.5 sm:py-2 hover:bg-white/5 transition-colors">
+                        <div class="flex items-center gap-2 sm:gap-3">
+                          <div class="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400">
+                              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                              <path d="M8 10h.01"></path>
+                              <path d="M12 10h.01"></path>
+                              <path d="M16 10h.01"></path>
+                            </svg>
+                          </div>
+                          <div class="min-w-0">
+                            <p class="text-xs sm:text-sm font-medium text-white truncate">Automated Chatbots</p>
+                            <p class="text-[10px] sm:text-xs text-neutral-400 truncate">Direct PMS booking</p>
+                          </div>
+                        </div>
+                        <span class="text-[10px] sm:text-xs text-green-300 flex-shrink-0">Live</span>
+                      </li>
+                    </ul>
+
+                    <div class="px-3 sm:px-4 py-2 sm:py-3 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-2">
+                      <div class="flex items-center gap-2 text-[10px] sm:text-xs text-neutral-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400">
+                          <path d="M9 12l2 2 4-4"></path>
+                          <circle cx="12" cy="12" r="10"></circle>
+                        </svg>
+                        Complete A-Z system
+                      </div>
+                      <div class="text-[10px] sm:text-xs text-neutral-400">70% show-up rate</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Features grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                  <div class="">
+                    <h4 class="text-base sm:text-lg font-semibold tracking-tight text-white">Done-For-You Marketing</h4>
+                    <p class="mt-2 text-sm text-neutral-400">Professional ad videos, landing pages, and Meta campaigns that bring in qualified dental implant leads.</p>
+                  </div>
+                  <div class="">
+                    <h4 class="text-base sm:text-lg font-semibold tracking-tight text-white">AI-Powered Follow-up & Chatbots</h4>
+                    <p class="mt-2 text-sm text-neutral-400">Instant lead response, qualification, and direct PMS booking - fully automated.</p>
+                  </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="">
+                  <a href="/calendar.html#calendar-section" class="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-purple-200 transition-colors duration-200 bg-white/10 hover:bg-purple-500/20 border border-white/20 hover:border-purple-300/30 rounded-lg px-4 py-2 backdrop-blur-sm">
+                    See Complete System
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
   <section class="relative z-10 animate-[fadeInUp_1s_ease-out_1.2s_forwards]" style="transform: translateY(0px);">
       <div class="max-w-7xl mr-auto ml-auto pt-16 pr-6 pb-16 pl-6">
         <div class="grid gap-12 lg:grid-cols-2">
-          <!-- Diagram -->
-          
-
-          <!-- Copy & stats -->
-          <div class="">
-            <div class="tech-content" id="technology">
-              <h3 class="sm:text-5xl transition-colors duration-500 text-4xl font-semibold text-slate-900 tracking-tight">Complete Voice AI for <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-[#8A92FF]">Dental Practices</span></h3>
-              
-              <!-- Voice AI Use Cases -->
-              <div class="mt-8">
-                <div class="border-t border-neutral-200 pt-6">
-                  <h4 class="text-lg font-semibold text-slate-900 mb-4">Voice AI Use Cases</h4>
-                  <div class="space-y-4">
-                    <div class="flex items-start gap-3">
-                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
-                          <circle cx="12" cy="12" r="10"></circle>
-                          <path d="M12 6v6l4 2"></path>
-                        </svg>
-                      </div>
-                      <div class="">
-                        <h5 class="font-medium text-slate-900">Scheduled Callbacks</h5>
-                        <p class="text-sm text-slate-600 mt-1">If someone says "Call me back at 5 PM tomorrow," the AI will call at the exact time requested.</p>
-                      </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
-                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="9" cy="7" r="4"></circle>
-                          <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                      </div>
-                      <div class="">
-                        <h5 class="font-medium text-slate-900">Recall Campaigns</h5>
-                        <p class="text-sm text-slate-600 mt-1">Calls patients due for their 6-month check-up or cleaning (if the data is stored in your CRM).</p>
-                      </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
-                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
-                      </div>
-                      <div class="">
-                        <h5 class="font-medium text-slate-900">Inbound Call Handling</h5>
-                        <p class="text-sm text-slate-600 mt-1">Answers calls from prospects and patients at any time, ensuring no opportunity is missed.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-    
-            <div class="border-t border-neutral-200 pt-6 mt-8">
-              <div class="grid gap-6 sm:grid-cols-2">
-                <div class="flex gap-3 hover:scale-105 transition-transform duration-200 cursor-pointer items-center">
-                  <div class="">
-                    <div class="flex items-baseline gap-2">
-                      <span class="text-2xl tracking-tight font-sans font-semibold rating-number text-slate-900" data-target="10">10</span>
-                      <span class="text-sm text-slate-600 font-sans">seconds</span>
-                    </div>
-                    <p class="text-xs text-slate-600 font-sans">Average response time to new leads</p>
-                  </div>
-                </div>
-    
-                <div class="flex items-center gap-3 hover:scale-105 transition-transform duration-200 cursor-pointer">
-                  <div class="">
-                    <div class="flex items-baseline gap-2">
-                      <span class="text-2xl tracking-tight font-sans font-semibold rating-number text-slate-900" data-target="80">80%</span>
-                    </div>
-                    <p class="text-xs text-slate-600 font-sans">Reduction in front desk workload</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-    
-            <div class="border-t border-neutral-200 pt-6 mt-8">
-              <button class="cursor-pointer inline-flex flex-col leading-none outline-none overflow-hidden no-underline align-baseline whitespace-nowrap select-none transition-all duration-150 hover:opacity-85 focus:outline-none focus:ring-4 focus:ring-black/50 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] text-base text-white text-center bg-gradient-to-b from-neutral-700 to-neutral-900 border-0 rounded-xl pt-2.5 pr-5 pb-2.5 pl-5 items-center justify-center" role="button">See All Use Cases</button>
-            </div>
-          </div><div class="relative bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a179e5b5d87324af02a8.png)] bg-cover rounded-[36px] pt-5 pr-5 pb-5 pl-5">
+          <!-- Diagram (moved to left) -->
+          <div class="relative bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a179e5b5d87324af02a8.png)] bg-cover rounded-[36px] pt-5 pr-5 pb-5 pl-5">
             <article class="group relative overflow-hidden transition-shadow hover:shadow-md bg-neutral-900/70 border-neutral-700 border rounded-3xl shadow-xl backdrop-blur-xl" style="background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(64, 64, 64, 0.35);">
               <div class="sm:p-10 pt-6 pr-6 pb-6 pl-6">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
@@ -995,80 +1281,80 @@
                       <path d="M15 13v2"></path>
                       <path d="M9 13v2"></path>
                     </svg>
-                    Fully automated
+                    Live automation
                   </span>
                 </div>
-    
+
                 <!-- Illustration -->
                 <div class="rounded-2xl bg-gradient-to-b from-neutral-900 to-neutral-800 ring-1 ring-inset ring-white/5 mb-8 p-3 sm:p-6">
                   <!-- Mobile: Stack vertically, Desktop: Absolute positioning -->
                   <div class="block sm:hidden space-y-3">
-                    <!-- Lead Pipeline (Mobile) -->
+                    <!-- Lead Trigger (Mobile) -->
                     <div class="rounded-2xl bg-neutral-900/90 backdrop-blur border border-neutral-800 shadow-sm">
-                    <div class="flex items-center justify-between px-3 py-2 border-b border-neutral-800/70">
-                        <span class="text-[10px] tracking-widest text-neutral-400">LEAD PIPELINE</span>
-                      <div class="flex items-center gap-1">
-                          <div class="h-2 w-2 rounded-full bg-green-500/70"></div>
-                          <span class="text-[9px] text-green-400">Live</span>
+                      <div class="flex items-center justify-between px-3 py-2 border-b border-neutral-800/70">
+                        <span class="text-[10px] tracking-widest text-neutral-400">LEAD TRIGGER</span>
+                        <div class="flex items-center gap-1">
+                          <div class="h-2 w-2 rounded-full bg-blue-500/70"></div>
+                          <span class="text-[9px] text-blue-400">Live</span>
+                        </div>
                       </div>
-                    </div>
-                    <div class="p-2 space-y-1.5">
+                      <div class="p-2 space-y-1.5">
                         <div class="flex items-center justify-between text-[10px]">
-                        <div class="flex items-center gap-2">
-                          <div class="h-2 w-2 rounded bg-blue-400"></div>
+                          <div class="flex items-center gap-2">
+                            <div class="h-2 w-2 rounded bg-blue-400"></div>
                             <span class="text-neutral-300">Form Submitted</span>
-                        </div>
+                          </div>
                           <span class="text-blue-400">Triggered</span>
-                      </div>
+                        </div>
                         <div class="flex items-center justify-between text-[10px]">
-                        <div class="flex items-center gap-2">
-                          <div class="h-2 w-2 rounded bg-green-400"></div>
+                          <div class="flex items-center gap-2">
+                            <div class="h-2 w-2 rounded bg-green-400"></div>
                             <span class="text-neutral-300">AI Call Made</span>
-                        </div>
+                          </div>
                           <span class="text-green-400">Connected</span>
-                      </div>
-                        <div class="flex items-center justify-between text-[10px]">
-                        <div class="flex items-center gap-2">
-                          <div class="h-2 w-2 rounded bg-yellow-400"></div>
-                            <span class="text-neutral-300">CRM Updated</span>
                         </div>
+                        <div class="flex items-center justify-between text-[10px]">
+                          <div class="flex items-center gap-2">
+                            <div class="h-2 w-2 rounded bg-yellow-400"></div>
+                            <span class="text-neutral-300">CRM Updated</span>
+                          </div>
                           <span class="text-yellow-400">Processing</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-    
+
                     <!-- AI Call Log (Mobile) -->
                     <div class="rounded-2xl bg-neutral-900/90 backdrop-blur border border-neutral-800 shadow-sm">
-                    <div class="flex items-center justify-between px-3 py-2 border-b border-neutral-800/70">
+                      <div class="flex items-center justify-between px-3 py-2 border-b border-neutral-800/70">
                         <span class="text-[10px] tracking-widest text-neutral-400">AI CALL LOG</span>
-                      <div class="h-2 w-2 rounded-full bg-green-500"></div>
-                    </div>
-                    <div class="p-2 space-y-2">
-                      <div class="flex items-start gap-2">
+                        <div class="h-2 w-2 rounded-full bg-green-500"></div>
+                      </div>
+                      <div class="p-2 space-y-2">
+                        <div class="flex items-start gap-2">
                           <div class="h-3 w-3 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex-shrink-0 mt-0.5"></div>
                           <div class="min-w-0 flex-1">
                             <div class="text-[9px] text-neutral-400 mb-0.5">AI</div>
                             <div class="bg-white/10 rounded-lg px-2 py-1 text-[9px] text-neutral-300">Hi John, about your inquiry...</div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="flex items-start gap-2">
+                        <div class="flex items-start gap-2">
                           <div class="h-3 w-3 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex-shrink-0 mt-0.5"></div>
                           <div class="min-w-0 flex-1">
                             <div class="text-[9px] text-neutral-400 mb-0.5">Patient</div>
                             <div class="bg-white/10 rounded-lg px-2 py-1 text-[9px] text-neutral-300">Yes, I'd like to book</div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-    
+
                     <!-- Follow-up Queue (Mobile) -->
                     <div class="rounded-2xl bg-neutral-900/90 backdrop-blur border border-neutral-800 shadow-sm">
-                    <div class="flex items-center justify-between px-3 py-2 border-b border-neutral-800/70">
+                      <div class="flex items-center justify-between px-3 py-2 border-b border-neutral-800/70">
                         <span class="text-[10px] tracking-widest text-neutral-400">FOLLOW-UP QUEUE</span>
                         <span class="text-[9px] text-green-400">Active</span>
-                    </div>
-                    <div class="p-2">
-                      <div class="h-2 bg-neutral-800 rounded-full overflow-hidden">
+                      </div>
+                      <div class="p-2">
+                        <div class="h-2 bg-neutral-800 rounded-full overflow-hidden">
                           <div class="h-full bg-gradient-to-r from-blue-400 to-green-400 rounded-full" style="width: 65%;"></div>
                         </div>
                         <div class="flex justify-between mt-2 text-[9px] text-neutral-400">
@@ -1081,16 +1367,13 @@
 
                   <!-- Desktop: Original absolute positioning -->
                   <div class="hidden sm:block relative h-64">
-                    <!-- Lead Capture Dashboard -->
-                    <div class="absolute left-6 top-6 w-[70%] h-[52%] rounded-2xl bg-neutral-900/90 backdrop-blur border border-neutral-800 shadow-sm">
+                    <!-- Lead Trigger -->
+                    <div class="absolute left-6 top-6 w-[45%] h-[45%] rounded-2xl bg-neutral-900/90 backdrop-blur border border-neutral-800 shadow-sm">
                       <div class="flex items-center justify-between px-3 py-2 border-b border-neutral-800/70">
-                        <span class="text-xs tracking-widest text-neutral-400">LEAD PIPELINE</span>
-                        <div class="flex items-center gap-1">
-                          <div class="h-3 w-3 rounded-full bg-green-500/70"></div>
-                          <span class="text-[10px] text-green-400">Live</span>
-                        </div>
+                        <span class="text-xs tracking-widest text-neutral-400">LEAD TRIGGER</span>
+                        <div class="h-2 w-2 rounded-full bg-blue-500"></div>
                       </div>
-                      <div class="p-2 space-y-1.5">
+                      <div class="p-2 space-y-1">
                         <div class="flex items-center justify-between text-xs">
                           <div class="flex items-center gap-2">
                             <div class="h-2 w-2 rounded bg-blue-400"></div>
@@ -1155,14 +1438,14 @@
                       <div class="p-2">
                         <div class="h-2 bg-neutral-800 rounded-full overflow-hidden">
                           <div class="h-full bg-gradient-to-r from-blue-400 to-green-400 rounded-full" style="width: 65%;"></div>
-                      </div>
-                      <div class="flex justify-between mt-1 text-[9px] text-neutral-400">
+                        </div>
+                        <div class="flex justify-between mt-1 text-[9px] text-neutral-400">
                           <span>SMS in 1 day</span>
                           <span>Call reminder scheduled</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-    
+
                     <!-- Workflow Status -->
                     <div class="absolute right-4 bottom-4 flex items-center gap-2">
                       <div class="flex items-center gap-1">
@@ -1176,7 +1459,7 @@
                     </div>
                   </div>
                 </div>
-    
+
                 <!-- Features grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   <div>
@@ -1188,7 +1471,7 @@
                     <p class="mt-2 text-sm text-neutral-400">Automated SMS, email, and call reminders ensure no lead falls through the cracks with perfectly timed follow-ups.</p>
                   </div>
                 </div>
-    
+
                 <!-- CTA -->
                 <div class="">
                   <a href="/calendar.html#calendar-section" class="inline-flex items-center gap-2 text-xs font-medium text-neutral-100 hover:text-neutral-300">
@@ -1202,10 +1485,65 @@
               </div>
             </article>
           </div>
+
+          <!-- Copy & stats (moved to right) -->
+          <div class="">
+            <div class="tech-content" id="technology">
+              <h3 class="sm:text-5xl transition-colors duration-500 text-4xl font-semibold text-slate-900 tracking-tight">Complete Voice AI for <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-[#8A92FF]">Dental Practices</span></h3>
+              
+              <!-- Voice AI Use Cases -->
+              <div class="mt-8">
+                <div class="border-t border-neutral-200 pt-6">
+                  <h4 class="text-lg font-semibold text-slate-900 mb-4">Voice AI Use Cases</h4>
+                  <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <path d="M12 6v6l4 2"></path>
+                        </svg>
+                      </div>
+                      <div class="">
+                        <h5 class="font-medium text-slate-900">Scheduled Callbacks</h5>
+                        <p class="text-sm text-slate-600 mt-1">If someone says "Call me back at 5 PM tomorrow," the AI will call at the exact time requested.</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                          <circle cx="9" cy="7" r="4"></circle>
+                          <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                      </div>
+                      <div class="">
+                        <h5 class="font-medium text-slate-900">Recall Campaigns</h5>
+                        <p class="text-sm text-slate-600 mt-1">Calls patients due for their 6-month check-up or cleaning (if the data is stored in your CRM).</p>
+                      </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                      <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mt-0.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                      </div>
+                      <div class="">
+                        <h5 class="font-medium text-slate-900">Inbound Call Handling</h5>
+                        <p class="text-sm text-slate-600 mt-1">Answers calls when your staff is busy, after hours, or during lunch breaks.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+            <div class="border-t border-neutral-200 pt-6 mt-8">
+              <a href="/calendar.html#calendar-section" class="cursor-pointer inline-flex flex-col leading-none outline-none overflow-hidden no-underline align-baseline whitespace-nowrap select-none transition-all duration-150 hover:opacity-85 focus:outline-none focus:ring-4 focus:ring-black/50 shadow-[0_2.8px_2.2px_rgba(0,_0,_0,_0.034),_0_6.7px_5.3px_rgba(0,_0,_0,_0.048),_0_12.5px_10px_rgba(0,_0,_0,_0.06),_0_22.3px_17.9px_rgba(0,_0,_0,_0.072),_0_41.8px_33.4px_rgba(0,_0,_0,_0.086),_0_100px_80px_rgba(0,_0,_0,_0.12)] text-base text-white text-center bg-gradient-to-b from-neutral-700 to-neutral-900 border-0 rounded-xl pt-2.5 pr-5 pb-2.5 pl-5 items-center justify-center" role="button">See All Use Cases</a>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-
+    </div></section>
   <!-- Integrations Section -->
     <section class="relative z-10 py-16 sm:py-24">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -1349,10 +1687,10 @@
             </div>
           </div>
     
-          <button class="mt-5 inline-flex items-center justify-center gap-2 h-11 w-full rounded-full bg-white/90 text-zinc-900 text-sm font-normal hover:bg-white transition backdrop-blur font-geist">
-            Get Started
+          <a href="/calendar.html#calendar-section" class="mt-5 inline-flex items-center justify-center gap-2 h-11 w-full rounded-full bg-white/90 text-zinc-900 text-sm font-normal hover:bg-white transition backdrop-blur font-geist">
+            Book Core+ Demo
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-right" class="lucide lucide-arrow-up-right h-4 w-4"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-          </button>
+          </a>
     
           <!-- Features -->
           <div class="mt-6">
@@ -1439,10 +1777,10 @@
             </div>
           </div>
     
-          <button class="mt-5 inline-flex items-center justify-center gap-2 h-11 w-full rounded-full bg-white/90 text-zinc-900 text-sm font-normal hover:bg-white transition backdrop-blur font-geist">
-            Start Pro
+          <a href="/calendar.html#calendar-section" class="mt-5 inline-flex items-center justify-center gap-2 h-11 w-full rounded-full bg-white/90 text-zinc-900 text-sm font-normal hover:bg-white transition backdrop-blur font-geist">
+            Book Growth+ Demo
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" class="lucide lucide-zap h-4 w-4"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg>
-          </button>
+          </a>
     
           <!-- Features -->
           <div class="mt-6">
@@ -1507,10 +1845,10 @@
             </div>
           </div>
     
-          <button class="mt-5 inline-flex items-center justify-center gap-2 h-11 w-full rounded-full bg-white/20 text-white text-sm font-normal hover:bg-white/30 transition backdrop-blur border border-white/20 font-geist">
-            Contact Sales
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="messages-square" class="lucide lucide-messages-square h-4 w-4"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"></path></svg>
-          </button>
+          <a href="/calendar.html#calendar-section" class="mt-5 inline-flex items-center justify-center gap-2 h-11 w-full rounded-full bg-white/20 text-white text-sm font-normal hover:bg-white/30 transition backdrop-blur border border-white/20 font-geist">
+            Book Scale+ Demo
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" class="lucide lucide-calendar h-4 w-4"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+          </a>
     
           <!-- Features -->
           <div class="mt-6">
@@ -1567,7 +1905,7 @@
           <div class="mt-5 flex items-start justify-between">
             <div class="">
               <h3 class="text-2xl sm:text-3xl text-white font-geist font-medium tracking-tight">Premium+</h3>
-              <p class="mt-1 text-sm text-zinc-400 font-geist">Complex setups requiring heavy custom dev</p>
+              <p class="mt-1 text-sm text-zinc-400 font-geist">Complete marketing & lead generation system</p>
             </div>
             <div class="text-right">
               <p class="text-2xl sm:text-3xl text-white font-geist font-medium tracking-tight">Custom</p>
@@ -1575,10 +1913,10 @@
             </div>
           </div>
     
-          <button class="mt-5 inline-flex items-center justify-center gap-2 h-11 w-full rounded-full bg-white/20 text-white text-sm font-normal hover:bg-white/30 transition backdrop-blur border border-white/20 font-geist">
-            Contact Sales
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="messages-square" class="lucide lucide-messages-square h-4 w-4"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path><path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"></path></svg>
-          </button>
+          <a href="/calendar.html#calendar-section" class="mt-5 inline-flex items-center justify-center gap-2 h-11 w-full rounded-full bg-white/20 text-white text-sm font-normal hover:bg-white/30 transition backdrop-blur border border-white/20 font-geist">
+            Schedule Premium+ Call
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="phone" class="lucide lucide-phone h-4 w-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </a>
     
           <!-- Features -->
           <div class="mt-6">
@@ -1606,6 +1944,18 @@
                 <span class="mt-0.5 h-5 w-5 rounded-full bg-zinc-900/70 border border-white/10 flex items-center justify-center backdrop-blur">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-3.5 w-3.5 text-green-400"><path d="M20 6 9 17l-5-5"></path></svg>
                 </span>
+                <span class="text-sm text-zinc-300 font-geist">Complete Lead Generation System</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 h-5 w-5 rounded-full bg-zinc-900/70 border border-white/10 flex items-center justify-center backdrop-blur">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-3.5 w-3.5 text-green-400"><path d="M20 6 9 17l-5-5"></path></svg>
+                </span>
+                <span class="text-sm text-zinc-300 font-geist">Done-For-You Marketing Assets</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-0.5 h-5 w-5 rounded-full bg-zinc-900/70 border border-white/10 flex items-center justify-center backdrop-blur">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="check" class="lucide lucide-check h-3.5 w-3.5 text-green-400"><path d="M20 6 9 17l-5-5"></path></svg>
+                </span>
                 <span class="text-sm text-zinc-300 font-geist">Unlimited Automations</span>
               </li>
             </ul>
@@ -1615,7 +1965,7 @@
     
       <!-- Footnote -->
       <div class="flex flex-col text-center mt-6 items-center">
-        <p class="text-xs text-zinc-500 font-geist">All plans include a 14-day free trial. <a href="#" class="underline decoration-zinc-700 underline-offset-4 text-zinc-300 hover:text-white font-geist">View detailed comparison</a>.</p>
+        <p class="text-xs text-zinc-500 font-geist">All plans include custom onboarding and setup. <a href="#" class="underline decoration-zinc-700 underline-offset-4 text-zinc-300 hover:text-white font-geist">View detailed comparison</a>.</p>
       </div>
     </section>
 
@@ -1897,26 +2247,6 @@
               </div>
             </a>
             
-            <div class="mt-4 flex items-center gap-3">
-              <a href="#" class="grid h-10 w-10 place-items-center rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 hover:scale-110 hover:ring-white/20 transition-all duration-200" aria-label="Twitter">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-300">
-                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-                </svg>
-              </a>
-              <a href="#" class="grid h-10 w-10 place-items-center rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 hover:scale-110 hover:ring-white/20 transition-all duration-200" aria-label="GitHub">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-300">
-                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
-                </svg>
-              </a>
-              <a href="#" class="grid h-10 w-10 place-items-center rounded-xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 hover:scale-110 hover:ring-white/20 transition-all duration-200" aria-label="LinkedIn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-neutral-300">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" class=""></path>
-                  <rect width="4" height="12" x="2" y="9"></rect>
-                  <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-              </a>
-            </div>
             
             <div class="mt-4 space-y-2">
               <p class="text-sm text-neutral-400 font-sans">© 2024 ESO Marketing Automations. All rights reserved.</p>
@@ -1927,44 +2257,21 @@
           <div class="grid grid-cols-2 gap-12 md:col-span-2">
             <div class="space-y-8">
               <div class="">
-                <h4 class="mb-4 text-sm font-semibold tracking-tight text-white font-sans">AI Solutions</h4>
+                <h4 class="mb-4 text-sm font-semibold tracking-tight text-white font-sans">Services</h4>
                 <ul class="space-y-3 text-sm text-neutral-400">
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Voice AI Receptionist</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">PMS Integrations</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Lead Management</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Automated Follow-ups</a></li>
-                </ul>
-              </div>
-              
-              <div class="">
-                <h4 class="mb-4 text-sm font-semibold tracking-tight text-white font-sans">Healthcare Focus</h4>
-                <ul class="space-y-3 text-sm text-neutral-400">
-                  <li><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Dental Practices</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Medical Clinics</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Case Studies</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">ROI Calculator</a></li>
+                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="/comparison.html">Voice AI vs Human</a></li>
+                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="/scenarios.html">Use Cases</a></li>
+                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="/#pricing-section" onclick="document.getElementById('pricing-section').scrollIntoView({behavior: 'smooth'});">Pricing</a></li>
                 </ul>
               </div>
             </div>
             
             <div class="space-y-8">
               <div class="">
-                <h4 class="mb-4 text-sm font-semibold tracking-tight text-white font-sans">Support</h4>
-                <ul class="space-y-3 text-sm text-neutral-400">
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Setup & Onboarding</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Technical Support</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Training Resources</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">24/7 Monitoring</a></li>
-                </ul>
-              </div>
-              
-              <div class="">
                 <h4 class="mb-4 text-sm font-semibold tracking-tight text-white font-sans">Company</h4>
                 <ul class="space-y-3 text-sm text-neutral-400">
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">About ESO</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Our Mission</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Success Stories</a></li>
-                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="#">Contact</a></li>
+                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="/contact.html">Contact</a></li>
+                  <li class=""><a class="hover:text-white hover:translate-x-1 transition-all duration-200 inline-block font-sans" href="/calendar.html">Book a Call</a></li>
                 </ul>
               </div>
             </div>
@@ -1975,22 +2282,49 @@
         <div class="mt-16 pt-8 border-t border-white/10">
           <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div class="flex flex-wrap gap-6 text-xs text-neutral-500">
-              <a href="#" class="hover:text-neutral-300 transition-colors font-sans">Privacy Policy</a>
-              <a href="#" class="hover:text-neutral-300 transition-colors font-sans">Terms of Service</a>
-              <a href="#" class="hover:text-neutral-300 transition-colors font-sans">Cookie Settings</a>
-              <a href="#" class="hover:text-neutral-300 transition-colors font-sans">Sitemap</a>
+              <a href="/privacy-policy.html" class="hover:text-neutral-300 transition-colors font-sans">Privacy Policy</a>
+              <a href="/terms-conditions.html" class="hover:text-neutral-300 transition-colors font-sans">Terms & Conditions</a>
             </div>
             
-            <div class="flex items-center gap-4">
-              <span class="text-xs text-neutral-500 font-sans">Stay updated</span>
-              <div class="flex items-center gap-2">
-                <input type="email" placeholder="Enter your email" class="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all">
-                <button class="inline-flex items-center justify-center h-10 px-4 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all duration-200 hover:scale-105">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14"></path>
-                    <path d="m12 5 7 7-7 7"></path>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <span class="text-xs text-neutral-500 font-sans whitespace-nowrap">Stay updated with Voice AI insights</span>
+              <div class="flex items-center gap-2 w-full sm:w-auto">
+                <form id="newsletterForm" class="flex items-center gap-2 w-full sm:w-auto">
+                  <input type="email" id="newsletterEmail" name="email" placeholder="Enter your email" required class="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all min-w-0 flex-1 sm:w-64">
+                  <button type="submit" id="newsletterBtn" class="inline-flex items-center justify-center h-10 px-4 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex-shrink-0">
+                    <span id="newsletterBtnText">Subscribe</span>
+                    <svg id="newsletterIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="ml-1">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                    <!-- Loading Spinner (Hidden by default) -->
+                    <svg id="newsletterSpinner" class="hidden animate-spin ml-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12a9 9 0 11-6.219-8.56"/>
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Newsletter Success/Error Messages -->
+            <div id="newsletterMessages" class="hidden mt-4">
+              <div id="newsletterSuccess" class="hidden bg-green-500/20 border border-green-500/30 rounded-lg p-3">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400">
+                    <path d="M20 6 9 17l-5-5"></path>
                   </svg>
-                </button>
+                  <p class="text-green-300 text-sm font-medium">Successfully subscribed! Check your email for confirmation.</p>
+                </div>
+              </div>
+              <div id="newsletterError" class="hidden bg-red-500/20 border border-red-500/30 rounded-lg p-3">
+                <div class="flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-400">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" x2="9" y1="9" y2="15"></line>
+                    <line x1="9" x2="15" y1="9" y2="15"></line>
+                  </svg>
+                  <p class="text-red-300 text-sm font-medium">Failed to subscribe. Please try again.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -2003,6 +2337,105 @@
         <script>
           document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+
+            // Newsletter Form Handling
+            const newsletterForm = document.getElementById('newsletterForm');
+            const newsletterBtn = document.getElementById('newsletterBtn');
+            const newsletterBtnText = document.getElementById('newsletterBtnText');
+            const newsletterIcon = document.getElementById('newsletterIcon');
+            const newsletterSpinner = document.getElementById('newsletterSpinner');
+            const newsletterMessages = document.getElementById('newsletterMessages');
+            const newsletterSuccess = document.getElementById('newsletterSuccess');
+            const newsletterError = document.getElementById('newsletterError');
+            const newsletterEmail = document.getElementById('newsletterEmail');
+
+            // GHL Webhook URL (same as contact form)
+            const webhookUrl = 'https://services.leadconnectorhq.com/hooks/gY3OLBcxMMuSg4TsW3bO/webhook-trigger/d349444e-c190-4143-b350-ca6cf809b8cc';
+
+            if (newsletterForm) {
+              newsletterForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                // Hide previous messages
+                newsletterMessages.classList.add('hidden');
+                newsletterSuccess.classList.add('hidden');
+                newsletterError.classList.add('hidden');
+
+                // Show loading state
+                newsletterBtn.disabled = true;
+                newsletterBtnText.textContent = 'Subscribing...';
+                newsletterIcon.classList.add('hidden');
+                newsletterSpinner.classList.remove('hidden');
+
+                // Get email value
+                const email = newsletterEmail.value.trim();
+
+                // Prepare payload for GHL
+                const payload = {
+                  email: email,
+                  firstName: '', // Will be empty for newsletter signups
+                  lastName: '',
+                  name: email.split('@')[0], // Use email prefix as name fallback
+                  source: 'Website Newsletter',
+                  tags: ['Newsletter Subscriber', 'Website Lead'],
+                  customFields: {
+                    lead_source: 'Website Newsletter',
+                    subscription_type: 'Voice AI Insights',
+                    signup_date: new Date().toISOString()
+                  }
+                };
+
+                try {
+                  const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                  });
+
+                  if (response.ok) {
+                    // Success
+                    newsletterMessages.classList.remove('hidden');
+                    newsletterSuccess.classList.remove('hidden');
+                    newsletterForm.reset();
+                    
+                    // Track conversion (optional)
+                    if (typeof gtag !== 'undefined') {
+                      gtag('event', 'newsletter_signup', {
+                        event_category: 'Newsletter',
+                        event_label: 'Footer Newsletter'
+                      });
+                    }
+
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                      newsletterMessages.classList.add('hidden');
+                      newsletterSuccess.classList.add('hidden');
+                    }, 5000);
+                  } else {
+                    throw new Error('Network response was not ok');
+                  }
+                } catch (error) {
+                  console.error('Newsletter subscription error:', error);
+                  newsletterMessages.classList.remove('hidden');
+                  newsletterError.classList.remove('hidden');
+
+                  // Hide error message after 5 seconds
+                  setTimeout(() => {
+                    newsletterMessages.classList.add('hidden');
+                    newsletterError.classList.add('hidden');
+                  }, 5000);
+                } finally {
+                  // Reset button state
+                  newsletterBtn.disabled = false;
+                  newsletterBtnText.textContent = 'Subscribe';
+                  newsletterIcon.classList.remove('hidden');
+                  newsletterSpinner.classList.add('hidden');
+                }
+              });
+            }
           });
         </script>
 

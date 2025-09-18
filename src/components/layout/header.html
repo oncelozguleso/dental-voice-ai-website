@@ -8,6 +8,7 @@
               <nav class="hidden md:flex items-center gap-8">
                 <a href="/" class="hover:text-white/50 text-sm font-medium text-white">Home</a>
                 <a href="/comparison.html" class="hover:text-white/50 text-sm font-medium text-white">Comparison</a>
+                <a href="/scenarios.html" class="hover:text-white/50 text-sm font-medium text-white">Use Cases</a>
                 <a href="/calendar.html" class="hover:text-white/50 text-sm font-medium text-white">Book Call</a>
                 <a href="#pricing-section" class="hover:text-white/50 text-sm font-medium text-white" onclick="document.getElementById('pricing-section').scrollIntoView({behavior: 'smooth'});">Pricing</a>
               </nav>
@@ -20,9 +21,69 @@
     </a>
                 
               </div>
-              <button class="md:hidden inline-flex items-center justify-center rounded-lg border border-neutral-200 p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu h-5 w-5"><path d="M4 12h16"></path><path d="M4 18h16"></path><path d="M4 6h16"></path></svg>
+              <button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center rounded-lg border border-neutral-200 p-2">
+                <svg id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu h-5 w-5"><path d="M4 12h16"></path><path d="M4 18h16"></path><path d="M4 6h16"></path></svg>
+                <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x h-5 w-5 hidden"><path d="m18 6-12 12"></path><path d="m6 6 12 12"></path></svg>
               </button>
             </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden">
+              <div class="px-2 pt-2 pb-3 space-y-1 bg-black/20 backdrop-blur-xl rounded-lg border border-white/10 mt-4">
+                <a href="/" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Home</a>
+                <a href="/comparison.html" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Comparison</a>
+                <a href="/scenarios.html" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Use Cases</a>
+                <a href="/calendar.html" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Book Call</a>
+                <a href="#pricing-section" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition" onclick="document.getElementById('pricing-section').scrollIntoView({behavior: 'smooth'}); toggleMobileMenu();">Pricing</a>
+                <a href="/contact.html" class="block px-3 py-2 text-base font-medium text-white hover:text-white/70 hover:bg-white/5 rounded-md transition">Contact</a>
+                <div class="pt-4 pb-2">
+                  <a href="/calendar.html#calendar-section" class="group relative inline-flex w-full cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] text-white font-semibold tracking-tight rounded-full py-3 px-6 items-center justify-center overflow-hidden" style="background: linear-gradient(135deg, rgba(99,102,241,0.9) 0%, rgba(79,70,229,0.8) 50%, rgba(139,92,246,0.9) 100%); box-shadow: 0 8px 32px rgba(99,102,241,0.4), inset 0 1px 0 rgba(255,255,255,0.2); backdrop-filter: blur(12px); border: 1px solid rgba(99,102,241,0.3);">
+                    <span class="relative z-10 text-base font-medium">Book a Call</span>
+                    
+                    <!-- Animated gradient overlay -->
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(139,92,246,0.3) 0%, rgba(99,102,241,0.2) 50%, rgba(79,70,229,0.3) 100%);"></div>
+                    
+                    <!-- Shimmer effect -->
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" style="background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%); transform: skewX(-45deg);"></div>
+                    
+                    <!-- Bottom glow -->
+                    <div class="absolute bottom-0 left-1/2 h-[2px] w-[80%] -translate-x-1/2 opacity-60 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(90deg, rgba(99,102,241,0) 0%, rgba(99,102,241,1) 50%, rgba(99,102,241,0) 100%); filter: blur(1px);"></div>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
+          
+          <!-- Mobile Menu JavaScript -->
+          <script>
+            function toggleMobileMenu() {
+              const mobileMenu = document.getElementById('mobile-menu');
+              const hamburgerIcon = document.getElementById('hamburger-icon');
+              const closeIcon = document.getElementById('close-icon');
+              
+              if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                hamburgerIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+              } else {
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+              }
+            }
+            
+            document.getElementById('mobile-menu-button').addEventListener('click', toggleMobileMenu);
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+              const mobileMenu = document.getElementById('mobile-menu');
+              const mobileMenuButton = document.getElementById('mobile-menu-button');
+              
+              if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+                mobileMenu.classList.add('hidden');
+                document.getElementById('hamburger-icon').classList.remove('hidden');
+                document.getElementById('close-icon').classList.add('hidden');
+              }
+            });
+          </script>
         </header>

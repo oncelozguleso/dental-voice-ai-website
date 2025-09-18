@@ -11,6 +11,22 @@
     {
       "source": "/comparison", 
       "destination": "/comparison.html"
+    },
+    {
+      "source": "/scenarios", 
+      "destination": "/scenarios.html"
+    },
+    {
+      "source": "/contact", 
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/privacy-policy", 
+      "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/terms-conditions", 
+      "destination": "/terms-conditions.html"
     }
   ],
   "headers": [
