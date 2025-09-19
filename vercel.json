@@ -1,43 +1,42 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "installCommand": "npm install",
   "rewrites": [
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
     {
       "source": "/calendar",
       "destination": "/calendar.html"
     },
     {
-      "source": "/comparison", 
+      "source": "/comparison",
       "destination": "/comparison.html"
     },
     {
-      "source": "/scenarios", 
+      "source": "/scenarios",
       "destination": "/scenarios.html"
-    },
-    {
-      "source": "/contact", 
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/privacy-policy", 
-      "destination": "/privacy-policy.html"
-    },
-    {
-      "source": "/terms-conditions", 
-      "destination": "/terms-conditions.html"
     }
   ],
-  "headers": [
+  "redirects": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=86400"
-        }
-      ]
+      "source": "/contact.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/calendar.html",
+      "destination": "/calendar",
+      "permanent": true
+    },
+    {
+      "source": "/comparison.html",
+      "destination": "/comparison",
+      "permanent": true
+    },
+    {
+      "source": "/scenarios.html",
+      "destination": "/scenarios",
+      "permanent": true
     }
   ]
 }
