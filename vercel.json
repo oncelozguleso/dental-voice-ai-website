@@ -15,6 +15,14 @@
     {
       "source": "/scenarios",
       "destination": "/scenarios.html"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/privacy-policy.html"
+    },
+    {
+      "source": "/terms-conditions",
+      "destination": "/terms-conditions.html"
     }
   ],
   "redirects": [
@@ -36,6 +44,16 @@
     {
       "source": "/scenarios.html",
       "destination": "/scenarios",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy.html",
+      "destination": "/privacy-policy",
+      "permanent": true
+    },
+    {
+      "source": "/terms-conditions.html",
+      "destination": "/terms-conditions",
       "permanent": true
     }
   ]
