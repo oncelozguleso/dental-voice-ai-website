@@ -25,8 +25,32 @@
     <link rel="alternate icon" href="/assets/images/eso_favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js" as="script" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/assets/js/lazy-loading.js" defer="defer"></script>
+    <style>
+      /* Lazy loading animation states */
+      .animation-loading {
+        opacity: 0.7;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .animation-loaded {
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .animation-error {
+        opacity: 0.3;
+      }
+      /* Smooth background loading */
+      [data-bg] {
+        transition: opacity 0.5s ease-in-out;
+      }
+      .bg-loaded {
+        opacity: 1;
+      }
+    </style>
     <link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">.font-geist { font-family: 'Geist', sans-serif !important; }</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">.font-roboto { font-family: 'Roboto', sans-serif !important; }</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">.font-montserrat { font-family: 'Montserrat', sans-serif !important; }</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">.font-poppins { font-family: 'Poppins', sans-serif !important; }</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">.font-playfair { font-family: 'Playfair Display', serif !important; }</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">.font-merriweather { font-family: 'Merriweather', serif !important; }</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">.font-manrope { font-family: 'Manrope', sans-serif !important; }</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">.font-work-sans { font-family: 'Work Sans', sans-serif !important; }</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">.font-pt-serif { font-family: 'PT Serif', serif !important; }</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">.font-geist-mono { font-family: 'Geist Mono', monospace !important; }</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">.font-space-mono { font-family: 'Space Mono', monospace !important; }</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">.font-quicksand { font-family: 'Quicksand', sans-serif !important; }</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">.font-nunito { font-family: 'Nunito', sans-serif !important; }</style>
 
 </head>
@@ -121,11 +145,8 @@
           </script>
         </header>
 
-  <!-- UnicornStudio Background -->
-<div class="aura-background-component top-0 w-full h-[2000px] sm:h-[1800px] lg:h-[1200px] -z-10 absolute"><div data-us-project="x6cbPWi9roeeiZ8cuBu3" class="absolute w-full h-full left-0 top-0 -z-10"></div>
-    <script type="text/javascript">
-      !function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();
-    </script></div>
+  <!-- UnicornStudio Background (Lazy Loaded) -->
+<div class="aura-background-component top-0 w-full h-[2000px] sm:h-[1800px] lg:h-[1200px] -z-10 absolute" data-unicorn-studio="x6cbPWi9roeeiZ8cuBu3"></div>
 
         <!-- Hero -->
         <section class="relative mb-8">
@@ -516,7 +537,7 @@
             <!-- Product Preview Card -->
             <div class="relative sm:mt-16 mt-12">
               <!-- Framed background to mimic wide backdrop -->
-              <div class="absolute inset-x-0 -top-6 -bottom-10 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)] bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a487da8255318e589367.png)] bg-cover rounded-[40px] scale-y-[-1]"></div>
+              <div class="absolute inset-x-0 -top-6 -bottom-10 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)] bg-gray-200 bg-cover rounded-[40px] scale-y-[-1]" data-bg="/assets/images/backgrounds/gradient-1.webp"></div>
     
               <div class="relative overflow-hidden bg-neutral-900/70 border-neutral-700 border rounded-3xl mx-4 sm:mx-12 lg:mx-24 shadow-xl backdrop-blur-xl" style="background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(64, 64, 64, 0.35);">
       <div class="sm:p-10 pt-6 pr-6 pb-6 pl-6">
@@ -820,7 +841,7 @@
       <div class="max-w-7xl mr-auto ml-auto pt-8 pr-1 pb-8 pl-1 sm:pt-16 sm:pb-16 sm:pr-6 sm:pl-6">
         <div class="grid gap-12 lg:grid-cols-2">
           <!-- Diagram -->
-          <div class="relative bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a486c357f84931317532.png)] bg-cover rounded-[36px] pt-5 pr-5 pb-5 pl-5">
+          <div class="relative bg-gray-200 bg-cover rounded-[36px] pt-5 pr-5 pb-5 pl-5" data-bg="/assets/images/backgrounds/gradient-2.webp">
             <article class="group relative overflow-hidden transition-shadow hover:shadow-md bg-neutral-900/70 border-neutral-700 border rounded-3xl shadow-xl backdrop-blur-xl" style="background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(64, 64, 64, 0.35);">
       <div class="sm:p-10 pt-6 pr-6 pb-6 pl-6">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
@@ -1047,7 +1068,7 @@
   <section class="relative z-10 animate-[fadeInUp_1s_ease-out_1.4s_forwards]" style="transform: translateY(0px);">
   <div class="max-w-7xl mr-auto ml-auto pt-8 pr-1 pb-8 pl-1 sm:pt-16 sm:pb-16 sm:pr-6 sm:pl-6">
     <!-- Background container with borders -->
-    <div class="relative bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a487da8255318e589367.png)] bg-cover bg-center rounded-[36px] border border-white/10 overflow-hidden">
+    <div class="relative bg-gray-900 bg-cover bg-center rounded-[36px] border border-white/10 overflow-hidden" data-bg="/assets/images/backgrounds/gradient-1.webp">
       <!-- Dark overlay -->
       <div class="absolute inset-0 bg-black/70 rounded-[36px]"></div>
       
@@ -1134,7 +1155,7 @@
           </div>
 
           <!-- Diagram (RIGHT SIDE) -->
-          <div class="order-1 lg:order-2 relative bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a486c357f84931317532.png)] bg-cover rounded-[24px] lg:rounded-[36px] p-3 sm:pt-5 sm:pr-5 sm:pb-5 sm:pl-5">
+          <div class="order-1 lg:order-2 relative bg-gray-200 bg-cover rounded-[24px] lg:rounded-[36px] p-3 sm:pt-5 sm:pr-5 sm:pb-5 sm:pl-5" data-bg="/assets/images/backgrounds/gradient-2.webp">
             <article class="group relative overflow-hidden transition-shadow hover:shadow-md rounded-2xl lg:rounded-3xl shadow-xl backdrop-blur-xl">
               <div class="p-4 sm:p-6 lg:p-10 bg-black/20 backdrop-blur-sm rounded-2xl lg:rounded-3xl">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
@@ -1286,7 +1307,7 @@
       <div class="max-w-7xl mr-auto ml-auto pt-8 pr-1 pb-8 pl-1 sm:pt-16 sm:pb-16 sm:pr-6 sm:pl-6">
         <div class="grid gap-12 lg:grid-cols-2">
           <!-- Diagram (moved to left) -->
-          <div class="relative bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a179e5b5d87324af02a8.png)] bg-cover rounded-[36px] pt-5 pr-5 pb-5 pl-5">
+          <div class="relative bg-gray-200 bg-cover rounded-[36px] pt-5 pr-5 pb-5 pl-5" data-bg="/assets/images/backgrounds/gradient-3.webp">
             <article class="group relative overflow-hidden transition-shadow hover:shadow-md bg-neutral-900/70 border-neutral-700 border rounded-3xl shadow-xl backdrop-blur-xl" style="background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(64, 64, 64, 0.35);">
               <div class="sm:p-10 pt-6 pr-6 pb-6 pl-6">
                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
@@ -1584,7 +1605,7 @@
         </div>
 
         <!-- Integration Card with Abstract Shapes -->
-        <div class="relative rounded-[36px] p-5 overflow-hidden bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a179e5b5d87324af02a8.png)] bg-cover">
+        <div class="relative rounded-[36px] p-5 overflow-hidden bg-gray-200 bg-cover" data-bg="/assets/images/backgrounds/gradient-3.webp">
           
           <div class="relative overflow-hidden bg-white/80 border-white/40 border rounded-3xl shadow-xl backdrop-blur-xl" style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.4);">
             <div class="p-8 sm:p-12">
@@ -1662,7 +1683,7 @@
       </div>
     </section>
 
-  <section id="pricing-section" class="sm:p-8 bg-zinc-900/50 bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6b2e7fbfa9e9f60431b14.png)] bg-cover border-zinc-800 rounded-[36px] mt-6 sm:mt-10 mr-1 ml-1 sm:mr-8 sm:ml-8 pt-4 pr-1 pb-4 pl-1 sm:pt-6 sm:pb-6 sm:pr-6 sm:pl-6">
+  <section id="pricing-section" class="sm:p-8 bg-zinc-900/50 bg-cover border-zinc-800 rounded-[36px] mt-6 sm:mt-10 mr-1 ml-1 sm:mr-8 sm:ml-8 pt-4 pr-1 pb-4 pl-1 sm:pt-6 sm:pb-6 sm:pr-6 sm:pl-6" data-bg="/assets/images/backgrounds/gradient-4.webp">
       <!-- Header -->
       <div class="flex flex-col items-center text-center px-4 sm:px-6">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/70 border border-zinc-800 text-zinc-300 backdrop-blur-xl">
@@ -2252,7 +2273,7 @@
     </script>
 
   <footer class="relative z-10 animate-[fadeInUp_1s_ease-out_1.6s_forwards] pt-2 pr-2 pb-2 pl-2" style="transform: translateY(50px);">
-          <div class="relative bg-[url(https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c6a487da8255318e589367.png)] bg-cover bg-center border-white/10 rounded-xl border-t">
+          <div class="relative bg-gray-900 bg-cover bg-center border-white/10 rounded-xl border-t" data-bg="/assets/images/backgrounds/gradient-1.webp">
             <!-- Dark overlay -->
             <div class="absolute inset-0 bg-black/70 rounded-xl"></div>
       <div class="relative z-10 mx-auto max-w-7xl px-6 py-16">
