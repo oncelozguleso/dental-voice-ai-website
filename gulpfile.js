@@ -30,8 +30,14 @@ gulp.task('assets', function() {
     .pipe(gulp.dest('dist/assets/'));
 });
 
+// Copy root files (sitemap, robots.txt, etc.)
+gulp.task('root-files', function() {
+  return gulp.src(['src/sitemap.xml', 'src/robots.txt'])
+    .pipe(gulp.dest('dist/'));
+});
+
 // Build task
-gulp.task('build', gulp.series('clean', gulp.parallel('html', 'assets')));
+gulp.task('build', gulp.series('clean', gulp.parallel('html', 'assets', 'root-files')));
 
 // Development server
 gulp.task('serve', function() {
