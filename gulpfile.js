@@ -30,9 +30,9 @@ gulp.task('assets', function() {
     .pipe(gulp.dest('dist/assets/'));
 });
 
-// Copy root files (sitemap, robots.txt, etc.)
+// Copy root files (sitemap, robots.txt, favicon files, etc.)
 gulp.task('root-files', function() {
-  return gulp.src(['src/sitemap.xml', 'src/robots.txt'])
+  return gulp.src(['src/sitemap.xml', 'src/robots.txt', 'src/favicon.ico', 'src/favicon-*.png', 'src/apple-touch-icon.png'])
     .pipe(gulp.dest('dist/'));
 });
 
