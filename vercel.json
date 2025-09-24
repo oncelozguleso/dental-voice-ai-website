@@ -23,17 +23,16 @@
     {
       "source": "/thank-you",
       "destination": "/thank-you.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
     }
   ],
   "redirects": [
     {
-      "source": "/contact",
-      "destination": "/",
-      "permanent": true
-    },
-    {
       "source": "/contact.html",
-      "destination": "/",
+      "destination": "/contact",
       "permanent": true
     },
     {
