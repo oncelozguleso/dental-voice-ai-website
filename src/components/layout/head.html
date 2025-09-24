@@ -48,11 +48,11 @@
       "industry": "Healthcare Technology",
       "serviceArea": {
         "@type": "Place",
-        "name": "Australia"
+        "name": "Global"
       },
       "address": {
         "@type": "PostalAddress",
-        "addressCountry": "AU"
+        "addressCountry": "Global"
       },
       "services": [
         {
@@ -121,6 +121,282 @@
       gtag('config', 'AW-17586611919');
     </script>
     <!-- End Google Tag -->
+    
+    <!-- Geolocation Detection & Content Switching -->
+    <script>
+         // Global geo data structure
+         window.geoContent = {
+           AU: {
+             currency: 'A$',
+             currencyCode: 'AUD',
+             tax: 'GST',
+             accent: 'Australian',
+             phone: '+61',
+             serviceArea: 'Australia',
+             clinicCount: 'POWERING 24 CLINICS IN AUSTRALIA',
+             clientDescription: 'the biggest Australian dental chains',
+             locations: ['Brisbane', 'Melbourne', 'Sydney'],
+             pmsText: 'every Australian PMS',
+             pmsDescription: 'Seamlessly integrates with all major practice management systems across Australia. No matter which PMS you use, appointments book directly into your existing workflow.',
+             costComparison: 'Australian VAs',
+             leadCost: 'AUD $150',
+             leadCostNumeric: 150,
+             leadCostCurrency: 'AUD',
+             revenueAmount: '$12.4M',
+             revenueAmountNumeric: 12.4,
+             avgRevenuePerShowup: '$10K',
+             avgRevenuePerShowupNumeric: 10,
+             aiVsHumanAmount: '+$50K/mo',
+             aiVsHumanNumeric: 50,
+             heroAmount: 'A$50,000',
+             trialPrice: 'A$1',
+             exchangeRate: 1.0
+           },
+          UK: {
+            currency: '£',
+            currencyCode: 'GBP',
+            tax: 'VAT',
+            accent: 'British',
+            phone: '+44',
+            serviceArea: 'United Kingdom',
+            clinicCount: 'EXPANDING TO SERVE DENTAL PRACTICES WORLDWIDE',
+            clientDescription: 'leading dental practices internationally',
+            locations: ['Expanding Globally', 'New Markets', 'International Locations'],
+            pmsText: 'every major PMS',
+            pmsDescription: 'Seamlessly integrates with all major practice management systems. No matter which PMS you use, appointments book directly into your existing workflow.',
+            costComparison: 'traditional staff',
+            leadCost: '£84',
+            leadCostNumeric: 84,
+            leadCostCurrency: 'GBP',
+            revenueAmount: '£6.97M',
+            revenueAmountNumeric: 6.97,
+            avgRevenuePerShowup: '£5.6K',
+            avgRevenuePerShowupNumeric: 5.6,
+            aiVsHumanAmount: '+£28K/mo',
+            aiVsHumanNumeric: 28,
+            heroAmount: '£50,000',
+            trialPrice: '£1',
+            exchangeRate: 0.56
+          },
+          IE: {
+            currency: '€',
+            currencyCode: 'EUR',
+            tax: 'VAT',
+            accent: 'Irish',
+            phone: '+353',
+            serviceArea: 'Ireland',
+            clinicCount: 'EXPANDING TO SERVE DENTAL PRACTICES WORLDWIDE',
+            clientDescription: 'leading dental practices internationally',
+            locations: ['Expanding Globally', 'New Markets', 'International Locations'],
+            pmsText: 'every major PMS',
+            pmsDescription: 'Seamlessly integrates with all major practice management systems. No matter which PMS you use, appointments book directly into your existing workflow.',
+            costComparison: 'traditional staff',
+            leadCost: '€94',
+            leadCostNumeric: 94,
+            leadCostCurrency: 'EUR',
+            revenueAmount: '€7.77M',
+            revenueAmountNumeric: 7.77,
+            avgRevenuePerShowup: '€6.3K',
+            avgRevenuePerShowupNumeric: 6.3,
+            aiVsHumanAmount: '+€31K/mo',
+            aiVsHumanNumeric: 31,
+            heroAmount: '€50,000',
+            trialPrice: '€1',
+            exchangeRate: 0.63
+          },
+          GLOBAL: {
+            currency: '$',
+            currencyCode: 'USD',
+            tax: 'Tax',
+            accent: 'Professional',
+            phone: '+1',
+            serviceArea: 'Globally',
+            clinicCount: 'EXPANDING TO SERVE DENTAL PRACTICES WORLDWIDE',
+            clientDescription: 'leading dental practices internationally',
+            locations: ['Expanding Globally', 'New Markets', 'International Locations'],
+            pmsText: 'every major PMS',
+            pmsDescription: 'Seamlessly integrates with all major practice management systems globally. No matter which PMS you use, appointments book directly into your existing workflow.',
+            costComparison: 'traditional staff',
+            leadCost: '$99',
+            leadCostNumeric: 99,
+            leadCostCurrency: 'USD',
+            revenueAmount: '$8.2M',
+            revenueAmountNumeric: 8.2,
+            avgRevenuePerShowup: '$6.6K',
+            avgRevenuePerShowupNumeric: 6.6,
+            aiVsHumanAmount: '+$33K/mo',
+            aiVsHumanNumeric: 33,
+            heroAmount: '$50,000',
+            trialPrice: '$1',
+            exchangeRate: 0.66
+          }
+         };
+
+      // Detect user location and set content
+      async function detectAndSetGeoContent() {
+        let userRegion = 'GLOBAL'; // Default fallback
+        
+        try {
+          // Try to detect location via IP geolocation
+          const response = await fetch('https://ipapi.co/json/', {
+            timeout: 3000
+          });
+          const data = await response.json();
+          
+          if (data && data.country_code) {
+            switch(data.country_code) {
+              case 'AU':
+                userRegion = 'AU';
+                break;
+              case 'GB':
+                userRegion = 'UK';
+                break;
+              case 'IE':
+                userRegion = 'IE';
+                break;
+              default:
+                userRegion = 'GLOBAL';
+            }
+          }
+        } catch (error) {
+          console.log('Geolocation detection failed, using global content');
+          userRegion = 'GLOBAL';
+        }
+        
+        // Store detected region
+        window.userRegion = userRegion;
+        window.currentGeoContent = window.geoContent[userRegion];
+        
+        // Apply content changes after DOM loads
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => applyGeoContent(userRegion));
+        } else {
+          applyGeoContent(userRegion);
+        }
+      }
+
+         // Apply region-specific content to the page
+         function applyGeoContent(region) {
+           const content = window.geoContent[region];
+           
+           // Update elements with geo-specific content
+           document.querySelectorAll('[data-geo-currency]').forEach(el => {
+             el.textContent = content.currency;
+           });
+           
+           document.querySelectorAll('[data-geo-tax]').forEach(el => {
+             el.textContent = content.tax;
+           });
+           
+           document.querySelectorAll('[data-geo-accent]').forEach(el => {
+             el.textContent = content.accent;
+           });
+           
+           document.querySelectorAll('[data-geo-phone]').forEach(el => {
+             el.textContent = content.phone;
+           });
+           
+           document.querySelectorAll('[data-geo-service-area]').forEach(el => {
+             el.textContent = content.serviceArea;
+           });
+           
+           document.querySelectorAll('[data-geo-clinic-count]').forEach(el => {
+             el.textContent = content.clinicCount;
+           });
+           
+           document.querySelectorAll('[data-geo-client-description]').forEach(el => {
+             el.textContent = content.clientDescription;
+           });
+           
+           document.querySelectorAll('[data-geo-pms-text]').forEach(el => {
+             el.textContent = content.pmsText;
+           });
+           
+           document.querySelectorAll('[data-geo-pms-description]').forEach(el => {
+             el.textContent = content.pmsDescription;
+           });
+           
+           document.querySelectorAll('[data-geo-cost-comparison]').forEach(el => {
+             el.textContent = content.costComparison;
+           });
+           
+           // Update lead cost elements
+           document.querySelectorAll('[data-geo-lead-cost]').forEach(el => {
+             el.textContent = content.leadCost;
+           });
+           
+           // Update revenue amount elements
+           document.querySelectorAll('[data-geo-revenue-amount]').forEach(el => {
+             el.textContent = content.revenueAmount;
+           });
+           
+           // Update average revenue per show-up elements
+           document.querySelectorAll('[data-geo-avg-revenue-showup]').forEach(el => {
+             el.textContent = content.avgRevenuePerShowup;
+           });
+           
+           // Update AI vs Human performance elements
+           document.querySelectorAll('[data-geo-ai-vs-human]').forEach(el => {
+             el.textContent = content.aiVsHumanAmount;
+           });
+           
+           // Update hero headline amount elements
+           document.querySelectorAll('[data-geo-hero-amount]').forEach(el => {
+             el.textContent = content.heroAmount;
+           });
+           
+           // Update trial price elements
+           document.querySelectorAll('[data-geo-trial-price]').forEach(el => {
+             el.textContent = content.trialPrice;
+           });
+           
+           // Update trial button text (full text replacement)
+           document.querySelectorAll('[data-geo-trial-button]').forEach(el => {
+             el.textContent = `Try for ${content.trialPrice} - 10 Days`;
+           });
+           
+           // Update pricing if elements exist
+           document.querySelectorAll('[data-geo-price-core]').forEach(el => {
+             if (region === 'AU') {
+               el.textContent = 'A$799';
+             } else if (region === 'UK') {
+               el.textContent = '£449';
+             } else if (region === 'IE') {
+               el.textContent = '€529';
+             } else {
+               el.textContent = '$599';
+             }
+           });
+           
+           document.querySelectorAll('[data-geo-price-scale]').forEach(el => {
+             if (region === 'AU') {
+               el.textContent = 'A$1,299';
+             } else if (region === 'UK') {
+               el.textContent = '£729';
+             } else if (region === 'IE') {
+               el.textContent = '€859';
+             } else {
+               el.textContent = '$999';
+             }
+           });
+           
+           // Update locations list
+           document.querySelectorAll('[data-geo-locations]').forEach(el => {
+             const locationItems = el.querySelectorAll('[data-geo-location-item]');
+             locationItems.forEach((item, index) => {
+               if (content.locations[index]) {
+                 item.textContent = content.locations[index];
+               }
+             });
+           });
+           
+           // Region indicator removed - geolocation works silently in background
+         }
+
+      // Initialize geolocation detection
+      detectAndSetGeoContent();
+    </script>
+    <!-- End Geolocation Detection -->
     
     <style>
       /* Lazy loading animation states */
