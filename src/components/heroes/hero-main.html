@@ -563,7 +563,9 @@
                   name: name,
                   phone: phone,
                   source: 'website_demo_request',
-                  timestamp: new Date().toISOString()
+                  timestamp: new Date().toISOString(),
+                  country: window.userRegion || 'GLOBAL',
+                  geoData: window.currentGeoContent || null
                 })
               });
               
