@@ -19,7 +19,17 @@
                 Complete Lead Generation + Voice AI System: From Meta Ads to PMS Bookings - We Generate, Qualify & Schedule Your Leads Automatically.
               </p>
     
-              <div class="flex flex-col gap-3 sm:flex-row mt-8 items-center justify-center px-4 sm:px-0">
+              <!-- Countdown Timer above both CTA buttons -->
+              <div class="text-center mt-6 mb-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/20 border border-red-400/30 text-red-200 text-sm animate-pulse">
+                  <span class="h-2 w-2 rounded-full bg-red-400 animate-ping"></span>
+                  <span class="font-medium">Limited Time:</span>
+                  <span id="countdown-timer" class="font-mono font-bold">--:--:--</span>
+                  <span class="text-xs">left</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3 sm:flex-row mt-4 items-center justify-center px-4 sm:px-0">
                 <a href="/calendar#calendar-section" class="button">
       <div class="points_wrapper">
         <i class="point"></i>
@@ -592,4 +602,62 @@
               loadingSpinner.classList.add('hidden');
             }
           });
+
+          // Countdown Timer Functionality
+          function initCountdownTimer() {
+            // Set countdown to exactly 6 days and 14 hours with random minutes/seconds
+            const days = 6;
+            const hours = 14;
+            const randomMinutes = Math.floor(Math.random() * 60); // 0-59 minutes
+            const randomSeconds = Math.floor(Math.random() * 60); // 0-59 seconds
+            const countdownDuration = (days * 24 * 60 * 60 * 1000) + (hours * 60 * 60 * 1000) + (randomMinutes * 60 * 1000) + (randomSeconds * 1000);
+            
+            // Check if we have a stored end time, if not create one
+            let endTime = localStorage.getItem('trialOfferEndTime');
+            if (!endTime) {
+              endTime = new Date().getTime() + countdownDuration;
+              localStorage.setItem('trialOfferEndTime', endTime);
+            } else {
+              endTime = parseInt(endTime);
+            }
+
+            function updateCountdown() {
+              const now = new Date().getTime();
+              const timeLeft = endTime - now;
+
+              if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                let formattedTime;
+                if (days > 0) {
+                  formattedTime = `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                } else {
+                  formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+
+                const timerElement = document.getElementById('countdown-timer');
+                if (timerElement) {
+                  timerElement.textContent = formattedTime;
+                }
+              } else {
+                // Timer expired, reset for another 6 days 14 hours with random minutes/seconds
+                const newRandomMinutes = Math.floor(Math.random() * 60);
+                const newRandomSeconds = Math.floor(Math.random() * 60);
+                const newCountdownDuration = (6 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000) + (newRandomMinutes * 60 * 1000) + (newRandomSeconds * 1000);
+                const newEndTime = new Date().getTime() + newCountdownDuration;
+                localStorage.setItem('trialOfferEndTime', newEndTime);
+                endTime = newEndTime;
+              }
+            }
+
+            // Update immediately and then every second
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+          }
+
+          // Initialize countdown when page loads
+          document.addEventListener('DOMContentLoaded', initCountdownTimer);
         </script>

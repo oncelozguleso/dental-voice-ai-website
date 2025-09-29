@@ -5,7 +5,18 @@
           <svg xmlns="http://www.w3.org/200/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lucide="credit-card" class="lucide lucide-credit-card h-4 w-4"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
           <span class="text-xs font-normal font-geist">Pricing</span>
         </div>
-        <h2 class="mt-4 text-[40px] sm:text-6xl lg:text-7xl leading-[0.95] font-geist font-medium tracking-tighter text-white">Choose Your Plan</h2>
+        
+        <!-- Countdown Timer -->
+        <div class="mt-4 mb-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/20 border border-red-400/30 text-red-200 text-sm animate-pulse">
+            <span class="h-2 w-2 rounded-full bg-red-400 animate-ping"></span>
+            <span class="font-medium">Limited Time:</span>
+            <span class="countdown-timer font-mono font-bold">--:--:--</span>
+            <span class="text-xs">left</span>
+          </div>
+        </div>
+        
+        <h2 class="mt-2 text-[40px] sm:text-6xl lg:text-7xl leading-[0.95] font-geist font-medium tracking-tighter text-white">Choose Your Plan</h2>
         <p class="mt-2 text-sm sm:text-base text-zinc-400 font-geist">Choose a plan that grows with your team and adapts to your workflow needs.</p>
       </div>
     
@@ -338,3 +349,60 @@
         <p class="text-xs text-zinc-600 font-geist italic">*$1 trial offer applies to multi-location clinics only.</p>
       </div>
     </section>
+
+    <script>
+      // Initialize countdown timers for pricing cards
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get the same end time from localStorage (set by main hero timer)
+        let endTime = localStorage.getItem('trialOfferEndTime');
+        if (!endTime) {
+          // If no end time exists, create one (6 days 14 hours with random minutes/seconds)
+          const days = 6;
+          const hours = 14;
+          const randomMinutes = Math.floor(Math.random() * 60);
+          const randomSeconds = Math.floor(Math.random() * 60);
+          const countdownDuration = (days * 24 * 60 * 60 * 1000) + (hours * 60 * 60 * 1000) + (randomMinutes * 60 * 1000) + (randomSeconds * 1000);
+          endTime = new Date().getTime() + countdownDuration;
+          localStorage.setItem('trialOfferEndTime', endTime);
+        } else {
+          endTime = parseInt(endTime);
+        }
+
+        function updatePricingCountdowns() {
+          const now = new Date().getTime();
+          const timeLeft = endTime - now;
+
+          if (timeLeft > 0) {
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            let formattedTime;
+            if (days > 0) {
+              formattedTime = `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            } else {
+              formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+
+            // Update all countdown timers in pricing cards
+            const timerElements = document.querySelectorAll('.countdown-timer');
+            timerElements.forEach(timer => {
+              timer.textContent = formattedTime;
+            });
+          } else {
+            // Timer expired, reset for another 6 days 14 hours with random minutes/seconds
+            const newRandomMinutes = Math.floor(Math.random() * 60);
+            const newRandomSeconds = Math.floor(Math.random() * 60);
+            const newCountdownDuration = (6 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000) + (newRandomMinutes * 60 * 1000) + (newRandomSeconds * 1000);
+            const newEndTime = new Date().getTime() + newCountdownDuration;
+            localStorage.setItem('trialOfferEndTime', newEndTime);
+            endTime = newEndTime;
+          }
+        }
+
+        // Update immediately and then every second
+        updatePricingCountdowns();
+        setInterval(updatePricingCountdowns, 1000);
+      });
+    </script>

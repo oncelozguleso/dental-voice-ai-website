@@ -9,6 +9,16 @@
               <!-- Calendar Embed Container -->
               <div class="relative z-10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl mx-auto max-w-5xl overflow-hidden" style="background: rgba(64, 64, 64, 0.85);">
                 <div class="p-8 pb-4">
+                  <!-- Countdown Timer -->
+                  <div class="text-center mb-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/20 border border-red-400/30 text-red-200 text-sm animate-pulse">
+                      <span class="h-2 w-2 rounded-full bg-red-400 animate-ping"></span>
+                      <span class="font-medium">Limited Time:</span>
+                      <span id="calendar-countdown-timer" class="font-mono font-bold">--:--:--</span>
+                      <span class="text-xs">left</span>
+                    </div>
+                  </div>
+                  
                   <h2 class="text-2xl sm:text-3xl font-semibold text-white mb-2">Start Your <span data-geo-trial-price>A$1</span> Trial - 10 Days</h2>
                   <p class="text-white/70 text-sm sm:text-base">Book a call to activate your Voice AI trial and see results in 10 days</p>
       </div>
@@ -43,6 +53,63 @@
     
                 </div>
         </section>
+
+        <script>
+          // Initialize countdown timer for calendar page
+          document.addEventListener('DOMContentLoaded', function() {
+            // Get the same end time from localStorage (set by main hero timer)
+            let endTime = localStorage.getItem('trialOfferEndTime');
+            if (!endTime) {
+              // If no end time exists, create one (6 days 14 hours with random minutes/seconds)
+              const days = 6;
+              const hours = 14;
+              const randomMinutes = Math.floor(Math.random() * 60);
+              const randomSeconds = Math.floor(Math.random() * 60);
+              const countdownDuration = (days * 24 * 60 * 60 * 1000) + (hours * 60 * 60 * 1000) + (randomMinutes * 60 * 1000) + (randomSeconds * 1000);
+              endTime = new Date().getTime() + countdownDuration;
+              localStorage.setItem('trialOfferEndTime', endTime);
+            } else {
+              endTime = parseInt(endTime);
+            }
+
+            function updateCalendarCountdown() {
+              const now = new Date().getTime();
+              const timeLeft = endTime - now;
+
+              if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                let formattedTime;
+                if (days > 0) {
+                  formattedTime = `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                } else {
+                  formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+
+                // Update calendar countdown timer
+                const timerElement = document.getElementById('calendar-countdown-timer');
+                if (timerElement) {
+                  timerElement.textContent = formattedTime;
+                }
+              } else {
+                // Timer expired, reset for another 6 days 14 hours with random minutes/seconds
+                const newRandomMinutes = Math.floor(Math.random() * 60);
+                const newRandomSeconds = Math.floor(Math.random() * 60);
+                const newCountdownDuration = (6 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000) + (newRandomMinutes * 60 * 1000) + (newRandomSeconds * 1000);
+                const newEndTime = new Date().getTime() + newCountdownDuration;
+                localStorage.setItem('trialOfferEndTime', newEndTime);
+                endTime = newEndTime;
+              }
+            }
+
+            // Update immediately and then every second
+            updateCalendarCountdown();
+            setInterval(updateCalendarCountdown, 1000);
+          });
+        </script>
         
         <!-- Spacing between blue background and next section -->
         <div class="h-16 sm:h-20 lg:h-24"></div>
