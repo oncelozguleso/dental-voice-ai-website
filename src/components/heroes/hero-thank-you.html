@@ -66,8 +66,15 @@
             function trackCallScheduled() {
               if (window.clarity && typeof window.clarity === 'function') {
                 console.log('Tracking Clarity event: CallScheduled');
+                console.log('Clarity function exists:', typeof window.clarity);
+                console.log('Clarity project ID:', window.clarity.q ? 'Found' : 'Not found');
                 window.clarity("event", "CallScheduled");
+                
+                // Also try a simple test event
+                window.clarity("event", "TestEvent");
+                console.log('Test event also sent');
               } else {
+                console.log('Clarity not ready, retrying...');
                 // Retry after 500ms if Clarity isn't ready
                 setTimeout(trackCallScheduled, 500);
               }
