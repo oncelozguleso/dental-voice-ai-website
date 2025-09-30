@@ -62,25 +62,44 @@
         <script>
           // Track "Call Scheduled" event when thank you page loads
           document.addEventListener('DOMContentLoaded', function() {
-            // Wait for Clarity to be fully loaded
+            let retryCount = 0;
+            const maxRetries = 20; // Try for up to 10 seconds
+            
             function trackCallScheduled() {
               if (window.clarity && typeof window.clarity === 'function') {
                 console.log('Tracking Clarity event: CallScheduled');
                 console.log('Clarity function exists:', typeof window.clarity);
-                console.log('Clarity project ID:', window.clarity.q ? 'Found' : 'Not found');
+                console.log('Clarity queue exists:', window.clarity.q ? 'Yes' : 'No');
+                console.log('Clarity fully loaded:', window.clarity.hasOwnProperty('v') ? 'Yes' : 'No');
+                
+                // Send the event (Clarity queues it if not fully loaded)
                 window.clarity("event", "CallScheduled");
                 
                 // Also try a simple test event
                 window.clarity("event", "TestEvent");
-                console.log('Test event also sent');
+                console.log('Events sent to Clarity (queued if not fully loaded)');
+                
+                // Also try the alternative syntax
+                setTimeout(() => {
+                  if (window.clarity) {
+                    window.clarity("set", "page_type", "thank_you");
+                    window.clarity("set", "conversion", "call_scheduled");
+                    console.log('Also sent custom tags as backup');
+                  }
+                }, 1000);
+                
               } else {
-                console.log('Clarity not ready, retrying...');
-                // Retry after 500ms if Clarity isn't ready
-                setTimeout(trackCallScheduled, 500);
+                retryCount++;
+                if (retryCount < maxRetries) {
+                  console.log(`Clarity not ready, retrying... (${retryCount}/${maxRetries})`);
+                  setTimeout(trackCallScheduled, 500);
+                } else {
+                  console.log('Clarity failed to load after maximum retries');
+                }
               }
             }
             
             // Start tracking after a short delay
-            setTimeout(trackCallScheduled, 1000);
+            setTimeout(trackCallScheduled, 2000);
           });
         </script>
