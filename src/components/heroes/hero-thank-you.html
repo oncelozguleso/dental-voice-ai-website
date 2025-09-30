@@ -79,14 +79,20 @@
                 window.clarity("event", "TestEvent");
                 console.log('Events sent to Clarity (queued if not fully loaded)');
                 
-                // Also try the alternative syntax
+                // Use Custom Tags (more reliable than events)
+                window.clarity("set", "page_type", "thank_you");
+                window.clarity("set", "conversion_type", "call_scheduled");
+                window.clarity("set", "user_action", "appointment_booked");
+                window.clarity("set", "funnel_stage", "conversion_complete");
+                console.log('Custom tags sent to Clarity');
+                
+                // Also try with a delay
                 setTimeout(() => {
                   if (window.clarity) {
-                    window.clarity("set", "page_type", "thank_you");
-                    window.clarity("set", "conversion", "call_scheduled");
-                    console.log('Also sent custom tags as backup');
+                    window.clarity("set", "delayed_test", "working");
+                    console.log('Delayed custom tag sent');
                   }
-                }, 1000);
+                }, 2000);
                 
               } else {
                 retryCount++;
