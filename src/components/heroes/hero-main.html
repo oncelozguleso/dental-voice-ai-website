@@ -584,6 +584,11 @@
                 successMessage.classList.remove('hidden');
                 document.getElementById('demoForm').reset();
                 
+                // Track Microsoft Clarity event
+                if (window.clarity) {
+                  window.clarity("event", "AI Demo Conversation Tried");
+                }
+                
                 // Auto close after 3 seconds
                 setTimeout(() => {
                   closeDemoModal();

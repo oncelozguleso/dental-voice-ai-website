@@ -178,6 +178,11 @@
                     newsletterSuccess.classList.remove('hidden');
                     newsletterForm.reset();
                     
+                    // Track Microsoft Clarity event
+                    if (window.clarity) {
+                      window.clarity("event", "Newsletter submission");
+                    }
+                    
                     // Track conversion (optional)
                     if (typeof gtag !== 'undefined') {
                       gtag('event', 'newsletter_signup', {

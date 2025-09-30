@@ -222,6 +222,11 @@
                               successMessage.classList.remove('hidden');
                               form.reset();
                               
+                              // Track Microsoft Clarity event
+                              if (window.clarity) {
+                                window.clarity("event", "Contact form submitted");
+                              }
+                              
                               // Track conversion (optional)
                               if (typeof gtag !== 'undefined') {
                                 gtag('event', 'form_submit', {

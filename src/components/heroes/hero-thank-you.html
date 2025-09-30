@@ -57,3 +57,13 @@
         
         <!-- Spacing between blue background and next section -->
         <div class="h-16 sm:h-20 lg:h-24"></div>
+
+        <!-- Microsoft Clarity Event Tracking -->
+        <script>
+          // Track "Call Scheduled" event when thank you page loads
+          document.addEventListener('DOMContentLoaded', function() {
+            if (window.clarity) {
+              window.clarity("event", "Call Scheduled");
+            }
+          });
+        </script>
