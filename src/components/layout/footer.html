@@ -179,8 +179,9 @@
                     newsletterForm.reset();
                     
                     // Track Microsoft Clarity event
-                    if (window.clarity) {
-                      window.clarity("event", "Newsletter submission");
+                    if (window.clarity && typeof window.clarity === 'function') {
+                      console.log('Tracking Clarity event: NewsletterSubmission');
+                      window.clarity("event", "NewsletterSubmission");
                     }
                     
                     // Track conversion (optional)

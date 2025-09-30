@@ -585,8 +585,9 @@
                 document.getElementById('demoForm').reset();
                 
                 // Track Microsoft Clarity event
-                if (window.clarity) {
-                  window.clarity("event", "AI Demo Conversation Tried");
+                if (window.clarity && typeof window.clarity === 'function') {
+                  console.log('Tracking Clarity event: AIDemoConversationTried');
+                  window.clarity("event", "AIDemoConversationTried");
                 }
                 
                 // Auto close after 3 seconds

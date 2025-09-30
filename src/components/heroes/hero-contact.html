@@ -223,8 +223,9 @@
                               form.reset();
                               
                               // Track Microsoft Clarity event
-                              if (window.clarity) {
-                                window.clarity("event", "Contact form submitted");
+                              if (window.clarity && typeof window.clarity === 'function') {
+                                console.log('Tracking Clarity event: ContactFormSubmitted');
+                                window.clarity("event", "ContactFormSubmitted");
                               }
                               
                               // Track conversion (optional)

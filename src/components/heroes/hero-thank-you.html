@@ -62,8 +62,18 @@
         <script>
           // Track "Call Scheduled" event when thank you page loads
           document.addEventListener('DOMContentLoaded', function() {
-            if (window.clarity) {
-              window.clarity("event", "Call Scheduled");
+            // Wait for Clarity to be fully loaded
+            function trackCallScheduled() {
+              if (window.clarity && typeof window.clarity === 'function') {
+                console.log('Tracking Clarity event: CallScheduled');
+                window.clarity("event", "CallScheduled");
+              } else {
+                // Retry after 500ms if Clarity isn't ready
+                setTimeout(trackCallScheduled, 500);
+              }
             }
+            
+            // Start tracking after a short delay
+            setTimeout(trackCallScheduled, 1000);
           });
         </script>
