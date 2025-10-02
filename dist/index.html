@@ -158,7 +158,7 @@
             accent: 'British',
             phone: '+44',
             serviceArea: 'United Kingdom',
-            clinicCount: 'EXPANDING TO SERVE DENTAL PRACTICES WORLDWIDE',
+            clinicCount: 'dental practices across the UK',
             clientDescription: 'leading dental practices internationally',
             locations: ['Expanding Globally', 'New Markets', 'International Locations'],
             pmsText: 'every major PMS',
@@ -184,7 +184,7 @@
             accent: 'Irish',
             phone: '+353',
             serviceArea: 'Ireland',
-            clinicCount: 'EXPANDING TO SERVE DENTAL PRACTICES WORLDWIDE',
+            clinicCount: 'dental practices across Ireland',
             clientDescription: 'leading dental practices internationally',
             locations: ['Expanding Globally', 'New Markets', 'International Locations'],
             pmsText: 'every major PMS',
@@ -210,7 +210,7 @@
             accent: 'Professional',
             phone: '+1',
             serviceArea: 'Globally',
-            clinicCount: 'EXPANDING TO SERVE DENTAL PRACTICES WORLDWIDE',
+            clinicCount: 'dental practices worldwide',
             clientDescription: 'leading dental practices internationally',
             locations: ['Expanding Globally', 'New Markets', 'International Locations'],
             pmsText: 'every major PMS',
@@ -347,6 +347,11 @@
            // Update trial price elements
            document.querySelectorAll('[data-geo-trial-price]').forEach(el => {
              el.textContent = content.trialPrice;
+           });
+           
+           // Update service area (lowercase) elements
+           document.querySelectorAll('[data-geo-service-area-lower]').forEach(el => {
+             el.textContent = content.serviceArea.toLowerCase();
            });
            
            // Update trial button text (full text replacement)

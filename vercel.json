@@ -31,6 +31,10 @@
     {
       "source": "/book-a-call",
       "destination": "/book-a-call.html"
+    },
+    {
+      "source": "/x7k9m2p",
+      "destination": "/x7k9m2p.html"
     }
   ],
   "redirects": [
@@ -72,6 +76,11 @@
     {
       "source": "/book-a-call.html",
       "destination": "/book-a-call",
+      "permanent": true
+    },
+    {
+      "source": "/x7k9m2p.html",
+      "destination": "/x7k9m2p",
       "permanent": true
     }
   ]

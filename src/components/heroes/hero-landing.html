@@ -1,0 +1,772 @@
+<!-- UnicornStudio Background (Lazy Loaded) -->
+<div class="aura-background-component top-0 w-full h-[1400px] sm:h-[1300px] lg:h-[1400px] -z-10 absolute" data-unicorn-studio="x6cbPWi9roeeiZ8cuBu3"></div>
+
+<!-- Hero Section -->
+<section class="relative pt-8 pb-4 sm:pt-16 sm:pb-6">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+    
+    <!-- Header Logo -->
+    <div class="mb-8">
+      <img src="/assets/images/Patientdesklogo.svg" alt="Patientdesk.ai" class="h-8 mx-auto">
+    </div>
+
+    <!-- Attention Badge -->
+    <div class="inline-flex items-center px-4 py-2 rounded-full bg-purple-600/20 border border-purple-500/30 text-purple-200 text-sm font-medium mb-6">
+      ATTENTION DENTAL CLINIC OWNERS
+    </div>
+
+    <!-- Main Headline -->
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+      Your Front Desk Is Losing You <span data-geo-hero-amount class="text-yellow-400">$50,000</span>/Month In Missed Implants
+    </h1>
+
+    <!-- Subheading -->
+    <p class="text-lg sm:text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+      Turn Leads Into Booked Appointments with the Only AI That Calls, Closes, and Schedules Inside Your PMS.
+    </p>
+
+    <!-- VSL Video -->
+    <div class="relative mb-8 max-w-2xl mx-auto">
+      <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-900/50 backdrop-blur-xl border border-white/10">
+        <video 
+          poster="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68bf15ef68e75a99a772e059.png"
+          controls
+          class="w-full aspect-video"
+          preload="metadata">
+          <source src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68bf10bf394e52f6be94f039.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="mb-8">
+      <!-- Countdown Timer above both CTA buttons -->
+      <div class="text-center mb-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/20 border border-red-400/30 text-red-200 text-sm animate-pulse">
+          <span class="h-2 w-2 rounded-full bg-red-400 animate-ping"></span>
+          <span class="font-medium">Limited Time:</span>
+          <span class="countdown-timer font-mono font-bold">--:--:--</span>
+          <span class="text-xs">left</span>
+        </div>
+      </div>
+
+      <!-- Two CTA buttons side by side -->
+      <div class="flex flex-col gap-3 sm:flex-row items-center justify-center">
+        <a href="/book-a-call" class="button">
+          <div class="points_wrapper">
+            <i class="point"></i>
+            <i class="point"></i>
+            <i class="point"></i>
+            <i class="point"></i>
+            <i class="point"></i>
+            <i class="point"></i>
+            <i class="point"></i>
+            <i class="point"></i>
+            <i class="point"></i>
+            <i class="point"></i>
+          </div>
+          <span class="inner">
+            Try for <span data-geo-trial-price>$1</span> - 10 Days
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+              <path d="M5 12h14" class=""></path>
+              <path d="m12 5 7 7-7 7" class=""></path>
+            </svg>
+          </span>
+        </a>
+        
+        <button onclick="openDemoModal()" class="group relative overflow-hidden cursor-pointer leading-none hover:shadow-2xl transition-all duration-300 text-white bg-white/10 border-white/10 border rounded-full shadow-sm backdrop-blur w-full sm:w-auto inline-flex items-center justify-center" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 16px 32px; min-height: 56px; min-width: 160px;">
+          <span class="absolute inset-0 z-0 -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out bg-white/5"></span>
+          
+          <div class="flex relative overflow-hidden font-semibold items-center justify-center" style="gap: 8px;">
+              <div class="flex items-center justify-center z-10">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                      <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" class=""></path>
+                  </svg>
+              </div>
+              <span class="inline-block transition-colors duration-300 relative z-10 group-hover:text-white font-semibold text-white" style="font-size: 16px;">
+                  Talk to AI Receptionist
+              </span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Demo Modal -->
+    <div id="demoModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+      <div class="relative overflow-hidden bg-neutral-900/70 border-neutral-700 border rounded-2xl shadow-xl backdrop-blur-xl max-w-md w-full mx-auto transform transition-all duration-300 scale-95 opacity-0" id="demoModalContent" style="background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(64, 64, 64, 0.35);">
+        <div class="p-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
+            <h3 class="text-xl font-semibold tracking-tight text-white">Talk to AI Receptionist</h3>
+            <span class="inline-flex items-center gap-2 text-[10px] sm:text-xs text-neutral-300 bg-white/5 border border-white/10 rounded-full px-2.5 py-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+              15 sec response
+            </span>
+          </div>
+          
+          <!-- Close Button -->
+          <button onclick="closeDemoModal()" class="absolute top-4 right-4 text-white/60 hover:text-white transition-colors">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6L6 18M6 6l12 12"></path>
+            </svg>
+          </button>
+          
+          <form id="demoForm" class="space-y-4">
+            <!-- Name Field -->
+            <div>
+              <label for="demoName" class="block text-sm font-medium text-neutral-200 mb-1.5">Name *</label>
+              <input 
+                type="text" 
+                id="demoName" 
+                name="name" 
+                required
+                placeholder="e.g. John Smith"
+                class="w-full px-3 py-2.5 bg-neutral-800/60 border border-white/10 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+              >
+            </div>
+
+            <!-- Phone Field -->
+            <div>
+              <label for="demoPhone" class="block text-sm font-medium text-neutral-200 mb-1.5">Phone number (include country code) *</label>
+              <input 
+                type="tel" 
+                id="demoPhone" 
+                name="phone" 
+                required
+                placeholder="e.g. +61 412 345 678"
+                class="w-full px-3 py-2.5 bg-neutral-800/60 border border-white/10 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+              >
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              id="demoSubmitBtn"
+              class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-slate-900 text-sm font-medium rounded-full transition-all duration-200 hover:scale-[1.02] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            >
+              <span id="demoSubmitText">Call Me Now</span>
+              <svg id="demoSubmitIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+              <!-- Loading Spinner (Hidden by default) -->
+              <svg id="demoLoadingSpinner" class="hidden animate-spin" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 11-6.219-8.56"/>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Success Message -->
+          <div id="demoSuccess" class="hidden bg-green-500/20 border border-green-500/30 rounded-lg p-3 mt-4">
+            <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              <div>
+                <p class="text-green-300 font-medium text-sm">Demo requested successfully!</p>
+                <p class="text-green-400/80 text-xs">We'll call you within 15 seconds.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          <div id="demoError" class="hidden bg-red-500/20 border border-red-500/30 rounded-lg p-3 mt-4">
+            <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-400">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" x2="9" y1="9" y2="15"></line>
+                <line x1="9" x2="15" y1="9" y2="15"></line>
+              </svg>
+              <div>
+                <p class="text-red-300 font-medium text-sm">Failed to request demo</p>
+                <p class="text-red-400/80 text-xs">Please try again or contact us directly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Partner logos -->
+    <div class="mt-14">
+      <div class="mt-6 pt-6 pr-6 pb-6 pl-6">
+        <div class="text-center">
+          <p class="uppercase text-xs font-medium text-black/60 tracking-wide drop-shadow-sm">Powering <span data-geo-clinic-count>dental practices worldwide</span></p>
+        </div>
+        
+        <!-- Infinite scrolling logo carousel -->
+        <div class="mt-8 overflow-hidden">
+          <div class="logo-carousel flex items-center gap-8 sm:gap-12">
+            <!-- First set of logos -->
+            <div class="flex items-center gap-8 sm:gap-12 flex-shrink-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae382a664cb39f5.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f1494bce0b750959b170.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149e5b5d8c7899b108c.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149ccedb2a38414d139.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149657c0d60cc85aecd.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae3821acfcb39ee.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe05855d95e6a8183ee5e.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe0582a25a17a335d1ad6.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe058619e1a4ec43b5e9d.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe0584a377482278fa6f4.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68d3d04252038735904aea73.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+            </div>
+            
+            <!-- Duplicate set for seamless loop -->
+            <div class="flex items-center gap-8 sm:gap-12 flex-shrink-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae382a664cb39f5.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f1494bce0b750959b170.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149e5b5d8c7899b108c.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149ccedb2a38414d139.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f149657c0d60cc85aecd.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68c5f14a0ae3821acfcb39ee.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe05855d95e6a8183ee5e.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe0582a25a17a335d1ad6.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe058619e1a4ec43b5e9d.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68cbe0584a377482278fa6f4.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+              <img src="https://storage.googleapis.com/msgsndr/gY3OLBcxMMuSg4TsW3bO/media/68d3d04252038735904aea73.png" alt="Partner logo" class="h-16 sm:h-16 lg:h-20 w-auto filter brightness-0">
+            </div>
+          </div>
+        </div>
+        
+        <!-- CSS Animation -->
+        <style>
+          @keyframes scroll-left {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+          
+          .logo-carousel {
+            animation: scroll-left 40s linear infinite;
+            width: max-content;
+          }
+          
+          .logo-carousel:hover {
+            animation-play-state: paused;
+          }
+          
+          /* Mobile-specific animation */
+          @media screen and (max-width: 640px) {
+            .logo-carousel {
+              animation: scroll-left 35s linear infinite !important;
+            }
+            
+            .logo-carousel > div {
+              min-width: max-content;
+            }
+          }
+          
+          @media screen and (max-width: 480px) {
+            .logo-carousel {
+              animation: scroll-left 35s linear infinite !important;
+            }
+          }
+        </style>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// Initialize countdown timer for landing page hero
+document.addEventListener('DOMContentLoaded', function() {
+  // Set countdown to October 9th, 2025 at 11:59 PM
+  const targetDate = new Date('2025-10-09T23:59:59').getTime();
+
+  function updateLandingHeroCountdown() {
+    const now = new Date().getTime();
+    const timeLeft = targetDate - now;
+
+    if (timeLeft > 0) {
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      let formattedTime;
+      if (days > 0) {
+        formattedTime = `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      } else {
+        formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      }
+
+      // Update countdown timer in hero
+      const timerElement = document.querySelector('.countdown-timer');
+      if (timerElement) {
+        timerElement.textContent = formattedTime;
+      }
+    } else {
+      // Timer expired, show "EXPIRED"
+      const timerElement = document.querySelector('.countdown-timer');
+      if (timerElement) {
+        timerElement.textContent = 'EXPIRED';
+      }
+    }
+  }
+
+  // Update immediately and then every second
+  updateLandingHeroCountdown();
+  setInterval(updateLandingHeroCountdown, 1000);
+});
+
+function openDemoModal() {
+  const modal = document.getElementById('demoModal');
+  const content = document.getElementById('demoModalContent');
+  
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+  
+  // Animate in
+  setTimeout(() => {
+    content.classList.remove('scale-95', 'opacity-0');
+    content.classList.add('scale-100', 'opacity-100');
+  }, 10);
+}
+
+function closeDemoModal() {
+  const modal = document.getElementById('demoModal');
+  const content = document.getElementById('demoModalContent');
+  
+  // Animate out
+  content.classList.remove('scale-100', 'opacity-100');
+  content.classList.add('scale-95', 'opacity-0');
+  
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    
+    // Reset form
+    document.getElementById('demoForm').reset();
+    document.getElementById('demoForm').classList.remove('hidden');
+    document.getElementById('demoSuccess').classList.add('hidden');
+    document.getElementById('demoError').classList.add('hidden');
+    document.getElementById('demoSubmitBtn').disabled = false;
+    document.getElementById('demoSubmitText').textContent = 'Call Me Now';
+    document.getElementById('demoSubmitIcon').classList.remove('hidden');
+    document.getElementById('demoLoadingSpinner').classList.add('hidden');
+  }, 300);
+}
+
+// Close modal when clicking outside
+document.getElementById('demoModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeDemoModal();
+  }
+});
+
+// Handle form submission
+document.getElementById('demoForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const submitBtn = document.getElementById('demoSubmitBtn');
+  const submitText = document.getElementById('demoSubmitText');
+  const submitIcon = document.getElementById('demoSubmitIcon');
+  const loadingSpinner = document.getElementById('demoLoadingSpinner');
+  const successMessage = document.getElementById('demoSuccess');
+  const errorMessage = document.getElementById('demoError');
+  const name = document.getElementById('demoName').value;
+  const phone = document.getElementById('demoPhone').value;
+  
+  // Hide previous messages
+  successMessage.classList.add('hidden');
+  errorMessage.classList.add('hidden');
+  
+  // Show loading state
+  submitBtn.disabled = true;
+  submitText.textContent = 'Requesting...';
+  submitIcon.classList.add('hidden');
+  loadingSpinner.classList.remove('hidden');
+  
+  try {
+    const response = await fetch('https://esoautomations.app.n8n.cloud/webhook/4e69a9a7-8250-4ea2-8af9-7d19d3ada117', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        phone: phone,
+        source: 'website_demo_request',
+        timestamp: new Date().toISOString(),
+        country: window.userRegion || 'GLOBAL',
+        geoData: window.currentGeoContent || null
+      })
+    });
+    
+    if (response.ok) {
+      // Show success message
+      successMessage.classList.remove('hidden');
+      document.getElementById('demoForm').reset();
+      
+      // Track Microsoft Clarity event
+      if (window.clarity && typeof window.clarity === 'function') {
+        console.log('Tracking Clarity event: AIDemoConversationTried');
+        window.clarity("event", "AIDemoConversationTried");
+      }
+      
+      // Auto close after 3 seconds
+      setTimeout(() => {
+        closeDemoModal();
+      }, 3000);
+    } else {
+      throw new Error('Network response was not ok');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    errorMessage.classList.remove('hidden');
+  } finally {
+    // Reset button state
+    submitBtn.disabled = false;
+    submitText.textContent = 'Call Me Now';
+    submitIcon.classList.remove('hidden');
+    loadingSpinner.classList.add('hidden');
+  }
+});
+</script>
+
+<!-- Key Benefits Bar -->
+<section class="relative py-3 bg-gray-900/80 backdrop-blur-xl border-y border-white/10">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-center">
+      
+      <!-- Benefit 1 -->
+      <div class="flex items-center gap-2 text-green-400">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"></path>
+        </svg>
+        <span class="text-sm font-medium text-white drop-shadow-sm">Calls new leads in under 15 seconds — 24/7</span>
+      </div>
+
+      <!-- Benefit 2 -->
+      <div class="flex items-center gap-2 text-green-400">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"></path>
+        </svg>
+        <span class="text-sm font-medium text-white drop-shadow-sm">Answers patient questions like a human</span>
+      </div>
+
+      <!-- Benefit 3 -->
+      <div class="flex items-center gap-2 text-green-400">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"></path>
+        </svg>
+        <span class="text-sm font-medium text-white drop-shadow-sm">Books directly into <strong data-geo-pms-text>every major PMS</strong> <span data-geo-service-area-lower>globally</span></span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Rolling Features Section -->
+<section class="relative py-4 overflow-hidden">
+  <div class="text-slider">
+    <div class="text-container">
+      <!-- First set of features -->
+      <div class="text-set">
+        <div class="text-item">
+          <span class="checkmark">📋</span>BOOKS INTO ANY PMS SYSTEM
+        </div>
+        <div class="text-item">
+          <span class="checkmark">📞</span>HANDLES INBOUND + OUTBOUND
+        </div>
+        <div class="text-item">
+          <span class="checkmark">⚡</span>CALLS NEW LEADS IN 10 SECONDS
+        </div>
+        <div class="text-item">
+          <span class="checkmark">🌙</span>WORKS 24/7 - NO STAFF NEEDED
+        </div>
+        <div class="text-item">
+          <span class="checkmark">🔗</span>INTEGRATES WITH YOUR CRM
+        </div>
+      </div>
+      
+      <!-- Duplicate set for seamless loop -->
+      <div class="text-set">
+        <div class="text-item">
+          <span class="checkmark">📋</span>BOOKS INTO ANY PMS SYSTEM
+        </div>
+        <div class="text-item">
+          <span class="checkmark">📞</span>HANDLES INBOUND + OUTBOUND
+        </div>
+        <div class="text-item">
+          <span class="checkmark">⚡</span>CALLS NEW LEADS IN 10 SECONDS
+        </div>
+        <div class="text-item">
+          <span class="checkmark">🌙</span>WORKS 24/7 - NO STAFF NEEDED
+        </div>
+        <div class="text-item">
+          <span class="checkmark">🔗</span>INTEGRATES WITH YOUR CRM
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .button {
+      cursor: pointer;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      background: radial-gradient(65.28% 65.28% at 50% 100%,
+          rgba(99, 102, 241, 0.6) 0%,
+          rgba(129, 140, 248, 0.3) 50%,
+          rgba(99, 102, 241, 0) 100%),
+        linear-gradient(135deg, #4338ca, #6366f1, #8b5cf6);
+      border-radius: 9999px;
+      border: none;
+      outline: none;
+      padding: 16px 32px;
+      min-height: 56px;
+      min-width: 160px;
+      width: 100%;
+      box-shadow: 0 8px 25px -8px rgba(99, 102, 241, 0.6),
+                  0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+    
+    @media (min-width: 640px) {
+      .button {
+        width: auto;
+      }
+    }
+
+    .button::before,
+    .button::after {
+      content: "";
+      position: absolute;
+      transition: all 0.5s ease-in-out;
+      z-index: 0;
+    }
+
+    .button::before {
+      inset: 1px;
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.2) 0%,
+          rgba(255, 255, 255, 0.05) 50%,
+          rgba(255, 255, 255, 0) 100%);
+      border-radius: 9999px;
+    }
+
+    .button::after {
+      inset: 2px;
+      background: linear-gradient(135deg,
+          rgba(99, 102, 241, 0.8) 0%,
+          rgba(129, 140, 248, 0.6) 50%,
+          rgba(139, 92, 246, 0.8) 100%);
+      border-radius: 9999px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .button:hover::after {
+      opacity: 1;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px -8px rgba(99, 102, 241, 0.8),
+                  0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .points_wrapper {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 9999px;
+    }
+
+    .point {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      opacity: 0;
+      animation: float 3s infinite ease-in-out;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+    }
+
+    .point:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .point:nth-child(2) { top: 80%; left: 20%; animation-delay: 0.5s; }
+    .point:nth-child(3) { top: 40%; left: 90%; animation-delay: 1s; }
+    .point:nth-child(4) { top: 70%; left: 80%; animation-delay: 1.5s; }
+    .point:nth-child(5) { top: 10%; left: 60%; animation-delay: 2s; }
+    .point:nth-child(6) { top: 90%; left: 50%; animation-delay: 2.5s; }
+    .point:nth-child(7) { top: 30%; left: 30%; animation-delay: 0.8s; }
+    .point:nth-child(8) { top: 60%; left: 70%; animation-delay: 1.3s; }
+    .point:nth-child(9) { top: 50%; left: 40%; animation-delay: 1.8s; }
+    .point:nth-child(10) { top: 25%; left: 75%; animation-delay: 2.3s; }
+
+    @keyframes float {
+      0%, 100% {
+        opacity: 0;
+        transform: translateY(0px) scale(0.8);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.2);
+      }
+    }
+
+    .button:hover .point {
+      animation-duration: 1.5s;
+    }
+
+    .inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      color: #ffffff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .inner svg.icon {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s ease;
+      stroke: #ffffff;
+      fill: none;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    }
+
+    .button:hover svg.icon {
+      transform: translateX(3px);
+    }
+
+    .button:hover svg.icon path {
+      animation: dash 0.8s linear forwards;
+    }
+
+    @keyframes dash {
+      0% {
+        stroke-dasharray: 0, 25;
+        stroke-dashoffset: 0;
+      }
+
+      50% {
+        stroke-dasharray: 12, 12;
+        stroke-dashoffset: -6;
+      }
+
+      100% {
+        stroke-dasharray: 25, 0;
+        stroke-dashoffset: -12;
+      }
+    }
+
+    .text-slider {
+        width: 100%;
+        overflow: visible;
+        background: transparent;
+        padding: 15px 0;
+        margin: 0;
+    }
+    
+    .text-container {
+        display: flex;
+        animation: slide 15s linear infinite;
+        width: calc(200% + 40px);
+        overflow: visible;
+    }
+    
+    .text-set {
+        display: flex;
+        min-width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        gap: 20px;
+        padding: 0 20px;
+    }
+    
+    .text-item {
+        flex: 0 0 auto;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        color: #1f2937;
+        white-space: nowrap;
+        padding: 12px 20px;
+        background: transparent;
+        border-radius: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+    }
+    
+    .text-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 1);
+    }
+    
+    .checkmark {
+        margin-right: 8px;
+        font-size: 16px;
+    }
+    
+    @keyframes slide {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+    
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+        .text-item {
+            font-size: 12px;
+            padding: 10px 16px;
+        }
+        
+        .text-set {
+            gap: 20px;
+            padding: 0 15px;
+        }
+        
+        .text-slider {
+            padding: 12px 0;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .text-item {
+            font-size: 11px;
+            padding: 8px 12px;
+        }
+        
+        .text-set {
+            gap: 15px;
+            padding: 0 10px;
+        }
+        
+        .text-slider {
+            padding: 10px 0;
+        }
+    }
+    
+    /* Pause animation on hover for better UX */
+    .text-container:hover {
+        animation-play-state: paused;
+    }
+  </style>
+</section>
+
