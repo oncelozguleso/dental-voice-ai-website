@@ -27,6 +27,10 @@
     {
       "source": "/contact",
       "destination": "/contact.html"
+    },
+    {
+      "source": "/book-a-call",
+      "destination": "/book-a-call.html"
     }
   ],
   "redirects": [
@@ -63,6 +67,11 @@
     {
       "source": "/thank-you.html",
       "destination": "/thank-you",
+      "permanent": true
+    },
+    {
+      "source": "/book-a-call.html",
+      "destination": "/book-a-call",
       "permanent": true
     }
   ]

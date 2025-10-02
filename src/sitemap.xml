@@ -1,33 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://esoautomations.com/</loc>
-    <lastmod>2025-09-22</lastmod>
+    <loc>https://patientdesk.ai/</loc>
+    <lastmod>2025-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://esoautomations.com/comparison</loc>
-    <lastmod>2025-09-22</lastmod>
+    <loc>https://patientdesk.ai/book-a-call</loc>
+    <lastmod>2025-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://patientdesk.ai/comparison</loc>
+    <lastmod>2025-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://esoautomations.com/scenarios</loc>
-    <lastmod>2025-09-22</lastmod>
+    <loc>https://patientdesk.ai/scenarios</loc>
+    <lastmod>2025-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://esoautomations.com/calendar</loc>
-    <lastmod>2025-09-22</lastmod>
+    <loc>https://patientdesk.ai/calendar</loc>
+    <lastmod>2025-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://patientdesk.ai/contact</loc>
+    <lastmod>2025-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://esoautomations.com/thank-you</loc>
-    <lastmod>2025-09-22</lastmod>
+    <loc>https://patientdesk.ai/thank-you</loc>
+    <lastmod>2025-10-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://patientdesk.ai/privacy-policy</loc>
+    <lastmod>2025-10-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://patientdesk.ai/terms-conditions</loc>
+    <lastmod>2025-10-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
   </url>
 </urlset>

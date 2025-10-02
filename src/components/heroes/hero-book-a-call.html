@@ -1,0 +1,117 @@
+<!-- UnicornStudio Background (Lazy Loaded) -->
+<div class="aura-background-component top-0 w-full h-[1350px] sm:h-[1250px] lg:h-[1350px] -z-10 absolute" data-unicorn-studio="x6cbPWi9roeeiZ8cuBu3"></div>
+
+        <!-- Hero -->
+        <section id="book-a-call-section" class="relative mb-8">
+    
+          <div class="max-w-7xl lg:px-8 mr-auto ml-auto px-1 sm:px-4 md:px-6">
+            <div class="mx-auto max-w-4xl text-center pt-10 sm:pt-14 px-4 sm:px-0">
+              <!-- Form Container -->
+              <div class="relative z-10 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl mx-auto max-w-5xl overflow-hidden" style="background: rgba(64, 64, 64, 0.85);">
+                <div class="p-8 pb-4">
+                  <!-- Countdown Timer -->
+                  <div class="text-center mb-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/20 border border-red-400/30 text-red-200 text-sm animate-pulse">
+                      <span class="h-2 w-2 rounded-full bg-red-400 animate-ping"></span>
+                      <span class="font-medium">Limited Time:</span>
+                      <span id="book-a-call-countdown-timer" class="font-mono font-bold">--:--:--</span>
+                      <span class="text-xs">left</span>
+                    </div>
+                  </div>
+                  
+                  <h2 class="text-2xl sm:text-3xl font-semibold text-white mb-2">Start Your <span data-geo-trial-price>A$1</span> Trial - 10 Days</h2>
+                  <p class="text-white/70 text-sm sm:text-base">Fill out the form below to get started with your Voice AI trial</p>
+      </div>
+    
+                <!-- Form iframe -->
+                <div class="overflow-hidden">
+                  <iframe
+                    src="https://api.leadconnectorhq.com/widget/form/foRx4VKcIzJw0HQ9e14d"
+                    style="width:100%;height:886px;border:none;border-radius:3px"
+                    id="inline-foRx4VKcIzJw0HQ9e14d" 
+                    data-layout="{'id':'INLINE'}"
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Vercel Website Calendar Form"
+                    data-height="886"
+                    data-layout-iframe-id="inline-foRx4VKcIzJw0HQ9e14d"
+                    data-form-id="foRx4VKcIzJw0HQ9e14d"
+                    title="Vercel Website Calendar Form">
+                  </iframe>
+                </div>
+      </div>
+    
+              <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+              
+              <!-- Custom CSS to remove iframe padding -->
+      <style>
+                #inline-foRx4VKcIzJw0HQ9e14d {
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  border: none !important;
+                  background: transparent !important;
+                }
+                
+                /* Try to target the iframe content */
+                iframe[id*="foRx4VKcIzJw0HQ9e14d"] {
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  border: none !important;
+                  display: block !important;
+        }
+      </style>
+              </div>
+    
+    
+                </div>
+        </section>
+
+        <script>
+          // Initialize countdown timer for book-a-call page
+          document.addEventListener('DOMContentLoaded', function() {
+            // Set countdown to October 9th, 2025 at 11:59 PM
+            const targetDate = new Date('2025-10-09T23:59:59').getTime();
+
+            function updateBookACallCountdown() {
+              const now = new Date().getTime();
+              const timeLeft = targetDate - now;
+
+              if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                let formattedTime;
+                if (days > 0) {
+                  formattedTime = `${days}d ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                } else {
+                  formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                }
+
+                // Update book-a-call countdown timer
+                const timerElement = document.getElementById('book-a-call-countdown-timer');
+                if (timerElement) {
+                  timerElement.textContent = formattedTime;
+                }
+              } else {
+                // Timer expired, show "EXPIRED"
+                const timerElement = document.getElementById('book-a-call-countdown-timer');
+                if (timerElement) {
+                  timerElement.textContent = 'EXPIRED';
+                }
+              }
+            }
+
+            // Update immediately and then every second
+            updateBookACallCountdown();
+            setInterval(updateBookACallCountdown, 1000);
+          });
+        </script>
+        
+        <!-- Spacing between blue background and next section -->
+        <div class="h-16 sm:h-20 lg:h-24"></div>
