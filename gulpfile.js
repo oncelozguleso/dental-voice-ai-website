@@ -32,7 +32,7 @@ gulp.task('assets', function() {
 
 // Copy root files (sitemap, robots.txt, favicon files, etc.)
 gulp.task('root-files', function() {
-  return gulp.src(['src/sitemap.xml', 'src/robots.txt', 'src/favicon.ico', 'src/favicon-*.png', 'src/apple-touch-icon.png'])
+  return gulp.src(['src/sitemap.xml', 'src/robots.txt', 'src/favicon.ico', 'src/favicon-*.png', 'src/apple-touch-icon.png', 'src/site.webmanifest'])
     .pipe(gulp.dest('dist/'));
 });
 
