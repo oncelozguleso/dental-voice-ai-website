@@ -611,25 +611,12 @@
 
           // Countdown Timer Functionality
           function initCountdownTimer() {
-            // Set countdown to exactly 6 days and 14 hours with random minutes/seconds
-            const days = 6;
-            const hours = 14;
-            const randomMinutes = Math.floor(Math.random() * 60); // 0-59 minutes
-            const randomSeconds = Math.floor(Math.random() * 60); // 0-59 seconds
-            const countdownDuration = (days * 24 * 60 * 60 * 1000) + (hours * 60 * 60 * 1000) + (randomMinutes * 60 * 1000) + (randomSeconds * 1000);
-            
-            // Check if we have a stored end time, if not create one
-            let endTime = localStorage.getItem('trialOfferEndTime');
-            if (!endTime) {
-              endTime = new Date().getTime() + countdownDuration;
-              localStorage.setItem('trialOfferEndTime', endTime);
-            } else {
-              endTime = parseInt(endTime);
-            }
+            // Set countdown to October 9th, 2025 at 11:59 PM
+            const targetDate = new Date('2025-10-09T23:59:59').getTime();
 
             function updateCountdown() {
               const now = new Date().getTime();
-              const timeLeft = endTime - now;
+              const timeLeft = targetDate - now;
 
               if (timeLeft > 0) {
                 const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
@@ -649,13 +636,11 @@
                   timerElement.textContent = formattedTime;
                 }
               } else {
-                // Timer expired, reset for another 6 days 14 hours with random minutes/seconds
-                const newRandomMinutes = Math.floor(Math.random() * 60);
-                const newRandomSeconds = Math.floor(Math.random() * 60);
-                const newCountdownDuration = (6 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000) + (newRandomMinutes * 60 * 1000) + (newRandomSeconds * 1000);
-                const newEndTime = new Date().getTime() + newCountdownDuration;
-                localStorage.setItem('trialOfferEndTime', newEndTime);
-                endTime = newEndTime;
+                // Timer expired, show "EXPIRED"
+                const timerElement = document.getElementById('countdown-timer');
+                if (timerElement) {
+                  timerElement.textContent = 'EXPIRED';
+                }
               }
             }
 
