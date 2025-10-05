@@ -114,11 +114,59 @@
                             }
                             
                             storeStickyContact(contactData);
+                            
+                            // Redirect to external calendar with parameters
+                            redirectToCalendarWithData(contactData);
                           }
                         }
                       }
                     }
                   });
+                  
+                  // Function to redirect to external calendar with contact data
+                  function redirectToCalendarWithData(contactData) {
+                    // Build URL parameters for GoHighLevel calendar
+                    const params = new URLSearchParams();
+                    
+                    // Add all the GHL parameter variations
+                    if (contactData.full_name) {
+                      params.set('full_name', contactData.full_name);
+                      params.set('name', contactData.full_name);
+                      params.set('contact_name', contactData.full_name);
+                    }
+                    if (contactData.first_name) {
+                      params.set('first_name', contactData.first_name);
+                      params.set('firstName', contactData.first_name);
+                      params.set('fname', contactData.first_name);
+                    }
+                    if (contactData.last_name) {
+                      params.set('last_name', contactData.last_name);
+                      params.set('lastName', contactData.last_name);
+                      params.set('lname', contactData.last_name);
+                    }
+                    if (contactData.email) {
+                      params.set('email', contactData.email);
+                      params.set('email_address', contactData.email);
+                      params.set('emailAddress', contactData.email);
+                    }
+                    if (contactData.phone) {
+                      params.set('phone', contactData.phone);
+                      params.set('phone_number', contactData.phone);
+                      params.set('phoneNumber', contactData.phone);
+                      params.set('mobile', contactData.phone);
+                    }
+                    
+                    // Build the complete URL
+                    const calendarUrl = 'https://api.leadconnectorhq.com/widget/booking/PcUyCv42lP91GzQuqkgU';
+                    const redirectUrl = `${calendarUrl}?${params.toString()}`;
+                    
+                    console.log('Redirecting to calendar with data:', redirectUrl);
+                    
+                    // Redirect after a short delay to ensure form submission completes
+                    setTimeout(() => {
+                      window.location.href = redirectUrl;
+                    }, 1000);
+                  }
                   
                   // Alternative: Monitor iframe for URL changes (form completion redirect)
                   const iframe = document.getElementById('inline-foRx4VKcIzJw0HQ9e14d');
