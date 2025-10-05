@@ -302,27 +302,46 @@
                   const phoneInput = document.querySelector("#phone");
                   let iti;
                   
-                  // Function to detect country from timezone
+                  // Function to detect country from timezone (expanded for global coverage)
                   function getCountryFromTimezone() {
                     try {
                       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
                       const timezoneToCountry = {
-                        'Australia/Sydney': 'au',
-                        'Australia/Melbourne': 'au',
-                        'Australia/Brisbane': 'au',
-                        'Australia/Perth': 'au',
-                        'Australia/Adelaide': 'au',
-                        'Pacific/Auckland': 'nz',
-                        'Europe/London': 'gb',
-                        'Europe/Dublin': 'ie',
-                        'America/New_York': 'us',
-                        'America/Los_Angeles': 'us',
-                        'America/Chicago': 'us',
-                        'America/Denver': 'us',
-                        'America/Toronto': 'ca',
-                        'America/Vancouver': 'ca',
-                        'Europe/Amsterdam': 'nl',
-                        'Asia/Dubai': 'ae'
+                        // Australia & New Zealand
+                        'Australia/Sydney': 'au', 'Australia/Melbourne': 'au', 'Australia/Brisbane': 'au',
+                        'Australia/Perth': 'au', 'Australia/Adelaide': 'au', 'Australia/Darwin': 'au',
+                        'Pacific/Auckland': 'nz', 'Pacific/Chatham': 'nz',
+                        
+                        // Europe
+                        'Europe/London': 'gb', 'Europe/Dublin': 'ie', 'Europe/Amsterdam': 'nl',
+                        'Europe/Berlin': 'de', 'Europe/Paris': 'fr', 'Europe/Madrid': 'es',
+                        'Europe/Rome': 'it', 'Europe/Vienna': 'at', 'Europe/Brussels': 'be',
+                        'Europe/Zurich': 'ch', 'Europe/Stockholm': 'se', 'Europe/Oslo': 'no',
+                        'Europe/Copenhagen': 'dk', 'Europe/Helsinki': 'fi', 'Europe/Warsaw': 'pl',
+                        'Europe/Prague': 'cz', 'Europe/Budapest': 'hu', 'Europe/Bucharest': 'ro',
+                        'Europe/Sofia': 'bg', 'Europe/Athens': 'gr', 'Europe/Lisbon': 'pt',
+                        
+                        // North America
+                        'America/New_York': 'us', 'America/Los_Angeles': 'us', 'America/Chicago': 'us',
+                        'America/Denver': 'us', 'America/Phoenix': 'us', 'America/Anchorage': 'us',
+                        'America/Toronto': 'ca', 'America/Vancouver': 'ca', 'America/Montreal': 'ca',
+                        'America/Mexico_City': 'mx', 'America/Tijuana': 'mx',
+                        
+                        // Middle East & Asia
+                        'Asia/Dubai': 'ae', 'Asia/Riyadh': 'sa', 'Asia/Kuwait': 'kw',
+                        'Asia/Qatar': 'qa', 'Asia/Bahrain': 'bh', 'Asia/Muscat': 'om',
+                        'Asia/Tokyo': 'jp', 'Asia/Seoul': 'kr', 'Asia/Shanghai': 'cn',
+                        'Asia/Hong_Kong': 'hk', 'Asia/Singapore': 'sg', 'Asia/Bangkok': 'th',
+                        'Asia/Manila': 'ph', 'Asia/Jakarta': 'id', 'Asia/Kuala_Lumpur': 'my',
+                        'Asia/Kolkata': 'in', 'Asia/Karachi': 'pk', 'Asia/Dhaka': 'bd',
+                        
+                        // South America
+                        'America/Sao_Paulo': 'br', 'America/Argentina/Buenos_Aires': 'ar',
+                        'America/Santiago': 'cl', 'America/Lima': 'pe', 'America/Bogota': 'co',
+                        
+                        // Africa
+                        'Africa/Cairo': 'eg', 'Africa/Lagos': 'ng', 'Africa/Johannesburg': 'za',
+                        'Africa/Nairobi': 'ke', 'Africa/Casablanca': 'ma'
                       };
                       return timezoneToCountry[timezone] || null;
                     } catch (e) {
@@ -361,37 +380,57 @@
                   console.log('Browser timezone:', Intl.DateTimeFormat().resolvedOptions().timeZone);
                   console.log('Timezone detected country:', getCountryFromTimezone());
 
-                  // Initialize intl-tel-input with auto country detection
+                  // Initialize intl-tel-input with universal auto country detection
                   iti = window.intlTelInput(phoneInput, {
                     initialCountry: "auto",
                     geoIpLookup: function(success, failure) {
-                      console.log('geoIpLookup called - initialCountry:', initialCountry);
+                      console.log('geoIpLookup called - userRegion:', userRegion, 'initialCountry:', initialCountry);
                       
-                      // First try our detected country
-                      if (initialCountry && initialCountry !== 'us') {
-                        console.log('Using detected country:', initialCountry);
-                        success(initialCountry);
-                        return;
+                      // Try multiple geolocation services for better accuracy
+                      const geoServices = [
+                        // Service 1: ipapi.co (most reliable)
+                        () => fetch('https://ipapi.co/json/').then(r => r.json()),
+                        // Service 2: ip-api.com (backup)
+                        () => fetch('http://ip-api.com/json/').then(r => r.json()),
+                        // Service 3: ipinfo.io (backup)
+                        () => fetch('https://ipinfo.io/json').then(r => r.json())
+                      ];
+                      
+                      async function tryGeoServices() {
+                        for (let i = 0; i < geoServices.length; i++) {
+                          try {
+                            console.log(`Trying geo service ${i + 1}...`);
+                            const data = await geoServices[i]();
+                            console.log(`Geo service ${i + 1} response:`, data);
+                            
+                            // Extract country code from different service formats
+                            let countryCode = null;
+                            if (data.country_code) countryCode = data.country_code; // ipapi.co
+                            else if (data.countryCode) countryCode = data.countryCode; // ip-api.com  
+                            else if (data.country) countryCode = data.country; // ipinfo.io
+                            
+                            if (countryCode) {
+                              const finalCountry = countryCode.toLowerCase();
+                              console.log(`Successfully detected country: ${finalCountry}`);
+                              success(finalCountry);
+                              return;
+                            }
+                          } catch (error) {
+                            console.log(`Geo service ${i + 1} failed:`, error);
+                            continue;
+                          }
+                        }
+                        
+                        // If all services fail, use our detected country or timezone fallback
+                        console.log('All geo services failed, using fallback');
+                        const fallbackCountry = initialCountry || 'us';
+                        console.log('Using fallback country:', fallbackCountry);
+                        success(fallbackCountry);
                       }
                       
-                      console.log('Falling back to IP geolocation...');
-                      // Fallback to IP geolocation service
-                      fetch('https://ipapi.co/json/')
-                        .then(response => response.json())
-                        .then(data => {
-                          console.log('IP geolocation response:', data);
-                          const countryCode = data.country_code ? data.country_code.toLowerCase() : initialCountry;
-                          console.log('Final country selected:', countryCode);
-                          success(countryCode);
-                        })
-                        .catch((error) => {
-                          console.log('IP geolocation failed:', error);
-                          console.log('Using fallback country:', initialCountry);
-                          // Final fallback to our detected country or US
-                          success(initialCountry);
-                        });
+                      tryGeoServices();
                     },
-                    preferredCountries: ['au', 'nz', 'gb', 'ie', 'us', 'ca', 'nl', 'ae'],
+                    preferredCountries: ['au', 'nz', 'gb', 'ie', 'us', 'ca', 'nl', 'ae', 'de', 'fr', 'es', 'it'],
                     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
                     autoPlaceholder: "aggressive",
                     separateDialCode: false,
