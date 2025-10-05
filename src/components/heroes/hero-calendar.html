@@ -31,6 +31,147 @@
     
               <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
               
+              <!-- Sticky Contacts: Pre-fill Calendar -->
+              <script>
+                // Sticky Contacts: Pre-fill calendar with stored contact data
+                document.addEventListener('DOMContentLoaded', function() {
+                  
+                  // Function to get stored contact data
+                  function getStickyContact() {
+                    try {
+                      const stored = localStorage.getItem('stickyContactData');
+                      if (stored) {
+                        const data = JSON.parse(stored);
+                        
+                        // Check if data is expired (older than 24 hours)
+                        const now = new Date().getTime();
+                        const storedTime = new Date(data.timestamp).getTime();
+                        const hoursDiff = (now - storedTime) / (1000 * 60 * 60);
+                        
+                        if (hoursDiff > 24) {
+                          console.log('Sticky contact data expired, removing...');
+                          localStorage.removeItem('stickyContactData');
+                          return null;
+                        }
+                        
+                        console.log('Retrieved sticky contact data:', data);
+                        return data;
+                      }
+                    } catch (e) {
+                      console.error('Error retrieving sticky contact data:', e);
+                    }
+                    return null;
+                  }
+                  
+                  // Function to clear stored contact data
+                  function clearStickyContact() {
+                    localStorage.removeItem('stickyContactData');
+                    console.log('Sticky contact data cleared');
+                  }
+                  
+                  // Pre-fill calendar iframe with contact data
+                  function prefillCalendar() {
+                    const contactData = getStickyContact();
+                    
+                    if (contactData) {
+                      const iframe = document.getElementById('PcUyCv42lP91GzQuqkgU_1757868011597');
+                      
+                      if (iframe) {
+                        // Build URL parameters for pre-filling
+                        const params = new URLSearchParams();
+                        
+                        // Add contact data as URL parameters
+                        if (contactData.full_name) params.set('full_name', contactData.full_name);
+                        if (contactData.first_name) params.set('first_name', contactData.first_name);
+                        if (contactData.last_name) params.set('last_name', contactData.last_name);
+                        if (contactData.email) params.set('email', contactData.email);
+                        if (contactData.phone) params.set('phone', contactData.phone);
+                        
+                        // Also try common variations
+                        if (contactData.full_name) {
+                          params.set('name', contactData.full_name);
+                          params.set('contact_name', contactData.full_name);
+                        }
+                        if (contactData.first_name) {
+                          params.set('firstName', contactData.first_name);
+                          params.set('fname', contactData.first_name);
+                        }
+                        if (contactData.last_name) {
+                          params.set('lastName', contactData.last_name);
+                          params.set('lname', contactData.last_name);
+                        }
+                        if (contactData.email) {
+                          params.set('email_address', contactData.email);
+                          params.set('emailAddress', contactData.email);
+                        }
+                        if (contactData.phone) {
+                          params.set('phone_number', contactData.phone);
+                          params.set('phoneNumber', contactData.phone);
+                          params.set('mobile', contactData.phone);
+                        }
+                        
+                        // Get the base URL and add parameters
+                        const baseUrl = 'https://api.leadconnectorhq.com/widget/booking/PcUyCv42lP91GzQuqkgU';
+                        const prefilledUrl = `${baseUrl}?${params.toString()}`;
+                        
+                        console.log('Pre-filling calendar with URL:', prefilledUrl);
+                        
+                        // Update iframe src with pre-filled data
+                        iframe.src = prefilledUrl;
+                        
+                        // Set up listener for booking completion
+                        window.addEventListener('message', function(event) {
+                          if (event.origin === 'https://api.leadconnectorhq.com' || 
+                              event.origin === 'https://link.msgsndr.com') {
+                            
+                            console.log('Received message from calendar:', event.data);
+                            
+                            // Check for booking completion
+                            if (event.data && typeof event.data === 'object') {
+                              if (event.data.type === 'booking_completed' || 
+                                  event.data.event === 'booking_completed' ||
+                                  event.data.action === 'booked' ||
+                                  (event.data.data && event.data.data.booked)) {
+                                
+                                console.log('Booking completed, clearing sticky contact data');
+                                clearStickyContact();
+                              }
+                            }
+                          }
+                        });
+                        
+                        // Alternative: Clear data after successful page navigation
+                        // (in case the booking redirects to a thank you page)
+                        setTimeout(function() {
+                          try {
+                            if (iframe.contentWindow && iframe.contentWindow.location.href.includes('thank')) {
+                              console.log('Thank you page detected, clearing sticky contact data');
+                              clearStickyContact();
+                            }
+                          } catch (e) {
+                            // Cross-origin restrictions, this is expected
+                          }
+                        }, 5000);
+                        
+                      } else {
+                        console.log('Calendar iframe not found');
+                      }
+                    } else {
+                      console.log('No sticky contact data found');
+                    }
+                  }
+                  
+                  // Wait a moment for iframe to be ready, then pre-fill
+                  setTimeout(prefillCalendar, 1000);
+                  
+                  // Also try pre-filling when iframe loads
+                  const iframe = document.getElementById('PcUyCv42lP91GzQuqkgU_1757868011597');
+                  if (iframe) {
+                    iframe.addEventListener('load', prefillCalendar);
+                  }
+                });
+              </script>
+              
               <!-- Custom CSS to remove iframe padding -->
       <style>
                 #PcUyCv42lP91GzQuqkgU_1757868011597 {

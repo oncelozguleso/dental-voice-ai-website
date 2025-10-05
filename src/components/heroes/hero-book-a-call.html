@@ -47,6 +47,118 @@
     
               <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
               
+              <!-- Sticky Contacts Implementation -->
+              <script>
+                // Sticky Contacts: Listen for form submissions in the iframe
+                document.addEventListener('DOMContentLoaded', function() {
+                  
+                  // Function to store contact data in localStorage
+                  function storeStickyContact(data) {
+                    const contactData = {
+                      ...data,
+                      timestamp: new Date().toISOString(),
+                      source: 'book_a_call_form'
+                    };
+                    localStorage.setItem('stickyContactData', JSON.stringify(contactData));
+                    console.log('Sticky contact data stored:', contactData);
+                  }
+                  
+                  // Listen for messages from the LeadConnector iframe
+                  window.addEventListener('message', function(event) {
+                    // Check if message is from LeadConnector
+                    if (event.origin === 'https://api.leadconnectorhq.com' || 
+                        event.origin === 'https://link.msgsndr.com') {
+                      
+                      console.log('Received message from LeadConnector:', event.data);
+                      
+                      // Check if it's a form submission event
+                      if (event.data && typeof event.data === 'object') {
+                        // Look for form submission indicators
+                        if (event.data.type === 'form_submitted' || 
+                            event.data.event === 'form_submitted' ||
+                            event.data.action === 'submit' ||
+                            (event.data.data && event.data.data.submitted)) {
+                          
+                          console.log('Form submission detected, extracting contact data...');
+                          
+                          // Extract contact data from the event
+                          let formData = event.data.data || event.data;
+                          
+                          // Try to extract standard field names
+                          const contactData = {};
+                          
+                          // Map various possible field names to our standard format
+                          const fieldMappings = {
+                            'full_name': ['full_name', 'fullName', 'name', 'contact_name'],
+                            'first_name': ['first_name', 'firstName', 'fname'],
+                            'last_name': ['last_name', 'lastName', 'lname'],
+                            'email': ['email', 'email_address', 'emailAddress'],
+                            'phone': ['phone', 'phone_number', 'phoneNumber', 'mobile']
+                          };
+                          
+                          // Extract data using field mappings
+                          for (const [standardField, possibleNames] of Object.entries(fieldMappings)) {
+                            for (const fieldName of possibleNames) {
+                              if (formData[fieldName]) {
+                                contactData[standardField] = formData[fieldName];
+                                break;
+                              }
+                            }
+                          }
+                          
+                          // If we have at least name or email, store the data
+                          if (contactData.full_name || contactData.first_name || contactData.email) {
+                            // Generate full_name if not present
+                            if (!contactData.full_name && (contactData.first_name || contactData.last_name)) {
+                              contactData.full_name = `${contactData.first_name || ''} ${contactData.last_name || ''}`.trim();
+                            }
+                            
+                            storeStickyContact(contactData);
+                          }
+                        }
+                      }
+                    }
+                  });
+                  
+                  // Alternative: Monitor iframe for URL changes (form completion redirect)
+                  const iframe = document.getElementById('inline-foRx4VKcIzJw0HQ9e14d');
+                  if (iframe) {
+                    // Check for form completion by monitoring iframe URL changes
+                    let lastUrl = iframe.src;
+                    
+                    setInterval(function() {
+                      try {
+                        if (iframe.contentWindow && iframe.contentWindow.location.href !== lastUrl) {
+                          lastUrl = iframe.contentWindow.location.href;
+                          
+                          // Check if URL indicates form completion
+                          if (lastUrl.includes('thank') || lastUrl.includes('success') || lastUrl.includes('complete')) {
+                            console.log('Form completion detected via URL change');
+                            
+                            // Try to extract data from URL parameters
+                            const urlParams = new URLSearchParams(lastUrl.split('?')[1] || '');
+                            const contactData = {};
+                            
+                            // Extract common parameters
+                            ['full_name', 'first_name', 'last_name', 'email', 'phone'].forEach(field => {
+                              if (urlParams.get(field)) {
+                                contactData[field] = urlParams.get(field);
+                              }
+                            });
+                            
+                            if (Object.keys(contactData).length > 0) {
+                              storeStickyContact(contactData);
+                            }
+                          }
+                        }
+                      } catch (e) {
+                        // Cross-origin restrictions prevent access, this is expected
+                      }
+                    }, 1000);
+                  }
+                });
+              </script>
+              
               <!-- Custom CSS to remove iframe padding -->
       <style>
                 #inline-foRx4VKcIzJw0HQ9e14d {

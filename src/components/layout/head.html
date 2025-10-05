@@ -121,6 +121,63 @@
     <!-- End Google Tag -->
     
     <!-- Geolocation Detection & Content Switching -->
+    <!-- Sticky Contacts Global Utilities -->
+    <script>
+      // Global sticky contacts utilities (available in console for debugging)
+      window.stickyContacts = {
+        // View stored contact data
+        view: function() {
+          const stored = localStorage.getItem('stickyContactData');
+          if (stored) {
+            const data = JSON.parse(stored);
+            console.log('Stored sticky contact data:', data);
+            return data;
+          } else {
+            console.log('No sticky contact data found');
+            return null;
+          }
+        },
+        
+        // Manually clear stored contact data
+        clear: function() {
+          localStorage.removeItem('stickyContactData');
+          console.log('Sticky contact data cleared');
+        },
+        
+        // Manually store test contact data
+        test: function(data = {}) {
+          const testData = {
+            full_name: data.full_name || 'John Doe',
+            first_name: data.first_name || 'John',
+            last_name: data.last_name || 'Doe',
+            email: data.email || 'john@example.com',
+            phone: data.phone || '+1234567890',
+            timestamp: new Date().toISOString(),
+            source: 'manual_test'
+          };
+          localStorage.setItem('stickyContactData', JSON.stringify(testData));
+          console.log('Test sticky contact data stored:', testData);
+          return testData;
+        },
+        
+        // Check if data is expired
+        isExpired: function() {
+          const stored = localStorage.getItem('stickyContactData');
+          if (!stored) return null;
+          
+          const data = JSON.parse(stored);
+          const now = new Date().getTime();
+          const storedTime = new Date(data.timestamp).getTime();
+          const hoursDiff = (now - storedTime) / (1000 * 60 * 60);
+          
+          return hoursDiff > 24;
+        }
+      };
+      
+      // Console helper message
+      console.log('Sticky Contacts utilities available: window.stickyContacts.view(), .clear(), .test(), .isExpired()');
+    </script>
+
     <script>
          // Global geo data structure
          window.geoContent = {
