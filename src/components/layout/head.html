@@ -259,6 +259,110 @@
             trialPrice: '€1',
             exchangeRate: 0.63
           },
+          NL: {
+            currency: '€',
+            currencyCode: 'EUR',
+            tax: 'BTW',
+            accent: 'Dutch',
+            phone: '+31',
+            serviceArea: 'Netherlands',
+            clinicCount: 'dental practices across the Netherlands',
+            clientDescription: 'leading dental practices internationally',
+            locations: ['Amsterdam', 'Rotterdam', 'The Hague'],
+            pmsText: 'every major PMS',
+            pmsDescription: 'Seamlessly integrates with all major practice management systems. No matter which PMS you use, appointments book directly into your existing workflow.',
+            costComparison: 'traditional staff',
+            leadCost: '€94',
+            leadCostNumeric: 94,
+            leadCostCurrency: 'EUR',
+            revenueAmount: '€7.77M',
+            revenueAmountNumeric: 7.77,
+            avgRevenuePerShowup: '€6.3K',
+            avgRevenuePerShowupNumeric: 6.3,
+            aiVsHumanAmount: '+€31K/mo',
+            aiVsHumanNumeric: 31,
+            heroAmount: '€50,000',
+            trialPrice: '€1',
+            exchangeRate: 0.63
+          },
+          US: {
+            currency: '$',
+            currencyCode: 'USD',
+            tax: 'Tax',
+            accent: 'American',
+            phone: '+1',
+            serviceArea: 'United States',
+            clinicCount: 'dental practices across the US',
+            clientDescription: 'leading dental practices internationally',
+            locations: ['New York', 'Los Angeles', 'Chicago'],
+            pmsText: 'every major PMS',
+            pmsDescription: 'Seamlessly integrates with all major practice management systems. No matter which PMS you use, appointments book directly into your existing workflow.',
+            costComparison: 'traditional staff',
+            leadCost: '$99',
+            leadCostNumeric: 99,
+            leadCostCurrency: 'USD',
+            revenueAmount: '$8.2M',
+            revenueAmountNumeric: 8.2,
+            avgRevenuePerShowup: '$6.6K',
+            avgRevenuePerShowupNumeric: 6.6,
+            aiVsHumanAmount: '+$33K/mo',
+            aiVsHumanNumeric: 33,
+            heroAmount: '$50,000',
+            trialPrice: '$1',
+            exchangeRate: 1.0
+          },
+          CA: {
+            currency: 'C$',
+            currencyCode: 'CAD',
+            tax: 'GST/HST',
+            accent: 'Canadian',
+            phone: '+1',
+            serviceArea: 'Canada',
+            clinicCount: 'dental practices across Canada',
+            clientDescription: 'leading dental practices internationally',
+            locations: ['Toronto', 'Vancouver', 'Montreal'],
+            pmsText: 'every major PMS',
+            pmsDescription: 'Seamlessly integrates with all major practice management systems. No matter which PMS you use, appointments book directly into your existing workflow.',
+            costComparison: 'traditional staff',
+            leadCost: 'C$129',
+            leadCostNumeric: 129,
+            leadCostCurrency: 'CAD',
+            revenueAmount: 'C$10.8M',
+            revenueAmountNumeric: 10.8,
+            avgRevenuePerShowup: 'C$8.7K',
+            avgRevenuePerShowupNumeric: 8.7,
+            aiVsHumanAmount: '+C$43K/mo',
+            aiVsHumanNumeric: 43,
+            heroAmount: 'C$50,000',
+            trialPrice: 'C$1',
+            exchangeRate: 1.32
+          },
+          AE: {
+            currency: 'AED',
+            currencyCode: 'AED',
+            tax: 'VAT',
+            accent: 'Professional',
+            phone: '+971',
+            serviceArea: 'UAE',
+            clinicCount: 'dental practices across the UAE',
+            clientDescription: 'leading dental practices internationally',
+            locations: ['Dubai', 'Abu Dhabi', 'Sharjah'],
+            pmsText: 'every major PMS',
+            pmsDescription: 'Seamlessly integrates with all major practice management systems. No matter which PMS you use, appointments book directly into your existing workflow.',
+            costComparison: 'traditional staff',
+            leadCost: 'AED 364',
+            leadCostNumeric: 364,
+            leadCostCurrency: 'AED',
+            revenueAmount: 'AED 30.1M',
+            revenueAmountNumeric: 30.1,
+            avgRevenuePerShowup: 'AED 24.2K',
+            avgRevenuePerShowupNumeric: 24.2,
+            aiVsHumanAmount: '+AED 121K/mo',
+            aiVsHumanNumeric: 121,
+            heroAmount: 'AED 50,000',
+            trialPrice: 'AED 1',
+            exchangeRate: 3.67
+          },
           GLOBAL: {
             currency: '$',
             currencyCode: 'USD',
@@ -308,6 +412,18 @@
                 break;
               case 'IE':
                 userRegion = 'IE';
+                break;
+              case 'NL':
+                userRegion = 'NL';
+                break;
+              case 'US':
+                userRegion = 'US';
+                break;
+              case 'CA':
+                userRegion = 'CA';
+                break;
+              case 'AE':
+                userRegion = 'AE';
                 break;
               default:
                 userRegion = 'GLOBAL';
