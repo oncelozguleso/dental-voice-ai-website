@@ -171,57 +171,11 @@
           const hoursDiff = (now - storedTime) / (1000 * 60 * 60);
           
           return hoursDiff > 24;
-        },
-        
-        // Redirect to external calendar with stored contact data
-        redirectToCalendar: function() {
-          const contactData = this.view();
-          if (!contactData) {
-            console.log('No contact data found, redirecting to calendar without pre-fill');
-            window.location.href = 'https://api.leadconnectorhq.com/widget/booking/PcUyCv42lP91GzQuqkgU';
-            return;
-          }
-          
-          // Build URL parameters
-          const params = new URLSearchParams();
-          
-          if (contactData.full_name) {
-            params.set('full_name', contactData.full_name);
-            params.set('name', contactData.full_name);
-            params.set('contact_name', contactData.full_name);
-          }
-          if (contactData.first_name) {
-            params.set('first_name', contactData.first_name);
-            params.set('firstName', contactData.first_name);
-            params.set('fname', contactData.first_name);
-          }
-          if (contactData.last_name) {
-            params.set('last_name', contactData.last_name);
-            params.set('lastName', contactData.last_name);
-            params.set('lname', contactData.last_name);
-          }
-          if (contactData.email) {
-            params.set('email', contactData.email);
-            params.set('email_address', contactData.email);
-            params.set('emailAddress', contactData.email);
-          }
-          if (contactData.phone) {
-            params.set('phone', contactData.phone);
-            params.set('phone_number', contactData.phone);
-            params.set('phoneNumber', contactData.phone);
-            params.set('mobile', contactData.phone);
-          }
-          
-          const calendarUrl = 'https://api.leadconnectorhq.com/widget/booking/PcUyCv42lP91GzQuqkgU';
-          const redirectUrl = `${calendarUrl}?${params.toString()}`;
-          
-          console.log('Redirecting to external calendar with contact data:', redirectUrl);
-          window.location.href = redirectUrl;
         }
       };
       
       // Console helper message
-      console.log('Sticky Contacts utilities available: window.stickyContacts.view(), .clear(), .test(), .isExpired(), .redirectToCalendar()');
+      console.log('Sticky Contacts utilities available: window.stickyContacts.view(), .clear(), .test(), .isExpired()');
     </script>
 
     <script>
