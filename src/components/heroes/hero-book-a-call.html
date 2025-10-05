@@ -476,7 +476,7 @@
                   setTimeout(applyPhoneInputStyling, 500);
 
                   // GHL Webhook URL
-                  const webhookUrl = 'https://services.leadconnectorhq.com/hooks/gY3OLBcxMMuSg4TsW3bO/webhook-trigger/ae2d0df8-14c3-4935-ba39-1b3cac218496';
+                  const webhookUrl = 'https://services.leadconnectorhq.com/hooks/gY3OLBcxMMuSg4TsW3bO/webhook-trigger/79248a88-1836-4270-a798-bda450d6d255';
 
                   // Function to format phone number based on user's location
                   function formatPhoneNumber() {
@@ -590,6 +590,12 @@
                     // Store sticky contact data
                     const stickyData = storeStickyContact(contactData);
 
+                    // Get location information
+                    const selectedCountryData = iti ? iti.getSelectedCountryData() : null;
+                    const userRegion = window.userRegion || 'GLOBAL';
+                    const currentGeoContent = window.currentGeoContent || window.geoContent['GLOBAL'];
+                    const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    
                     // Prepare payload for GHL webhook
                     const payload = {
                       firstName: contactData.firstName,
@@ -602,14 +608,32 @@
                       source: 'Website Booking Form',
                       tags: ['Website Lead', 'Booking Form', 'Demo Request'],
                       "what's_the_patient_management_system_you_use?": contactData.pmsSystem,
+                      // Location data
+                      country: selectedCountryData ? selectedCountryData.name : 'Unknown',
+                      countryCode: selectedCountryData ? selectedCountryData.iso2.toUpperCase() : 'US',
+                      region: userRegion,
+                      timezone: browserTimezone,
+                      currency: currentGeoContent.currency,
+                      serviceArea: currentGeoContent.serviceArea,
                       customFields: {
                         lead_source: 'Website Booking Form',
                         practice_name: contactData.practiceName,
                         pms_system: contactData.pmsSystem,
                         inquiry_type: 'Demo Booking',
-                        additional_info: contactData.additionalInfo
+                        additional_info: contactData.additionalInfo,
+                        // Location custom fields
+                        detected_country: selectedCountryData ? selectedCountryData.name : 'Unknown',
+                        country_code: selectedCountryData ? selectedCountryData.iso2.toUpperCase() : 'US',
+                        user_region: userRegion,
+                        browser_timezone: browserTimezone,
+                        detected_currency: currentGeoContent.currency,
+                        service_area: currentGeoContent.serviceArea,
+                        phone_country: selectedCountryData ? selectedCountryData.dialCode : '+1'
                       }
                     };
+
+                    // Log the payload for debugging
+                    console.log('Webhook payload with location data:', payload);
 
                     try {
                       // Send to GHL webhook
