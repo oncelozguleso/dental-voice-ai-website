@@ -1,5 +1,5 @@
 <!-- UnicornStudio Background (Lazy Loaded) -->
-<div class="aura-background-component top-0 w-full h-[1350px] sm:h-[1250px] lg:h-[1350px] -z-10 absolute" data-unicorn-studio="x6cbPWi9roeeiZ8cuBu3"></div>
+<div class="aura-background-component top-0 w-full h-[950px] sm:h-[900px] lg:h-[950px] -z-10 absolute" data-unicorn-studio="x6cbPWi9roeeiZ8cuBu3"></div>
 
         <!-- Hero -->
         <section id="book-a-call-section" class="relative mb-8">
@@ -23,159 +23,600 @@
                   <p class="text-white/70 text-sm sm:text-base">Fill out the form below to get started with your Voice AI trial</p>
       </div>
     
-                <!-- Form iframe -->
+                <!-- Custom Booking Form -->
                 <div class="overflow-hidden">
-                  <iframe
-                    src="https://api.leadconnectorhq.com/widget/form/foRx4VKcIzJw0HQ9e14d"
-                    style="width:100%;height:886px;border:none;border-radius:3px"
-                    id="inline-foRx4VKcIzJw0HQ9e14d" 
-                    data-layout="{'id':'INLINE'}"
-                    data-trigger-type="alwaysShow"
-                    data-trigger-value=""
-                    data-activation-type="alwaysActivated"
-                    data-activation-value=""
-                    data-deactivation-type="neverDeactivate"
-                    data-deactivation-value=""
-                    data-form-name="Vercel Website Calendar Form"
-                    data-height="886"
-                    data-layout-iframe-id="inline-foRx4VKcIzJw0HQ9e14d"
-                    data-form-id="foRx4VKcIzJw0HQ9e14d"
-                    title="Vercel Website Calendar Form">
-                  </iframe>
+                  <form id="customBookingForm" class="space-y-4 p-6">
+                    
+                    <!-- Name Fields Row -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <!-- First Name Field -->
+                      <div>
+                        <label for="firstName" class="block text-sm font-medium text-neutral-200 mb-1.5">First Name *</label>
+                        <input 
+                          type="text" 
+                          id="firstName" 
+                          name="firstName" 
+                          required
+                          placeholder="e.g. John"
+                          class="w-full px-3 py-2.5 bg-neutral-800/60 border border-white/10 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+                        >
+                      </div>
+
+                      <!-- Last Name Field -->
+                      <div>
+                        <label for="lastName" class="block text-sm font-medium text-neutral-200 mb-1.5">Last Name *</label>
+                        <input 
+                          type="text" 
+                          id="lastName" 
+                          name="lastName" 
+                          required
+                          placeholder="e.g. Smith"
+                          class="w-full px-3 py-2.5 bg-neutral-800/60 border border-white/10 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+                        >
+                      </div>
+                    </div>
+
+                    <!-- Contact Fields Row -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <!-- Email Field -->
+                      <div>
+                        <label for="email" class="block text-sm font-medium text-neutral-200 mb-1.5">Email Address *</label>
+                        <input 
+                          type="email" 
+                          id="email" 
+                          name="email" 
+                          required
+                          placeholder="e.g. john@example.com"
+                          class="w-full px-3 py-2.5 bg-neutral-800/60 border border-white/10 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+                        >
+                      </div>
+
+                      <!-- Phone Field -->
+                      <div>
+                        <label for="phone" class="block text-sm font-medium text-neutral-200 mb-1.5">Phone Number *</label>
+                        <input 
+                          type="tel" 
+                          id="phone" 
+                          name="phone" 
+                          required
+                          placeholder="629446620"
+                          class="w-full px-3 py-2.5 bg-neutral-800/60 border border-white/10 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+                        >
+                      </div>
+                    </div>
+
+                    <!-- Practice Name Field -->
+                    <div>
+                      <label for="practiceName" class="block text-sm font-medium text-neutral-200 mb-1.5">Practice/Company Name</label>
+                      <input 
+                        type="text" 
+                        id="practiceName" 
+                        name="practiceName" 
+                        placeholder="e.g. ABC Dental Practice"
+                        class="w-full px-3 py-2.5 bg-neutral-800/60 border border-white/10 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm"
+                      >
+                    </div>
+
+                    <!-- PMS Selection Field -->
+                    <div>
+                      <label for="pmsSystem" class="block text-sm font-medium text-neutral-200 mb-1.5">What's the Patient Management System you use? *</label>
+                      <div class="relative">
+                        <select 
+                          id="pmsSystem" 
+                          name="pmsSystem" 
+                          required
+                          class="w-full px-3 py-2.5 bg-neutral-800/60 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all text-sm appearance-none cursor-pointer pr-10"
+                          style="-webkit-appearance: none; -moz-appearance: none; appearance: none;"
+                        >
+                          <option value="" disabled selected class="text-neutral-400">Select your PMS system</option>
+                          <option value="Praktika">Praktika</option>
+                          <option value="Dental4windows / Dental4web">Dental4windows / Dental4web</option>
+                          <option value="Core Practice">Core Practice</option>
+                          <option value="Principle">Principle</option>
+                          <option value="Dentally">Dentally</option>
+                          <option value="Exact">Exact</option>
+                          <option value="OrthoTrac">OrthoTrac</option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <!-- Custom dropdown arrow -->
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                          <svg class="h-4 w-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Additional Information Field -->
+                    <div>
+                      <label for="additionalInfo" class="block text-sm font-medium text-neutral-200 mb-1.5">Additional Information</label>
+                      <textarea 
+                        id="additionalInfo" 
+                        name="additionalInfo" 
+                        rows="3"
+                        placeholder="Tell us about your practice and what you'd like to achieve"
+                        class="w-full px-3 py-2.5 bg-neutral-800/60 border border-white/10 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all resize-none text-sm"
+                      ></textarea>
+                    </div>
+
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="bookingSuccessMessage" class="hidden bg-green-500/20 border border-green-500/30 rounded-lg p-3">
+                      <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400">
+                          <path d="M20 6 9 17l-5-5"></path>
+                        </svg>
+                        <div>
+                          <p class="text-green-300 font-medium text-sm">Contact created successfully!</p>
+                          <p class="text-green-400/80 text-xs">Redirecting to calendar...</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Error Message (Hidden by default) -->
+                    <div id="bookingErrorMessage" class="hidden bg-red-500/20 border border-red-500/30 rounded-lg p-3">
+                      <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-400">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="15" x2="9" y1="9" y2="15"></line>
+                          <line x1="9" x2="15" y1="9" y2="15"></line>
+                        </svg>
+                        <div>
+                          <p class="text-red-300 font-medium text-sm">Failed to create contact</p>
+                          <p class="text-red-400/80 text-xs">Proceeding to calendar anyway...</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button 
+                      type="submit"
+                      id="bookingSubmitBtn"
+                      class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-white hover:bg-gray-100 text-slate-900 text-sm font-medium rounded-full transition-all duration-200 hover:scale-[1.02] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    >
+                      <span id="bookingSubmitText">🚀 Book My Demo Call</span>
+                      <svg id="bookingSubmitIcon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                      </svg>
+                      <!-- Loading Spinner (Hidden by default) -->
+                      <svg id="bookingLoadingSpinner" class="hidden animate-spin" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12a9 9 0 11-6.219-8.56"/>
+                      </svg>
+                    </button>
+
+                  </form>
                 </div>
       </div>
     
-              <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+              <!-- International Phone Input CSS -->
+              <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
               
-              <!-- Sticky Contacts Implementation -->
+              <!-- Custom styles for intl-tel-input dark theme -->
+              <style>
+                .iti {
+                  width: 100% !important;
+                }
+                
+                .iti__flag-container {
+                  background-color: transparent !important;
+                  border: none !important;
+                  border-radius: 0 !important;
+                  overflow: visible !important;
+                }
+                
+                .iti__flag-container .iti__selected-flag {
+                  background-color: transparent !important;
+                  border: none !important;
+                  border-radius: 0 !important;
+                }
+                
+                .iti__selected-flag {
+                  background-color: transparent !important;
+                  padding: 0 8px 0 12px !important;
+                }
+                
+                .iti__arrow {
+                  border-top-color: rgba(255, 255, 255, 0.7) !important;
+                }
+                
+                .iti__country-list {
+                  background-color: rgba(64, 64, 64, 0.95) !important;
+                  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                  border-radius: 0.5rem !important;
+                  backdrop-filter: blur(10px) !important;
+                  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+                }
+                
+                .iti__country {
+                  color: white !important;
+                  padding: 8px 12px !important;
+                }
+                
+                .iti__country:hover {
+                  background-color: rgba(99, 102, 241, 0.2) !important;
+                }
+                
+                .iti__country.iti__highlight {
+                  background-color: rgba(99, 102, 241, 0.3) !important;
+                }
+                
+                .iti__search-input {
+                  background-color: rgba(64, 64, 64, 0.8) !important;
+                  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                  color: white !important;
+                  border-radius: 0.375rem !important;
+                  margin: 8px !important;
+                  width: calc(100% - 16px) !important;
+                }
+                
+                .iti__search-input::placeholder {
+                  color: rgba(255, 255, 255, 0.5) !important;
+                }
+                
+                .iti input[type="tel"] {
+                  padding-left: 52px !important;
+                  border-radius: 0.5rem !important;
+                }
+                
+                /* Safari-specific select styling fixes */
+                select {
+                  -webkit-appearance: none !important;
+                  -moz-appearance: none !important;
+                  appearance: none !important;
+                  background-image: none !important;
+                }
+                
+                /* Ensure consistent option styling across browsers */
+                select option {
+                  background-color: rgba(64, 64, 64, 0.95) !important;
+                  color: white !important;
+                  padding: 8px 12px !important;
+                }
+                
+                select option:checked {
+                  background-color: rgba(99, 102, 241, 0.3) !important;
+                }
+                
+                /* Safari focus state fix */
+                select:focus {
+                  outline: none !important;
+                  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.5) !important;
+                }
+              </style>
+              
+              <!-- International Phone Input JS -->
+              <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+              
+              <!-- Custom Form Handler -->
               <script>
-                // Sticky Contacts: Listen for form submissions in the iframe
                 document.addEventListener('DOMContentLoaded', function() {
+                  const form = document.getElementById('customBookingForm');
+                  const submitBtn = document.getElementById('bookingSubmitBtn');
+                  const submitText = document.getElementById('bookingSubmitText');
+                  const submitIcon = document.getElementById('bookingSubmitIcon');
+                  const loadingSpinner = document.getElementById('bookingLoadingSpinner');
+                  const successMessage = document.getElementById('bookingSuccessMessage');
+                  const errorMessage = document.getElementById('bookingErrorMessage');
+
+                  // Initialize International Phone Input
+                  const phoneInput = document.querySelector("#phone");
+                  let iti;
                   
-                  // Function to store contact data in localStorage
-                  function storeStickyContact(data) {
-                    const contactData = {
-                      ...data,
-                      timestamp: new Date().toISOString(),
-                      source: 'book_a_call_form'
-                    };
-                    localStorage.setItem('stickyContactData', JSON.stringify(contactData));
-                    console.log('Sticky contact data stored:', contactData);
+                  // Function to detect country from timezone
+                  function getCountryFromTimezone() {
+                    try {
+                      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                      const timezoneToCountry = {
+                        'Australia/Sydney': 'au',
+                        'Australia/Melbourne': 'au',
+                        'Australia/Brisbane': 'au',
+                        'Australia/Perth': 'au',
+                        'Australia/Adelaide': 'au',
+                        'Pacific/Auckland': 'nz',
+                        'Europe/London': 'gb',
+                        'Europe/Dublin': 'ie',
+                        'America/New_York': 'us',
+                        'America/Los_Angeles': 'us',
+                        'America/Chicago': 'us',
+                        'America/Denver': 'us',
+                        'America/Toronto': 'ca',
+                        'America/Vancouver': 'ca',
+                        'Europe/Amsterdam': 'nl',
+                        'Asia/Dubai': 'ae'
+                      };
+                      return timezoneToCountry[timezone] || null;
+                    } catch (e) {
+                      return null;
+                    }
                   }
                   
-                  // Listen for messages from the LeadConnector iframe
-                  window.addEventListener('message', function(event) {
-                    // Check if message is from LeadConnector
-                    if (event.origin === 'https://api.leadconnectorhq.com' || 
-                        event.origin === 'https://link.msgsndr.com') {
+                  // Determine initial country based on multiple sources
+                  let initialCountry = 'us'; // default
+                  
+                  // Try user region first
+                  const userRegion = window.userRegion;
+                  if (userRegion) {
+                    const regionToCountry = {
+                      'AU': 'au',
+                      'NZ': 'nz', 
+                      'UK': 'gb',
+                      'IE': 'ie',
+                      'US': 'us',
+                      'CA': 'ca',
+                      'NL': 'nl',
+                      'AE': 'ae'
+                    };
+                    if (regionToCountry[userRegion]) {
+                      initialCountry = regionToCountry[userRegion];
+                    }
+                  } else {
+                    // Fallback to timezone detection
+                    const timezoneCountry = getCountryFromTimezone();
+                    if (timezoneCountry) {
+                      initialCountry = timezoneCountry;
+                    }
+                  }
+
+                  console.log('Phone input initializing with country:', initialCountry, 'from userRegion:', userRegion);
+                  console.log('Browser timezone:', Intl.DateTimeFormat().resolvedOptions().timeZone);
+                  console.log('Timezone detected country:', getCountryFromTimezone());
+
+                  // Initialize intl-tel-input with auto country detection
+                  iti = window.intlTelInput(phoneInput, {
+                    initialCountry: "auto",
+                    geoIpLookup: function(success, failure) {
+                      console.log('geoIpLookup called - initialCountry:', initialCountry);
                       
-                      console.log('Received message from LeadConnector:', event.data);
-                      
-                      // Check if it's a form submission event
-                      if (event.data && typeof event.data === 'object') {
-                        // Look for form submission indicators
-                        if (event.data.type === 'form_submitted' || 
-                            event.data.event === 'form_submitted' ||
-                            event.data.action === 'submit' ||
-                            (event.data.data && event.data.data.submitted)) {
-                          
-                          console.log('Form submission detected, extracting contact data...');
-                          
-                          // Extract contact data from the event
-                          let formData = event.data.data || event.data;
-                          
-                          // Try to extract standard field names
-                          const contactData = {};
-                          
-                          // Map various possible field names to our standard format
-                          const fieldMappings = {
-                            'full_name': ['full_name', 'fullName', 'name', 'contact_name'],
-                            'first_name': ['first_name', 'firstName', 'fname'],
-                            'last_name': ['last_name', 'lastName', 'lname'],
-                            'email': ['email', 'email_address', 'emailAddress'],
-                            'phone': ['phone', 'phone_number', 'phoneNumber', 'mobile']
-                          };
-                          
-                          // Extract data using field mappings
-                          for (const [standardField, possibleNames] of Object.entries(fieldMappings)) {
-                            for (const fieldName of possibleNames) {
-                              if (formData[fieldName]) {
-                                contactData[standardField] = formData[fieldName];
-                                break;
-                              }
-                            }
-                          }
-                          
-                          // If we have at least name or email, store the data
-                          if (contactData.full_name || contactData.first_name || contactData.email) {
-                            // Generate full_name if not present
-                            if (!contactData.full_name && (contactData.first_name || contactData.last_name)) {
-                              contactData.full_name = `${contactData.first_name || ''} ${contactData.last_name || ''}`.trim();
-                            }
-                            
-                            storeStickyContact(contactData);
-                          }
-                        }
+                      // First try our detected country
+                      if (initialCountry && initialCountry !== 'us') {
+                        console.log('Using detected country:', initialCountry);
+                        success(initialCountry);
+                        return;
                       }
+                      
+                      console.log('Falling back to IP geolocation...');
+                      // Fallback to IP geolocation service
+                      fetch('https://ipapi.co/json/')
+                        .then(response => response.json())
+                        .then(data => {
+                          console.log('IP geolocation response:', data);
+                          const countryCode = data.country_code ? data.country_code.toLowerCase() : initialCountry;
+                          console.log('Final country selected:', countryCode);
+                          success(countryCode);
+                        })
+                        .catch((error) => {
+                          console.log('IP geolocation failed:', error);
+                          console.log('Using fallback country:', initialCountry);
+                          // Final fallback to our detected country or US
+                          success(initialCountry);
+                        });
+                    },
+                    preferredCountries: ['au', 'nz', 'gb', 'ie', 'us', 'ca', 'nl', 'ae'],
+                    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+                    autoPlaceholder: "aggressive",
+                    separateDialCode: false,
+                    nationalMode: true,
+                    formatOnDisplay: true,
+                    customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                      return selectedCountryPlaceholder;
                     }
                   });
-                  
-                  // Alternative: Monitor iframe for URL changes (form completion redirect)
-                  const iframe = document.getElementById('inline-foRx4VKcIzJw0HQ9e14d');
-                  if (iframe) {
-                    // Check for form completion by monitoring iframe URL changes
-                    let lastUrl = iframe.src;
-                    
-                    setInterval(function() {
-                      try {
-                        if (iframe.contentWindow && iframe.contentWindow.location.href !== lastUrl) {
-                          lastUrl = iframe.contentWindow.location.href;
-                          
-                          // Check if URL indicates form completion
-                          if (lastUrl.includes('thank') || lastUrl.includes('success') || lastUrl.includes('complete')) {
-                            console.log('Form completion detected via URL change');
-                            
-                            // Try to extract data from URL parameters
-                            const urlParams = new URLSearchParams(lastUrl.split('?')[1] || '');
-                            const contactData = {};
-                            
-                            // Extract common parameters
-                            ['full_name', 'first_name', 'last_name', 'email', 'phone'].forEach(field => {
-                              if (urlParams.get(field)) {
-                                contactData[field] = urlParams.get(field);
-                              }
-                            });
-                            
-                            if (Object.keys(contactData).length > 0) {
-                              storeStickyContact(contactData);
-                            }
-                          }
+
+                  // Style the intl-tel-input to match our dark theme
+                  function applyPhoneInputStyling() {
+                    const itiContainer = phoneInput.parentNode.querySelector('.iti');
+                    if (itiContainer) {
+                      itiContainer.style.width = '100%';
+                      
+                      // Style the flag dropdown to be transparent and seamless
+                      const flagContainer = itiContainer.querySelector('.iti__flag-container');
+                      if (flagContainer) {
+                        flagContainer.style.backgroundColor = 'transparent';
+                        flagContainer.style.border = 'none';
+                        flagContainer.style.borderRadius = '0';
+                        flagContainer.style.overflow = 'visible';
+                        
+                        // Also style the selected flag element inside
+                        const selectedFlag = flagContainer.querySelector('.iti__selected-flag');
+                        if (selectedFlag) {
+                          selectedFlag.style.backgroundColor = 'transparent';
+                          selectedFlag.style.border = 'none';
+                          selectedFlag.style.borderRadius = '0';
                         }
-                      } catch (e) {
-                        // Cross-origin restrictions prevent access, this is expected
                       }
-                    }, 1000);
+                      
+                      // Update phone input styles - now with full rounded corners
+                      phoneInput.style.paddingLeft = '52px';
+                      phoneInput.style.borderRadius = '0.5rem';
+                    }
                   }
+                  
+                  // Apply styling immediately and after a short delay to ensure it sticks
+                  applyPhoneInputStyling();
+                  setTimeout(applyPhoneInputStyling, 100);
+                  setTimeout(applyPhoneInputStyling, 500);
+
+                  // GHL Webhook URL
+                  const webhookUrl = 'https://services.leadconnectorhq.com/hooks/gY3OLBcxMMuSg4TsW3bO/webhook-trigger/ae2d0df8-14c3-4935-ba39-1b3cac218496';
+
+                  // Function to format phone number based on user's location
+                  function formatPhoneNumber() {
+                    if (!iti) return '';
+                    
+                    // Get the national number (without country code)
+                    const nationalNumber = iti.getNumber(window.intlTelInputUtils.numberFormat.NATIONAL);
+                    const selectedCountryData = iti.getSelectedCountryData();
+                    
+                    // Clean the national number
+                    let formattedPhone = nationalNumber.replace(/[\s\-\(\)]/g, '').replace(/^\+\d+/, '');
+                    
+                    // Handle specific country formatting
+                    if (selectedCountryData.iso2 === 'nl' && !formattedPhone.startsWith('0')) {
+                      formattedPhone = '0' + formattedPhone;
+                    }
+                    
+                    return formattedPhone;
+                  }
+
+                  // Function to build calendar URL with parameters
+                  function buildCalendarUrl(formData) {
+                    const baseUrl = 'https://api.leadconnectorhq.com/widget/booking/PcUyCv42lP91GzQuqkgU';
+                    const params = new URLSearchParams();
+                    
+                    // Format phone number appropriately
+                    const formattedPhone = formatPhoneNumber();
+                    
+                    // Add contact data with multiple parameter variations for maximum compatibility
+                    if (formData.firstName && formData.lastName) {
+                      const fullName = `${formData.firstName} ${formData.lastName}`;
+                      params.set('full_name', fullName);
+                      params.set('name', fullName);
+                      params.set('contact_name', fullName);
+                    }
+                    if (formData.firstName) {
+                      params.set('first_name', formData.firstName);
+                      params.set('firstName', formData.firstName);
+                      params.set('fname', formData.firstName);
+                    }
+                    if (formData.lastName) {
+                      params.set('last_name', formData.lastName);
+                      params.set('lastName', formData.lastName);
+                      params.set('lname', formData.lastName);
+                    }
+                    if (formData.email) {
+                      params.set('email', formData.email);
+                      params.set('email_address', formData.email);
+                      params.set('emailAddress', formData.email);
+                    }
+                    if (formattedPhone) {
+                      params.set('phone', formattedPhone);
+                      params.set('phone_number', formattedPhone);
+                      params.set('phoneNumber', formattedPhone);
+                      params.set('mobile', formattedPhone);
+                    }
+                    
+                    return `${baseUrl}?${params.toString()}`;
+                  }
+
+                  // Function to store sticky contact data
+                  function storeStickyContact(formData) {
+                    const contactData = {
+                      full_name: `${formData.firstName} ${formData.lastName}`,
+                      first_name: formData.firstName,
+                      last_name: formData.lastName,
+                      email: formData.email,
+                      phone: formData.phone,
+                      practice_name: formData.practiceName,
+                      pms_system: formData.pmsSystem,
+                      additional_info: formData.additionalInfo,
+                      timestamp: new Date().toISOString(),
+                      source: 'custom_booking_form'
+                    };
+                    
+                    localStorage.setItem('stickyContactData', JSON.stringify(contactData));
+                    console.log('Sticky contact data stored:', contactData);
+                    return contactData;
+                  }
+
+                  form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = new FormData(form);
+                    
+                    // Validate phone number
+                    if (iti && !iti.isValidNumber()) {
+                      alert('Please enter a valid phone number');
+                      return;
+                    }
+                    
+                    const contactData = {
+                      firstName: formData.get('firstName'),
+                      lastName: formData.get('lastName'),
+                      email: formData.get('email'),
+                      phone: iti ? iti.getNumber() : formData.get('phone'), // Get full international number
+                      practiceName: formData.get('practiceName') || '',
+                      pmsSystem: formData.get('pmsSystem'),
+                      additionalInfo: formData.get('additionalInfo') || ''
+                    };
+
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    submitText.textContent = 'Creating Contact...';
+                    submitIcon.classList.add('hidden');
+                    loadingSpinner.classList.remove('hidden');
+                    successMessage.classList.add('hidden');
+                    errorMessage.classList.add('hidden');
+
+                    // Store sticky contact data
+                    const stickyData = storeStickyContact(contactData);
+
+                    // Prepare payload for GHL webhook
+                    const payload = {
+                      firstName: contactData.firstName,
+                      lastName: contactData.lastName,
+                      name: `${contactData.firstName} ${contactData.lastName}`,
+                      email: contactData.email,
+                      phone: contactData.phone,
+                      company: contactData.practiceName,
+                      message: contactData.additionalInfo,
+                      source: 'Website Booking Form',
+                      tags: ['Website Lead', 'Booking Form', 'Demo Request'],
+                      "what's_the_patient_management_system_you_use?": contactData.pmsSystem,
+                      customFields: {
+                        lead_source: 'Website Booking Form',
+                        practice_name: contactData.practiceName,
+                        pms_system: contactData.pmsSystem,
+                        inquiry_type: 'Demo Booking',
+                        additional_info: contactData.additionalInfo
+                      }
+                    };
+
+                    try {
+                      // Send to GHL webhook
+                      const response = await fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                          'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                      });
+
+                      if (response.ok) {
+                        // Show success message
+                        successMessage.classList.remove('hidden');
+                        console.log('Contact created successfully in GHL');
+                        
+                        // Track success event
+                        if (window.clarity && typeof window.clarity === 'function') {
+                          window.clarity("event", "BookingFormSubmitted");
+                        }
+                      } else {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                      }
+                    } catch (error) {
+                      console.error('GHL webhook error:', error);
+                      errorMessage.classList.remove('hidden');
+                      
+                      // Track error event
+                      if (window.clarity && typeof window.clarity === 'function') {
+                        window.clarity("event", "BookingFormError");
+                      }
+                    }
+
+                    // Build calendar URL with parameters
+                    const calendarUrl = buildCalendarUrl(contactData);
+                    console.log('Redirecting to calendar:', calendarUrl);
+
+                    // Redirect to calendar after short delay (whether webhook succeeded or failed)
+                    setTimeout(() => {
+                      window.location.href = calendarUrl;
+                    }, 2000);
+                  });
                 });
               </script>
               
-              <!-- Custom CSS to remove iframe padding -->
-      <style>
-                #inline-foRx4VKcIzJw0HQ9e14d {
-                  margin: 0 !important;
-                  padding: 0 !important;
-                  border: none !important;
-                  background: transparent !important;
-                }
-                
-                /* Try to target the iframe content */
-                iframe[id*="foRx4VKcIzJw0HQ9e14d"] {
-                  margin: 0 !important;
-                  padding: 0 !important;
-                  border: none !important;
-                  display: block !important;
-        }
-      </style>
               </div>
     
     
