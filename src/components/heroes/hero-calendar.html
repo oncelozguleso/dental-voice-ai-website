@@ -23,9 +23,73 @@
                   <p class="text-white/70 text-sm sm:text-base">Book a call to activate your Voice AI trial and see results in 10 days</p>
       </div>
     
-                <!-- Calendar iframe -->
-                <div class="overflow-hidden">
-                  <iframe src="https://api.leadconnectorhq.com/widget/booking/PcUyCv42lP91GzQuqkgU" style="width: 100%; height: 800px; border: none; overflow: hidden; display: block; margin: 0; padding: 0;" scrolling="no" id="PcUyCv42lP91GzQuqkgU_1757868011597"></iframe>
+                <!-- Calendar iframe with loading optimization -->
+                <div class="overflow-hidden relative">
+                  <!-- Loading Skeleton -->
+                  <div id="calendar-loading-skeleton" class="absolute inset-0 bg-gray-50 rounded-lg">
+                    <div class="animate-pulse p-6">
+                      <!-- Header skeleton -->
+                      <div class="h-8 bg-gray-200 rounded-lg mb-6"></div>
+                      
+                      <!-- Calendar grid skeleton -->
+                      <div class="grid grid-cols-7 gap-2 mb-6">
+                        <div class="h-6 bg-gray-200 rounded"></div>
+                        <div class="h-6 bg-gray-200 rounded"></div>
+                        <div class="h-6 bg-gray-200 rounded"></div>
+                        <div class="h-6 bg-gray-200 rounded"></div>
+                        <div class="h-6 bg-gray-200 rounded"></div>
+                        <div class="h-6 bg-gray-200 rounded"></div>
+                        <div class="h-6 bg-gray-200 rounded"></div>
+                      </div>
+                      
+                      <!-- Date grid skeleton -->
+                      <div class="grid grid-cols-7 gap-2 mb-6">
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                        <div class="h-10 bg-gray-200 rounded"></div>
+                      </div>
+                      
+                      <!-- Time slots skeleton -->
+                      <div class="space-y-3">
+                        <div class="h-12 bg-gray-200 rounded-lg"></div>
+                        <div class="h-12 bg-gray-200 rounded-lg"></div>
+                        <div class="h-12 bg-gray-200 rounded-lg"></div>
+                        <div class="h-12 bg-gray-200 rounded-lg"></div>
+                      </div>
+                    </div>
+                    
+                    <!-- Loading spinner overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm">
+                      <div class="text-center">
+                        <div class="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-full shadow-lg border border-gray-200">
+                          <div class="animate-spin h-5 w-5 border-2 border-blue-600 border-t-transparent rounded-full"></div>
+                          <span class="text-gray-700 font-medium">Loading your booking calendar...</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-3">This may take a few moments</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Actual iframe (lazy loaded) -->
+                  <iframe 
+                    data-src="https://api.leadconnectorhq.com/widget/booking/PcUyCv42lP91GzQuqkgU" 
+                    style="width: 100%; height: 800px; border: none; overflow: hidden; display: block; margin: 0; padding: 0; opacity: 0; transition: opacity 0.3s ease-in-out;" 
+                    scrolling="no" 
+                    id="PcUyCv42lP91GzQuqkgU_1757868011597"
+                    loading="lazy"
+                    importance="high">
+                  </iframe>
                 </div>
       </div>
     
@@ -33,8 +97,72 @@
               
               <!-- Sticky Contacts: Pre-fill Calendar -->
               <script>
-                // Sticky Contacts: Pre-fill calendar with stored contact data
+                // Lazy Loading and Performance Optimization
                 document.addEventListener('DOMContentLoaded', function() {
+                  
+                  // Intersection Observer for lazy loading
+                  const iframe = document.getElementById('PcUyCv42lP91GzQuqkgU_1757868011597');
+                  const skeleton = document.getElementById('calendar-loading-skeleton');
+                  let isLoaded = false;
+                  
+                  // Function to actually load the iframe
+                  function loadIframe() {
+                    if (isLoaded || !iframe) return;
+                    
+                    console.log('Starting calendar lazy load...');
+                    isLoaded = true;
+                    
+                    const dataSrc = iframe.getAttribute('data-src');
+                    if (dataSrc) {
+                      iframe.src = dataSrc;
+                      iframe.removeAttribute('data-src');
+                    }
+                  }
+                  
+                  // Create Intersection Observer
+                  if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                      entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                          loadIframe();
+                          observer.unobserve(entry.target);
+                        }
+                      });
+                    }, {
+                      rootMargin: '50px' // Start loading 50px before the element is visible
+                    });
+                    
+                    // Observe the calendar container
+                    const calendarContainer = iframe.parentElement;
+                    if (calendarContainer) {
+                      observer.observe(calendarContainer);
+                    }
+                  } else {
+                    // Fallback for browsers without Intersection Observer
+                    loadIframe();
+                  }
+                  
+                  // Alternative: Load on user interaction (scroll, click, etc.)
+                  let userInteracted = false;
+                  function handleUserInteraction() {
+                    if (!userInteracted) {
+                      userInteracted = true;
+                      setTimeout(loadIframe, 100); // Small delay to prioritize user action
+                    }
+                  }
+                  
+                  // Listen for user interactions
+                  ['scroll', 'touchstart', 'click', 'keydown'].forEach(event => {
+                    document.addEventListener(event, handleUserInteraction, { once: true, passive: true });
+                  });
+                  
+                  // Fallback: Load after 3 seconds if no interaction
+                  setTimeout(() => {
+                    if (!userInteracted && !isLoaded) {
+                      console.log('Loading calendar after timeout (no user interaction)');
+                      loadIframe();
+                    }
+                  }, 3000);
                   
                   // Function to get stored contact data
                   function getStickyContact() {
@@ -161,11 +289,93 @@
                     }
                   }
                   
+                  // Performance measurement and loading state management
+                  const iframe = document.getElementById('PcUyCv42lP91GzQuqkgU_1757868011597');
+                  const skeleton = document.getElementById('calendar-loading-skeleton');
+                  
+                  if (iframe && skeleton) {
+                    const startTime = performance.now();
+                    let loadTimeout;
+                    
+                    // Function to hide skeleton and show iframe
+                    function showCalendar() {
+                      const loadTime = performance.now() - startTime;
+                      console.log(`Calendar loaded in ${Math.round(loadTime)}ms`);
+                      
+                      // Smooth transition
+                      iframe.style.opacity = '1';
+                      skeleton.style.opacity = '0';
+                      
+                      setTimeout(() => {
+                        skeleton.style.display = 'none';
+                      }, 300);
+                      
+                      // Clear timeout
+                      if (loadTimeout) {
+                        clearTimeout(loadTimeout);
+                      }
+                    }
+                    
+                    // Function to handle loading failure
+                    function handleLoadingFailure() {
+                      console.warn('Calendar loading timeout or error');
+                      
+                      // Show error state in skeleton
+                      skeleton.innerHTML = `
+                        <div class="flex items-center justify-center h-full">
+                          <div class="text-center p-8">
+                            <div class="text-gray-400 mb-4">
+                              <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                              </svg>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">Calendar Taking Longer Than Expected</h3>
+                            <p class="text-gray-500 mb-4">The booking calendar is loading slowly. You can:</p>
+                            <div class="space-y-2">
+                              <button onclick="location.reload()" class="block w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                                Refresh Page
+                              </button>
+                              <a href="https://api.leadconnectorhq.com/widget/booking/PcUyCv42lP91GzQuqkgU" target="_blank" class="block w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors">
+                                Open Calendar in New Tab
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      `;
+                    }
+                    
+                    // Set loading timeout (15 seconds)
+                    loadTimeout = setTimeout(handleLoadingFailure, 15000);
+                    
+                    // Listen for iframe load
+                    iframe.addEventListener('load', showCalendar);
+                    
+                    // Also listen for error
+                    iframe.addEventListener('error', handleLoadingFailure);
+                    
+                    // Network-aware loading optimization
+                    if (navigator.connection) {
+                      const connection = navigator.connection;
+                      console.log(`Network: ${connection.effectiveType}, Downlink: ${connection.downlink}Mbps`);
+                      
+                      // Adjust timeout based on connection speed
+                      if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+                        clearTimeout(loadTimeout);
+                        loadTimeout = setTimeout(handleLoadingFailure, 30000); // 30s for slow connections
+                        
+                        // Update loading message
+                        const loadingText = skeleton.querySelector('span');
+                        if (loadingText) {
+                          loadingText.textContent = 'Loading calendar (slow connection detected)...';
+                        }
+                      }
+                    }
+                  }
+                  
                   // Wait a moment for iframe to be ready, then pre-fill
                   setTimeout(prefillCalendar, 1000);
                   
                   // Also try pre-filling when iframe loads
-                  const iframe = document.getElementById('PcUyCv42lP91GzQuqkgU_1757868011597');
                   if (iframe) {
                     iframe.addEventListener('load', prefillCalendar);
                   }
