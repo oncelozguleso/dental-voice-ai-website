@@ -577,17 +577,18 @@
             };
 
             try {
-              const locationResponse = await fetch('https://ipapi.co/json/');
+              // Use ipgeolocation.io which is more CORS-friendly
+              const locationResponse = await fetch('https://api.ipgeolocation.io/ipgeo?apiKey=free');
               if (locationResponse.ok) {
                 const locationInfo = await locationResponse.json();
                 locationData = {
-                  country: locationInfo.country_code || (window.userRegion || 'GLOBAL'),
+                  country: locationInfo.country_code2 || (window.userRegion || 'GLOBAL'),
                   countryName: locationInfo.country_name || 'Unknown',
                   city: locationInfo.city || 'Unknown',
-                  region: locationInfo.region || 'Unknown',
-                  timezone: locationInfo.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone,
+                  region: locationInfo.state_prov || 'Unknown',
+                  timezone: locationInfo.time_zone?.name || Intl.DateTimeFormat().resolvedOptions().timeZone,
                   ip: locationInfo.ip || 'Unknown',
-                  postal: locationInfo.postal || 'Unknown',
+                  postal: locationInfo.zipcode || 'Unknown',
                   latitude: locationInfo.latitude || null,
                   longitude: locationInfo.longitude || null
                 };
