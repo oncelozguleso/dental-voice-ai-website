@@ -1251,21 +1251,37 @@
             };
 
             try {
-              // Use ipgeolocation.io which is more CORS-friendly
-              const locationResponse = await fetch('https://api.ipgeolocation.io/ipgeo?apiKey=free');
-              if (locationResponse.ok) {
-                const locationInfo = await locationResponse.json();
-                locationData = {
-                  country: locationInfo.country_code2 || (window.userRegion || 'GLOBAL'),
-                  countryName: locationInfo.country_name || 'Unknown',
-                  city: locationInfo.city || 'Unknown',
-                  region: locationInfo.state_prov || 'Unknown',
-                  timezone: locationInfo.time_zone?.name || Intl.DateTimeFormat().resolvedOptions().timeZone,
-                  ip: locationInfo.ip || 'Unknown',
-                  postal: locationInfo.zipcode || 'Unknown',
-                  latitude: locationInfo.latitude || null,
-                  longitude: locationInfo.longitude || null
-                };
+              // Use ipify for IP + browser geolocation for enhanced data
+              const ipResponse = await fetch('https://api.ipify.org?format=json');
+              if (ipResponse.ok) {
+                const ipData = await ipResponse.json();
+                locationData.ip = ipData.ip;
+                
+                // Try to get additional location data from browser APIs
+                if (navigator.geolocation) {
+                  try {
+                    const position = await new Promise((resolve, reject) => {
+                      navigator.geolocation.getCurrentPosition(resolve, reject, {
+                        timeout: 5000,
+                        enableHighAccuracy: false
+                      });
+                    });
+                    locationData.latitude = position.coords.latitude;
+                    locationData.longitude = position.coords.longitude;
+                  } catch (geoError) {
+                    console.log('Geolocation not available or denied');
+                  }
+                }
+                
+                // Enhance with timezone and existing window data
+                locationData.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (window.userRegion) {
+                  locationData.country = window.userRegion;
+                }
+                if (window.currentGeoContent) {
+                  locationData.countryName = window.currentGeoContent.countryName || locationData.countryName;
+                  locationData.city = window.currentGeoContent.city || locationData.city;
+                }
               }
             } catch (error) {
               console.log('Failed to get detailed location, using fallback');
