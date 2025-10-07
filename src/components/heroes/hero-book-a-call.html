@@ -482,8 +482,20 @@
                     
                     if (validateCurrentStep()) {
                       if (currentStep < totalSteps) {
+                        // Track step completion before moving to next
+                        trackFormStepCompleted(currentStep, { ip: 'auto-detected' }, { 
+                          timeSpent: Date.now() - stepStartTime,
+                          stepName: `step_${currentStep}`
+                        });
+                        
                         currentStep++;
                         showStep(currentStep);
+                        
+                        // Track new step started
+                        trackFormStepStarted(currentStep, { ip: 'auto-detected' }, { 
+                          stepName: `step_${currentStep}`,
+                          progress: Math.round((currentStep / totalSteps) * 100)
+                        });
                       }
                     }
                   });
@@ -499,6 +511,9 @@
                   
                   // Initialize first step
                   showStep(1);
+                  
+                  // Track form start
+                  trackFormStart({ ip: 'auto-detected' }, { form_entry_point: 'book_a_call_page' });
 
                   // Initialize International Phone Input
                   const phoneInput = document.querySelector("#phone");
@@ -857,6 +872,13 @@
                         if (window.clarity && typeof window.clarity === 'function') {
                           window.clarity("event", "BookingFormSubmitted");
                         }
+                        
+                        // Track form completion with CAPI
+                        trackFormComplete({ ip: 'auto-detected' }, { 
+                          completionTime: Date.now() - stepStartTime,
+                          form_success: true,
+                          submission_id: Date.now().toString()
+                        });
                       } else {
                         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                       }
@@ -1018,6 +1040,60 @@
               console.log('✅ Form Start event sent successfully!');
             } else {
               console.error('❌ Form Start event failed:', result.error);
+            }
+            
+            return result;
+          }
+
+          async function trackFormStepStarted(step, formData = {}, stepData = {}) {
+            const stepNames = {
+              1: 'step_1',
+              2: 'step_2', 
+              3: 'step_3'
+            };
+            
+            const event = createFormEvent('FormStepStarted', formData, {
+              step,
+              stepName: stepNames[step],
+              progress: (step / 3) * 100,
+              ...stepData
+            });
+            
+            console.log(`📝 Form Step ${step} Started:`, event);
+            
+            const result = await sendCAPIEvents([event]);
+            
+            if (result.success) {
+              console.log(`✅ Form Step ${step} Started event sent successfully!`);
+            } else {
+              console.error(`❌ Form Step ${step} Started event failed:`, result.error);
+            }
+            
+            return result;
+          }
+
+          async function trackFormStepCompleted(step, formData = {}, stepData = {}) {
+            const stepNames = {
+              1: 'step_1',
+              2: 'step_2',
+              3: 'step_3'
+            };
+            
+            const event = createFormEvent('FormStepCompleted', formData, {
+              step,
+              stepName: stepNames[step],
+              progress: (step / 3) * 100,
+              ...stepData
+            });
+            
+            console.log(`✅ Form Step ${step} Completed:`, event);
+            
+            const result = await sendCAPIEvents([event]);
+            
+            if (result.success) {
+              console.log(`✅ Form Step ${step} Completed event sent successfully!`);
+            } else {
+              console.error(`❌ Form Step ${step} Completed event failed:`, result.error);
             }
             
             return result;
