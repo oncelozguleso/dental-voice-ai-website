@@ -484,13 +484,41 @@
                     
                     if (validateCurrentStep()) {
                       if (currentStep < totalSteps) {
-                        // Track step completion before moving to next (only if not already tracked)
-                        if (lastTrackedStep !== currentStep) {
-                          trackFormStepCompleted(currentStep, { ip: 'auto-detected' }, { 
+                        // Track specific step completion based on current step
+                        if (currentStep === 1) {
+                          // Step 1: Name, Last Name, Email completed
+                          const firstName = document.getElementById('firstName').value;
+                          const lastName = document.getElementById('lastName').value;
+                          const email = document.getElementById('email').value;
+                          
+                          trackPersonalInfoCompleted({ 
+                            ip: 'auto-detected',
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email
+                          }, { 
                             timeSpent: Date.now() - stepStartTime,
-                            stepName: `step_${currentStep}`
+                            stepName: 'personal_info'
                           });
-                          lastTrackedStep = currentStep;
+                        } else if (currentStep === 2) {
+                          // Step 2: Phone, Practice Name completed
+                          const phone = iti ? iti.getNumber() : document.getElementById('phone').value;
+                          const practiceName = document.getElementById('practiceName').value;
+                          const firstName = document.getElementById('firstName').value;
+                          const lastName = document.getElementById('lastName').value;
+                          const email = document.getElementById('email').value;
+                          
+                          trackContactInfoCompleted({ 
+                            ip: 'auto-detected',
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                            phone: phone,
+                            practiceName: practiceName
+                          }, { 
+                            timeSpent: Date.now() - stepStartTime,
+                            stepName: 'contact_info'
+                          });
                         }
                         
                         currentStep++;
@@ -498,15 +526,6 @@
                         
                         // Update step start time for new step
                         stepStartTime = Date.now();
-                        
-                        // Track new step started (only if not already tracked)
-                        if (lastTrackedStep !== currentStep) {
-                          trackFormStepStarted(currentStep, { ip: 'auto-detected' }, { 
-                            stepName: `step_${currentStep}`,
-                            progress: Math.round((currentStep / totalSteps) * 100)
-                          });
-                          lastTrackedStep = currentStep;
-                        }
                       }
                     }
                   });
@@ -526,8 +545,8 @@
                   // Initialize first step
                   showStep(1);
                   
-                  // Track form start
-                  trackFormStart({ ip: 'auto-detected' }, { form_entry_point: 'book_a_call_page' });
+                  // Track form initialization
+                  trackFormInitialized({ ip: 'auto-detected' }, { form_entry_point: 'book_a_call_page' });
 
                   // Initialize International Phone Input
                   const phoneInput = document.querySelector("#phone");
@@ -887,11 +906,27 @@
                           window.clarity("event", "BookingFormSubmitted");
                         }
                         
-                        // Track form completion with CAPI
-                        trackFormComplete({ ip: 'auto-detected' }, { 
+                        // Track final step completion (PMS selection and additional notes)
+                        const firstName = contactData.firstName;
+                        const lastName = contactData.lastName;
+                        const email = contactData.email;
+                        const phone = contactData.phone;
+                        const practiceName = contactData.practiceName;
+                        const pmsSystem = contactData.pmsSystem;
+                        
+                        trackPracticeInfoCompleted({ 
+                          ip: 'auto-detected',
+                          firstName: firstName,
+                          lastName: lastName,
+                          email: email,
+                          phone: phone,
+                          practiceName: practiceName,
+                          pmsSystem: pmsSystem
+                        }, { 
                           completionTime: Date.now() - stepStartTime,
                           form_success: true,
-                          submission_id: Date.now().toString()
+                          submission_id: Date.now().toString(),
+                          stepName: 'practice_info'
                         });
                       } else {
                         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -1011,7 +1046,13 @@
             return hexHash;
           }
 
-          function createFormEvent(eventName, formData = {}, stepData = {}) {
+          async function createFormEvent(eventName, formData = {}, stepData = {}) {
+            // Hash PII data for better matching
+            const hashedEmail = formData.email ? await hashPII(formData.email) : undefined;
+            const hashedPhone = formData.phone ? await hashPII(formData.phone) : undefined;
+            const hashedFirstName = formData.firstName ? await hashPII(formData.firstName) : undefined;
+            const hashedLastName = formData.lastName ? await hashPII(formData.lastName) : undefined;
+            
             const event = {
               event_name: eventName,
               event_time: Math.floor(Date.now() / 1000),
@@ -1022,8 +1063,16 @@
                 client_user_agent: navigator.userAgent,
                 fbc: getCookie('_fbc') || undefined,
                 fbp: getCookie('_fbp') || undefined,
-                em: formData.hashedEmail || undefined,
-                ph: formData.hashedPhone || undefined,
+                // High-value matching parameters
+                em: hashedEmail,
+                ph: hashedPhone,
+                fn: hashedFirstName,
+                ln: hashedLastName,
+                // Additional location data for better matching
+                ct: formData.city || undefined,
+                st: formData.state || undefined,
+                zp: formData.postal || undefined,
+                country: formData.country || undefined,
               },
               custom_data: {
                 form_type: 'book_a_call',
@@ -1031,106 +1080,99 @@
                 step_name: stepData.stepName || 'step_1',
                 time_spent: stepData.timeSpent || 0,
                 form_progress: stepData.progress || 0,
+                // Include unhashed data for custom analytics
+                practice_name: formData.practiceName || undefined,
+                pms_system: formData.pmsSystem || undefined,
                 ...stepData.customData
               }
             };
             return event;
           }
 
-          async function trackFormStart(formData = {}, stepData = {}) {
-            const event = createFormEvent('FormStart', formData, {
+          async function trackFormInitialized(formData = {}, stepData = {}) {
+            const event = await createFormEvent('FormInitialized', formData, {
               step: 1,
-              stepName: 'step_1',
+              stepName: 'form_initialized',
+              progress: 0,
+              form_entry_point: 'book_a_call_page',
+              ...stepData
+            });
+            
+            console.log('🚀 Form Initialized:', event);
+            
+            const result = await sendCAPIEvents([event]);
+            
+            if (result.success) {
+              console.log('✅ Form Initialized event sent successfully!');
+            } else {
+              console.error('❌ Form Initialized event failed:', result.error);
+            }
+            
+            return result;
+          }
+
+          async function trackPersonalInfoCompleted(formData = {}, stepData = {}) {
+            const event = await createFormEvent('PersonalInfoCompleted', formData, {
+              step: 1,
+              stepName: 'personal_info',
               progress: 33,
-              form_entry_point: 'landing_page',
+              step_description: 'Name, Last Name, Email completed',
               ...stepData
             });
             
-            console.log('🚀 Form Start:', event);
+            console.log('👤 Personal Info Completed:', event);
             
             const result = await sendCAPIEvents([event]);
             
             if (result.success) {
-              console.log('✅ Form Start event sent successfully!');
+              console.log('✅ Personal Info Completed event sent successfully!');
             } else {
-              console.error('❌ Form Start event failed:', result.error);
+              console.error('❌ Personal Info Completed event failed:', result.error);
             }
             
             return result;
           }
 
-          async function trackFormStepStarted(step, formData = {}, stepData = {}) {
-            const stepNames = {
-              1: 'step_1',
-              2: 'step_2', 
-              3: 'step_3'
-            };
-            
-            const event = createFormEvent('FormStepStarted', formData, {
-              step,
-              stepName: stepNames[step],
-              progress: (step / 3) * 100,
+          async function trackContactInfoCompleted(formData = {}, stepData = {}) {
+            const event = await createFormEvent('ContactInfoCompleted', formData, {
+              step: 2,
+              stepName: 'contact_info',
+              progress: 66,
+              step_description: 'Phone, Practice Name completed',
               ...stepData
             });
             
-            console.log(`📝 Form Step ${step} Started:`, event);
+            console.log('📞 Contact Info Completed:', event);
             
             const result = await sendCAPIEvents([event]);
             
             if (result.success) {
-              console.log(`✅ Form Step ${step} Started event sent successfully!`);
+              console.log('✅ Contact Info Completed event sent successfully!');
             } else {
-              console.error(`❌ Form Step ${step} Started event failed:`, result.error);
+              console.error('❌ Contact Info Completed event failed:', result.error);
             }
             
             return result;
           }
 
-          async function trackFormStepCompleted(step, formData = {}, stepData = {}) {
-            const stepNames = {
-              1: 'step_1',
-              2: 'step_2',
-              3: 'step_3'
-            };
-            
-            const event = createFormEvent('FormStepCompleted', formData, {
-              step,
-              stepName: stepNames[step],
-              progress: (step / 3) * 100,
-              ...stepData
-            });
-            
-            console.log(`✅ Form Step ${step} Completed:`, event);
-            
-            const result = await sendCAPIEvents([event]);
-            
-            if (result.success) {
-              console.log(`✅ Form Step ${step} Completed event sent successfully!`);
-            } else {
-              console.error(`❌ Form Step ${step} Completed event failed:`, result.error);
-            }
-            
-            return result;
-          }
-
-          async function trackFormComplete(formData = {}, completionData = {}) {
-            const event = createFormEvent('FormComplete', formData, {
+          async function trackPracticeInfoCompleted(formData = {}, stepData = {}) {
+            const event = await createFormEvent('PracticeInfoCompleted', formData, {
               step: 3,
-              stepName: 'step_3',
+              stepName: 'practice_info',
               progress: 100,
-              form_completion_time: completionData.completionTime || 0,
+              step_description: 'PMS selection and additional notes completed',
               form_success: true,
-              ...completionData
+              ...stepData
             });
             
-            console.log('🎉 Form Complete:', event);
+            console.log('🏥 Practice Info Completed:', event);
             
             const result = await sendCAPIEvents([event]);
             
             if (result.success) {
-              console.log('✅ Form Complete event sent successfully!');
+              console.log('✅ Practice Info Completed event sent successfully!');
             } else {
-              console.error('❌ Form Complete event failed:', result.error);
+              console.error('❌ Practice Info Completed event failed:', result.error);
             }
             
             return result;

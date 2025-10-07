@@ -652,6 +652,14 @@
                   // Track AI Demo Tried with CAPI
                   trackAIDemoTried({
                     ip: locationData.ip,
+                    firstName: name.split(' ')[0] || name,
+                    lastName: name.split(' ').slice(1).join(' ') || '',
+                    email: '', // AI demo doesn't collect email
+                    phone: phone,
+                    city: locationData.city,
+                    state: locationData.region,
+                    country: locationData.country
+                  }, {
                     name: name,
                     phone: phone
                   });
@@ -764,7 +772,13 @@
             return hexHash;
           }
 
-          function createFormEvent(eventName, formData = {}, stepData = {}) {
+          async function createFormEvent(eventName, formData = {}, stepData = {}) {
+            // Hash PII data for better matching
+            const hashedEmail = formData.email ? await hashPII(formData.email) : undefined;
+            const hashedPhone = formData.phone ? await hashPII(formData.phone) : undefined;
+            const hashedFirstName = formData.firstName ? await hashPII(formData.firstName) : undefined;
+            const hashedLastName = formData.lastName ? await hashPII(formData.lastName) : undefined;
+            
             const event = {
               event_name: eventName,
               event_time: Math.floor(Date.now() / 1000),
@@ -775,8 +789,16 @@
                 client_user_agent: navigator.userAgent,
                 fbc: getCookie('_fbc') || undefined,
                 fbp: getCookie('_fbp') || undefined,
-                em: formData.hashedEmail || undefined,
-                ph: formData.hashedPhone || undefined,
+                // High-value matching parameters
+                em: hashedEmail,
+                ph: hashedPhone,
+                fn: hashedFirstName,
+                ln: hashedLastName,
+                // Additional location data for better matching
+                ct: formData.city || undefined,
+                st: formData.state || undefined,
+                zp: formData.postal || undefined,
+                country: formData.country || undefined,
               },
               custom_data: {
                 form_type: 'ai_demo',
@@ -787,7 +809,7 @@
           }
 
           async function trackAIDemoTried(formData = {}, demoData = {}) {
-            const event = createFormEvent('AIDemoTried', formData, {
+            const event = await createFormEvent('AIDemoTried', formData, {
               demo_type: 'ai_receptionist',
               demo_source: 'main_page',
               user_name: demoData.name || undefined,
