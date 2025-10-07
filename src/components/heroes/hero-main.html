@@ -648,6 +648,13 @@
                 if (window.clarity && typeof window.clarity === 'function') {
                   console.log('Tracking Clarity event: AIDemoConversationTried');
                   window.clarity("event", "AIDemoConversationTried");
+                  
+                  // Track AI Demo Tried with CAPI
+                  trackAIDemoTried({
+                    ip: userIP,
+                    name: name,
+                    phone: phone
+                  });
                 }
                 
                 // Auto close after 3 seconds
@@ -711,4 +718,100 @@
 
           // Initialize countdown when page loads
           document.addEventListener('DOMContentLoaded', initCountdownTimer);
+        </script>
+
+        <!-- CAPI Functions for AI Demo -->
+        <script>
+          // Meta Conversions API Utility Functions
+          async function sendCAPIEvents(events, pixelId = '480750607959393') {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+              console.warn('CAPI events are skipped on localhost.');
+              return { success: true, message: 'CAPI skipped on localhost' };
+            }
+
+            try {
+              const response = await fetch('/api/capi', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ events, pixelId })
+              });
+
+              const responseData = await response.json();
+
+              if (!response.ok) {
+                console.error('CAPI Serverless Request Error:', responseData);
+                return { success: false, error: responseData };
+              }
+
+              console.log('CAPI Success:', responseData);
+              return { success: true, data: responseData };
+
+            } catch (error) {
+              console.error('CAPI Request Error:', error);
+              return { success: false, error: error.message };
+            }
+          }
+
+          async function hashPII(data) {
+            if (!data) return null;
+            const textEncoder = new TextEncoder();
+            const dataBuffer = textEncoder.encode(data.trim().toLowerCase());
+            const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hexHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hexHash;
+          }
+
+          function createFormEvent(eventName, formData = {}, stepData = {}) {
+            const event = {
+              event_name: eventName,
+              event_time: Math.floor(Date.now() / 1000),
+              action_source: 'website',
+              event_source_url: window.location.href,
+              user_data: {
+                client_ip_address: formData.ip || undefined,
+                client_user_agent: navigator.userAgent,
+                fbc: getCookie('_fbc') || undefined,
+                fbp: getCookie('_fbp') || undefined,
+                em: formData.hashedEmail || undefined,
+                ph: formData.hashedPhone || undefined,
+              },
+              custom_data: {
+                form_type: 'ai_demo',
+                ...stepData
+              }
+            };
+            return event;
+          }
+
+          async function trackAIDemoTried(formData = {}, demoData = {}) {
+            const event = createFormEvent('AIDemoTried', formData, {
+              demo_type: 'ai_receptionist',
+              demo_source: 'main_page',
+              user_name: demoData.name || undefined,
+              user_phone: demoData.phone || undefined,
+              demo_success: true
+            });
+            
+            console.log('🤖 AI Demo Tried:', event);
+            
+            const result = await sendCAPIEvents([event]);
+            
+            if (result.success) {
+              console.log('✅ AI Demo Tried event sent successfully!');
+            } else {
+              console.error('❌ AI Demo Tried event failed:', result.error);
+            }
+            
+            return result;
+          }
+
+          function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+          }
         </script>
