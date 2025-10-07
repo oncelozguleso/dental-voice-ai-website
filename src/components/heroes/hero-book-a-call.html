@@ -399,6 +399,7 @@
                   let currentStep = 1;
                   const totalSteps = 3;
                   const steps = ['step1', 'step2', 'step3'];
+                  let stepStartTime = Date.now();
                   
                   // Step navigation functions
                   function updateProgress() {
@@ -491,6 +492,9 @@
                         currentStep++;
                         showStep(currentStep);
                         
+                        // Update step start time for new step
+                        stepStartTime = Date.now();
+                        
                         // Track new step started
                         trackFormStepStarted(currentStep, { ip: 'auto-detected' }, { 
                           stepName: `step_${currentStep}`,
@@ -506,6 +510,9 @@
                     if (currentStep > 1) {
                       currentStep--;
                       showStep(currentStep);
+                      
+                      // Update step start time for new step
+                      stepStartTime = Date.now();
                     }
                   });
                   
